@@ -1,0 +1,11 @@
+.modal-content {
+	background-color: rgba(8,31,62, 0.95);
+}
+
+.modal-body {
+	background-color: #ffff;
+}
+
+.modal.fade{
+	z-index: 10000000 !important;
+}
