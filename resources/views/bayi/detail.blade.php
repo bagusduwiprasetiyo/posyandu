@@ -41,7 +41,8 @@
                                                 <div class="card-body dashboard-tabs p-0">
                                                     <ul class="nav nav-tabs px-4" role="tablist" style="background-color: #f3f3f3;">
                                                         <li class="nav-item">
-                                                            <a class="nav-link active" id="overview-tab" data-toggle="tab" href="#overview" role="tab" aria-controls="overview" aria-selected="true">Data Pasien</a>
+                                                            <a class="nav-link active" id="overview-tab" data-toggle="tab" href="#overview" role="tab" aria-controls="overview" aria-selected="true">Data
+                                                                Pasien</a>
                                                         </li>
                                                         <li class="nav-item">
                                                             <a class="nav-link" id="sales-tab" data-toggle="tab" href="#sales" role="tab" aria-controls="sales" aria-selected="false">Pemberian Tablet dan Imunisasi</a>
@@ -65,27 +66,37 @@
                                                                                 </td>
                                                                             </tr>
                                                                             <tr>
-                                                                                <td width="40%;" style="padding: 14px; font-weight: bold;">Posyandu</td>
+                                                                                <td width="40%;" style="padding: 14px; font-weight: bold;">
+                                                                                    Posyandu</td>
                                                                                 <td>@php
-                                                                                    $posyandu = DB::select(DB::raw('Select list_posyandu.nama from list_posyandu where id = '.$bayi->posyandu_id));
+                                                                                    $posyandu =
+                                                                                    DB::select(DB::raw('Select
+                                                                                    list_posyandu.nama from
+                                                                                    list_posyandu where id =
+                                                                                    '.$bayi->posyandu_id));
                                                                                     @endphp
                                                                                     {{$posyandu[0]->nama}}</td>
                                                                             </tr>
                                                                             <tr>
-                                                                                <td width="40%;" style="padding: 14px; font-weight: bold;">Nama Bayi</td>
+                                                                                <td width="40%;" style="padding: 14px; font-weight: bold;">
+                                                                                    Nama Bayi</td>
                                                                                 <td>{{$bayi->nama}}</td>
                                                                             </tr>
                                                                             <tr>
-                                                                                <td width="40%;" style="padding: 14px; font-weight: bold;">Tanggal Lahir</td>
+                                                                                <td width="40%;" style="padding: 14px; font-weight: bold;">
+                                                                                    Tanggal Lahir</td>
                                                                                 <td>{{$bayi->tanggal_lahir}}</td>
                                                                             </tr>
                                                                             <tr>
-                                                                                <td width="40%;" style="padding: 14px; font-weight: bold;">Nama Orang Tua</td>
+                                                                                <td width="40%;" style="padding: 14px; font-weight: bold;">
+                                                                                    Nama Orang Tua</td>
                                                                                 <td>{{$bayi->nama_ibu}}</td>
                                                                             </tr>
                                                                             <tr>
-                                                                                <td width="40%;" style="padding: 14px; font-weight: bold;">Jenis Kelamin</td>
-                                                                                <td>{{$bayi->l_p == 1 ? 'Laki-laki' : 'Perempuan'}}</td>
+                                                                                <td width="40%;" style="padding: 14px; font-weight: bold;">
+                                                                                    Jenis Kelamin</td>
+                                                                                <td>{{$bayi->l_p == 1 ? 'Laki-laki' :
+                                                                                    'Perempuan'}}</td>
                                                                             </tr>
 
                                                                         </table>
@@ -101,13 +112,15 @@
                                                                             </tr>
 
                                                                             <tr>
-                                                                                <td width="40%;" style="font-weight: bold; padding: 14px;">Bayi Meninggal</td>
+                                                                                <td width="40%;" style="font-weight: bold; padding: 14px;">
+                                                                                    Bayi Meninggal</td>
                                                                                 <td>
                                                                                     {{$bayi->bayi_meninggal}}
                                                                                 </td>
                                                                             </tr>
                                                                             <tr>
-                                                                                <td width="40%;" style="font-weight: bold; padding: 14px;">Keterangan</td>
+                                                                                <td width="40%;" style="font-weight: bold; padding: 14px;">
+                                                                                    Keterangan</td>
                                                                                 <td>
                                                                                     {{$bayi->keterangan}}
                                                                                 </td>
@@ -140,9 +153,14 @@
                                                                                 @if(count($sirup_fe) > 0)
                                                                                 @foreach($sirup_fe as $key=>$b)
                                                                                 <tr>
-                                                                                    <td style="padding: 14px;">{{$b['tahun_ke']}}</td>
-                                                                                    <td style="padding: 14px;">{{$b['bulan_ke_1'] != '' ? $b['bulan_ke_1'] : '-'}}</td>
-                                                                                    <td style="padding: 14px;">{{$b['bulan_ke_2'] != '' ? $b['bulan_ke_2'] : '-'}}</td>
+                                                                                    <td style="padding: 14px;">
+                                                                                        {{$b['tahun_ke']}}</td>
+                                                                                    <td style="padding: 14px;">
+                                                                                        {{$b['bulan_ke_1'] != '' ?
+                                                                                        $b['bulan_ke_1'] : '-'}}</td>
+                                                                                    <td style="padding: 14px;">
+                                                                                        {{$b['bulan_ke_2'] != '' ?
+                                                                                        $b['bulan_ke_2'] : '-'}}</td>
                                                                                 </tr>
                                                                                 @endforeach
                                                                                 @endif
@@ -170,9 +188,14 @@
                                                                                 @if(count($vit_a) > 0)
                                                                                 @foreach($vit_a as $key=>$b)
                                                                                 <tr>
-                                                                                    <td style="padding: 14px;">{{$b['tahun_ke']}}</td>
-                                                                                    <td style="padding: 14px;">{{$b['bulan_ke_1'] != '' ? $b['bulan_ke_1'] : '-'}}</td>
-                                                                                    <td style="padding: 14px;">{{$b['bulan_ke_2'] != '' ? $b['bulan_ke_2'] : '-'}}</td>
+                                                                                    <td style="padding: 14px;">
+                                                                                        {{$b['tahun_ke']}}</td>
+                                                                                    <td style="padding: 14px;">
+                                                                                        {{$b['bulan_ke_1'] != '' ?
+                                                                                        $b['bulan_ke_1'] : '-'}}</td>
+                                                                                    <td style="padding: 14px;">
+                                                                                        {{$b['bulan_ke_2'] != '' ?
+                                                                                        $b['bulan_ke_2'] : '-'}}</td>
                                                                                 </tr>
                                                                                 @endforeach
                                                                                 @endif
@@ -196,8 +219,11 @@
                                                                                 @if(count($oralit) > 0)
                                                                                 @foreach($oralit as $key=>$b)
                                                                                 <tr>
-                                                                                    <td style="padding: 14px;">{{$b['tahun_ke']}}</td>
-                                                                                    <td style="padding: 14px;">{{$b['tanggal'] != '' ? $b['tanggal'] : '-'}}</td>
+                                                                                    <td style="padding: 14px;">
+                                                                                        {{$b['tahun_ke']}}</td>
+                                                                                    <td style="padding: 14px;">
+                                                                                        {{$b['tanggal'] != '' ?
+                                                                                        $b['tanggal'] : '-'}}</td>
                                                                                 </tr>
                                                                                 @endforeach
                                                                                 @endif
@@ -227,8 +253,11 @@
                                                                                 @if(count($hbo) > 0)
                                                                                 @foreach($hbo as $key=>$b)
                                                                                 <tr>
-                                                                                    <td style="padding: 14px;">{{$b['tahun_ke']}}</td>
-                                                                                    <td style="padding: 14px;">{{$b['tanggal'] != '' ? $b['tanggal'] : '-'}}</td>
+                                                                                    <td style="padding: 14px;">
+                                                                                        {{$b['tahun_ke']}}</td>
+                                                                                    <td style="padding: 14px;">
+                                                                                        {{$b['tanggal'] != '' ?
+                                                                                        $b['tanggal'] : '-'}}</td>
                                                                                 </tr>
                                                                                 @endforeach
                                                                                 @endif
@@ -254,8 +283,11 @@
                                                                                 @if(count($bcg) > 0)
                                                                                 @foreach($bcg as $key=>$b)
                                                                                 <tr>
-                                                                                    <td style="padding: 14px;">{{$b['tahun_ke']}}</td>
-                                                                                    <td style="padding: 14px;">{{$b['tanggal'] != '' ? $b['tanggal'] : '-'}}</td>
+                                                                                    <td style="padding: 14px;">
+                                                                                        {{$b['tahun_ke']}}</td>
+                                                                                    <td style="padding: 14px;">
+                                                                                        {{$b['tanggal'] != '' ?
+                                                                                        $b['tanggal'] : '-'}}</td>
                                                                                 </tr>
                                                                                 @endforeach
                                                                                 @endif
@@ -286,10 +318,17 @@
                                                                                 @if(count($dpthb) > 0)
                                                                                 @foreach($dpthb as $key=>$b)
                                                                                 <tr>
-                                                                                    <td style="padding: 14px;">{{$b['tahun_ke']}}</td>
-                                                                                    <td style="padding: 14px;">{{$b['bulan_ke_1'] != '' ? $b['bulan_ke_1'] : '-'}}</td>
-                                                                                    <td style="padding: 14px;">{{$b['bulan_ke_2'] != '' ? $b['bulan_ke_2'] : '-'}}</td>
-                                                                                    <td style="padding: 14px;">{{$b['bulan_ke_3'] != '' ? $b['bulan_ke_3'] : '-'}}</td>
+                                                                                    <td style="padding: 14px;">
+                                                                                        {{$b['tahun_ke']}}</td>
+                                                                                    <td style="padding: 14px;">
+                                                                                        {{$b['bulan_ke_1'] != '' ?
+                                                                                        $b['bulan_ke_1'] : '-'}}</td>
+                                                                                    <td style="padding: 14px;">
+                                                                                        {{$b['bulan_ke_2'] != '' ?
+                                                                                        $b['bulan_ke_2'] : '-'}}</td>
+                                                                                    <td style="padding: 14px;">
+                                                                                        {{$b['bulan_ke_3'] != '' ?
+                                                                                        $b['bulan_ke_3'] : '-'}}</td>
                                                                                 </tr>
                                                                                 @endforeach
                                                                                 @endif
@@ -322,11 +361,20 @@
                                                                                 @if(count($polio) > 0)
                                                                                 @foreach($polio as $key=>$b)
                                                                                 <tr>
-                                                                                    <td style="padding: 14px;">{{$b['tahun_ke']}}</td>
-                                                                                    <td style="padding: 14px;">{{$b['bulan_ke_1'] != '' ? $b['bulan_ke_1'] : '-'}}</td>
-                                                                                    <td style="padding: 14px;">{{$b['bulan_ke_2'] != '' ? $b['bulan_ke_2'] : '-'}}</td>
-                                                                                    <td style="padding: 14px;">{{$b['bulan_ke_3'] != '' ? $b['bulan_ke_3'] : '-'}}</td>
-                                                                                    <td style="padding: 14px;">{{$b['bulan_ke_4'] != '' ? $b['bulan_ke_4'] : '-'}}</td>
+                                                                                    <td style="padding: 14px;">
+                                                                                        {{$b['tahun_ke']}}</td>
+                                                                                    <td style="padding: 14px;">
+                                                                                        {{isset($b['bulan_ke_1'])?
+                                                                                        $b['bulan_ke_1'] : '-'}}</td>
+                                                                                    <td style="padding: 14px;">
+                                                                                        {{isset($b['bulan_ke_2'])?
+                                                                                        $b['bulan_ke_2'] : '-'}}</td>
+                                                                                    <td style="padding: 14px;">
+                                                                                        {{isset($b['bulan_ke_3'])?
+                                                                                        $b['bulan_ke_3'] : '-'}}</td>
+                                                                                    <td style="padding: 14px;">
+                                                                                        {{isset($b['bulan_ke_4'])?
+                                                                                        $b['bulan_ke_4'] : '-'}}</td>
                                                                                 </tr>
                                                                                 @endforeach
                                                                                 @endif
@@ -348,7 +396,8 @@
                                                                                 </tr>
                                                                                 <tr>
                                                                                     @if($bayi->campak != '')
-                                                                                    <td style="padding: 14px;">Telah Diberikan</td>
+                                                                                    <td style="padding: 14px;">Telah
+                                                                                        Diberikan</td>
                                                                                     <td>
                                                                                         {{$bayi->campak}}
                                                                                     </td>
@@ -366,7 +415,7 @@
                                                             </div>
 
                                                         </div>
-                                                        <div class="tab-pane fade" id="timbang" role="tabpanel" aria-labelledby="timbang-tab">
+                                                        <div class="tab-pane fade" id="timbang" role="tabpanel" aria-labelledby="timbang-tab" style="overflow-x: scroll;">
                                                             <div class="col-md-12" style="padding: 20px;">
                                                                 <table class="table table-bordered table-stripped table text-center" id="tableTimbang">
 
@@ -399,7 +448,8 @@
                                                                             {{$b->bulan}}
                                                                         </td>
                                                                         <td>
-                                                                            {{$b->umur_bulan}} bulan, {{$b->umur_hari}} hari
+                                                                            {{$b->umur_bulan}} bulan, {{$b->umur_hari}}
+                                                                            hari
                                                                         </td>
                                                                         <td>
                                                                             <table class="table table-sm text-sm">
@@ -422,11 +472,14 @@
                                                                                     $badgeColor = 'success';
                                                                                     @endphp
                                                                                     @endif
-                                                                                    <td> <span class="badge badge-pill badge-{{$badgeColor}}">{{$b->berat_badan}}</span></td>
+                                                                                    <td> <span class="badge badge-pill badge-{{$badgeColor}}">{{$b->berat_badan}}</span>
+                                                                                    </td>
                                                                                     <td>
-                                                                                        <span class="badge badge-pill badge-{{$badgeColor}}">{{$b->sd_bb}}</span></td>
+                                                                                        <span class="badge badge-pill badge-{{$badgeColor}}">{{$b->sd_bb}}</span>
+                                                                                    </td>
                                                                                     <td>
-                                                                                        <span class="badge badge-pill badge-{{$badgeColor}}">{{$b->status_bb}}</span></td>
+                                                                                        <span class="badge badge-pill badge-{{$badgeColor}}">{{$b->status_bb}}</span>
+                                                                                    </td>
                                                                                 </tr>
                                                                             </table>
                                                                         </td>
@@ -451,7 +504,8 @@
                                                                                     $badgeColor = 'success';
                                                                                     @endphp
                                                                                     @endif
-                                                                                    <td> <span class="badge badge-pill badge-{{$badgeColor}}">{{$b->tinggi_badan}}</span></td>
+                                                                                    <td> <span class="badge badge-pill badge-{{$badgeColor}}">{{$b->tinggi_badan}}</span>
+                                                                                    </td>
                                                                                     <td>
                                                                                         <span class="badge badge-pill badge-{{$badgeColor}}">{{$b->sd_pb}}</span>
                                                                                     </td>
@@ -471,7 +525,8 @@
                                                             <div class="col-lg-12 grid-margin stretch-card">
                                                                 <div class="card">
                                                                     <div class="card-body">
-                                                                        <h4 class="card-title">Berat Badan 0-24 Bulan</h4>
+                                                                        <h4 class="card-title">Berat Badan 0-24 Bulan
+                                                                        </h4>
                                                                         <canvas id="bb_1"></canvas>
                                                                     </div>
                                                                 </div>
@@ -479,7 +534,8 @@
                                                             <div class="col-lg-12 grid-margin stretch-card">
                                                                 <div class="card">
                                                                     <div class="card-body">
-                                                                        <h4 class="card-title">Berat Badan 24-60 Bulan</h4>
+                                                                        <h4 class="card-title">Berat Badan 24-60 Bulan
+                                                                        </h4>
                                                                         <canvas id="bb_2"></canvas>
                                                                     </div>
                                                                 </div>
@@ -487,7 +543,8 @@
                                                             <div class="col-lg-12 grid-margin stretch-card">
                                                                 <div class="card">
                                                                     <div class="card-body">
-                                                                        <h4 class="card-title">Panjang Badan 0-24 Bulan</h4>
+                                                                        <h4 class="card-title">Panjang Badan 0-24 Bulan
+                                                                        </h4>
                                                                         <canvas id="pb_1"></canvas>
                                                                     </div>
                                                                 </div>
@@ -495,7 +552,8 @@
                                                             <div class="col-lg-12 grid-margin stretch-card">
                                                                 <div class="card">
                                                                     <div class="card-body">
-                                                                        <h4 class="card-title">Tinggi Badan 24-60 Bulan</h4>
+                                                                        <h4 class="card-title">Tinggi Badan 24-60 Bulan
+                                                                        </h4>
                                                                         <canvas id="pb_2"></canvas>
                                                                     </div>
                                                                 </div>
@@ -964,7 +1022,7 @@
 
     })
 
-    console.log(median_pb_2)
+
 
     bayi_pb_1 = [];
     bayi_pb_2 = [];
@@ -984,9 +1042,6 @@
         }
 
     })
-
-    console.log(bayi_pb_2)
-
 
     var data_pb_1 = [{
             label: 'Panjang Badan',

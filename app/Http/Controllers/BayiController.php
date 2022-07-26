@@ -198,18 +198,23 @@ class BayiController extends Controller
      */
     public function store(Request $request)
     {
-
         try {
+            //pmt
+            if (!isset($request->diare)) {
+                $request->diare = [];
+            }
 
             $data = [
                 "pasien_id" => $request->pasien_id,
                 "nama_ibu" => $request->nama_ibu,
                 "nama_ayah" => $request->nama_ayah,
                 "nama"  => $request->nama_bayi,
+                "kms"  => $request->kms,
                 "posyandu_id"  => $request->posyandu_id,
                 "tanggal_lahir"   => $request->tanggal_lahir,
                 "bb_pb" => $request->bb_pb,
                 "l_p" => $request->jk,
+                "diare" => json_encode($request->diare),
                 "campak"  => $request->campak,
                 "meninggal" => $request->bayi_meninggal,
                 "keterangan" => $request->keterangan,
@@ -285,17 +290,25 @@ class BayiController extends Controller
                 }
             }
 
-            if (count($sirup_fe) > 0 || count($vit_a) > 0 || count($oralit) > 0) {
+            //pmt
+            if (!isset($request->pmt)) {
+                $request->pmt = [];
+            }
+
+            if (count($sirup_fe) > 0 || count($vit_a) > 0 || count($oralit) > 0 || count($request->pmt) > 0) {
 
                 $data = [
                     "bayi_id" => $bayi->id,
                     "sirup_fe" => json_encode($sirup_fe),
                     "vit_a" => json_encode($vit_a),
-                    "oralit" => json_encode($oralit)
+                    "oralit" => json_encode($oralit),
+                    'pmt' => json_encode($request->pmt)
                 ];
 
                 Detail_Bayi_Obat::create($data);
             }
+
+
 
             $hbo = array();
 
@@ -499,6 +512,11 @@ class BayiController extends Controller
         } else {
             $oralit = [];
         }
+        if (isset($bayi_obat->pmt)) {
+            $pmt = json_decode($bayi_obat->pmt, true);
+        } else {
+            $pmt = [];
+        }
 
         $bayi_imun = Detail_Bayi_Imun::where('bayi_id', $id)->first();
 
@@ -523,13 +541,19 @@ class BayiController extends Controller
             $polio = [];
         }
 
-        return view('bayi.edit', compact('title', 'sidebarPemeriksaan', 'sidebarSubBayi', 'collapsePemeriksaan', 'bayi', 'bayi_timbang', 'bayi_obat', 'sirup_fe', 'vit_a', 'oralit', 'hbo', 'bcg', 'dpthb', 'polio', 'list_posyandu'));
+        $bayi->diare = json_decode($bayi->diare);
+        // return (array) $bayi->diare;
+
+        return view('bayi.edit', compact('title', 'sidebarPemeriksaan', 'sidebarSubBayi', 'collapsePemeriksaan', 'bayi', 'bayi_timbang', 'bayi_obat', 'sirup_fe', 'vit_a', 'oralit', 'hbo', 'bcg', 'dpthb', 'polio', 'list_posyandu', 'pmt'));
     }
 
 
 
     public function update(Request $request, $id)
     {
+        if (!isset($request->diare)) {
+            $request->diare = [];
+        }
 
         try {
 
@@ -545,9 +569,11 @@ class BayiController extends Controller
                 "nama_ayah"  => $request->nama_ayah,
                 "posyandu_id"  => $request->posyandu_id,
                 "nama"  => $request->nama,
+                "kms"  => $request->kms,
                 "tanggal_lahir"   => $request->tanggal_lahir,
                 "bb_pb" => $request->bb_pb,
                 "l_p" => $request->jk,
+                "diare" => json_encode($request->diare),
                 "campak"  => $request->campak,
                 "meninggal" => $request->bayi_meninggal,
                 "keterangan" => $request->keterangan,
@@ -623,13 +649,19 @@ class BayiController extends Controller
                 }
             }
 
-            if (count($sirup_fe) > 0 || count($vit_a) > 0 || count($oralit) > 0) {
+            //pmt
+            if (!isset($request->pmt)) {
+                $request->pmt = [];
+            }
+
+            if (count($sirup_fe) > 0 || count($vit_a) > 0 || count($oralit) > 0  || count($request->pmt) > 0) {
 
                 $data = [
                     "bayi_id" => $bayi->id,
                     "sirup_fe" => json_encode($sirup_fe),
                     "vit_a" => json_encode($vit_a),
-                    "oralit" => json_encode($oralit)
+                    "oralit" => json_encode($oralit),
+                    'pmt' => json_encode($request->pmt)
                 ];
 
                 Detail_Bayi_Obat::create($data);

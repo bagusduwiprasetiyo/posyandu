@@ -84,7 +84,8 @@
                                                         <option value="">Silahkan Pilih!</option>
                                                         @foreach($list_posyandu as $lp)
                                                         @if($lp->id == $bayi->posyandu_id)
-                                                        <option selected="true" value="{{$lp->id}}">{{$lp->nama}}</option>
+                                                        <option selected="true" value="{{$lp->id}}">{{$lp->nama}}
+                                                        </option>
                                                         @else
                                                         <option value="{{$lp->id}}">{{$lp->nama}}</option>
                                                         @endif
@@ -122,9 +123,34 @@
                                                 <div class="form-group col-md-4">
                                                     <label>Jenis Kelamin</label>
                                                     <select name="jk" style="background-color: #F3F3F3;" class="form-control form-control-sm" required>
-                                                        <option value="1" {{$bayi->l_p == 1 ? 'selected' : ''}}>Laki-Laki</option>
-                                                        <option value="2" {{$bayi->l_p == 2 ? 'selected' : ''}}>Perempuan</option>
+                                                        <option value="1" {{$bayi->l_p == 1 ? 'selected' :
+                                                            ''}}>Laki-Laki</option>
+                                                        <option value="2" {{$bayi->l_p == 2 ? 'selected' :
+                                                            ''}}>Perempuan</option>
                                                     </select>
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label>Memiliki KMS <span style="color: red;">*</span></label>
+                                                    <div class="row">
+                                                        <div class="form-check ml-2">
+                                                            <label class="form-check-label">
+
+                                                                <input type="radio" class="form-check-input" name="kms" value="1" {{$bayi->kms == 1 ? 'checked' :
+                                                            ''}}>
+                                                                Ya
+                                                                <i class="input-helper"></i>
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check ml-3">
+                                                            <label class="form-check-label">
+
+                                                                <input type="radio" class="form-check-input" name="kms" value="0" {{$bayi->kms == 0 ? 'checked' :
+                                                            ''}}>
+                                                                Tidak
+                                                                <i class="input-helper"></i>
+                                                            </label>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -154,9 +180,11 @@
                                         <div class="row">
                                             <div class="col-sm-12 text-center">
                                                 <div class="alert alert-warning">
-                                                    <p>Standar antropometri berdasarkan umur bulan dari balita, harap teliti umur sebelum memasukkan data berat dan tinggi !</p>
+                                                    <p>Standar antropometri berdasarkan umur bulan dari balita, harap
+                                                        teliti umur sebelum memasukkan data berat dan tinggi !</p>
                                                 </div>
-                                                <button type="button" class="btn btn-light btn-sm" style="width: 100%; background-color: #F3F3F3" onclick="" data-toggle="modal" data-target="#modalPenimbangan">+ Tambah Bulan</button>
+                                                <button type="button" class="btn btn-light btn-sm" style="width: 100%; background-color: #F3F3F3" onclick="" data-toggle="modal" data-target="#modalPenimbangan">+ Tambah
+                                                    Bulan</button>
 
                                             </div>
                                         </div>
@@ -181,7 +209,8 @@
                                                     <td>
                                                         <div class="input-group">
                                                             <div class="input-group-append">
-                                                                <button type="button" class="btn btn-sm btn-light">Bulan Ke</button>
+                                                                <button type="button" class="btn btn-sm btn-light">Bulan
+                                                                    Ke</button>
                                                             </div>
                                                             <input type="number" name="bulan_ke[{{$key}}]" max="60" min="0" value="{{$b->bulan_ke}}" required class="form-control form-control-sm bulan_timbang_ke" style="background-color: #F3F3F3;"></input>
                                                         </div>
@@ -202,8 +231,6 @@
                                                             </div>
                                                         </div>
                                                     </td>
-
-
                                                 </tr>
                                                 <tr class="bulan_timbang_{{$key}}">
                                                     <td>
@@ -216,7 +243,8 @@
                                                         </div>
                                                         <div class="input-group sd_bb mt-1">
                                                             <div class="input-group-append">
-                                                                <button type="button" class="btn btn-sm btn-light">Standar Deviasi</button>
+                                                                <button type="button" class="btn btn-sm btn-light">Standar
+                                                                    Deviasi</button>
                                                             </div>
                                                             <input type="text" class="form-control-sm form-control" placeholder="Standar Deviasi" name="sd_bb[{{$key}}]" readonly value="{{$b->sd_bb}}">
                                                         </div>
@@ -235,7 +263,8 @@
                                                         </div>
                                                         <div class="input-group sd_pb mt-1">
                                                             <div class="input-group-append">
-                                                                <button type="button" class="btn btn-sm btn-light">Standar Deviasi</button>
+                                                                <button type="button" class="btn btn-sm btn-light">Standar
+                                                                    Deviasi</button>
                                                             </div>
                                                             <input type="text" class="form-control-sm form-control" placeholder="Standar Deviasi" name="sd_pb[{{$key}}]" readonly value="{{$b->sd_pb}}">
                                                         </div>
@@ -251,7 +280,8 @@
                                                     <td colspan="2">
                                                         <div class="input-group">
                                                             <div class="input-group-append">
-                                                                <button type="button" class="btn btn-sm btn-light">tanggal penimbangan</button>
+                                                                <button type="button" class="btn btn-sm btn-light">tanggal
+                                                                    penimbangan</button>
                                                             </div>
                                                             <input type="date" class="form-control-sm form-control" style="background-color: #F3F3F3;" required name="tanggal_timbang[{{$key}}]" placeholder="tanggal" value="{{$b->tanggal}}">
 
@@ -316,7 +346,8 @@
                                                                         <td colspan="4">
                                                                             <div class="input-group">
                                                                                 <div class="input-group-append">
-                                                                                    <button type="button" class="btn btn-sm btn-light">Tahun Ke </button>
+                                                                                    <button type="button" class="btn btn-sm btn-light">Tahun
+                                                                                        Ke </button>
                                                                                 </div>
                                                                                 <input type="number" name="sirup_fe[{{$key}}]" max="5" min="1" required style="background-color: #F3F3F3;" class="form-control form-control-sm sirup_fe_ke" value="{{$b['tahun_ke']}}" value="{{$b['tahun_ke']}}"></input>
                                                                             </div>
@@ -376,7 +407,8 @@
                                                                         <td colspan="4">
                                                                             <div class="input-group">
                                                                                 <div class="input-group-append">
-                                                                                    <button type="button" class="btn btn-sm btn-light">Tahun Ke </button>
+                                                                                    <button type="button" class="btn btn-sm btn-light">Tahun
+                                                                                        Ke </button>
                                                                                 </div>
                                                                                 <input type="number" name="vit_a[{{$key}}]" max="5" min="1" value="{{$v['tahun_ke']}}" required style="background-color: #F3F3F3;" class="form-control form-control-sm vit_a_ke"></input>
                                                                             </div>
@@ -437,7 +469,8 @@
                                                                         <td>
                                                                             <div class="input-group">
                                                                                 <div class="input-group-append">
-                                                                                    <button type="button" class="btn btn-sm btn-light">Tahun Ke </button>
+                                                                                    <button type="button" class="btn btn-sm btn-light">Tahun
+                                                                                        Ke </button>
                                                                                 </div>
                                                                                 <input type="number" name="oralit[{{$key}}]" max="5" min="1" value="{{$o['tahun_ke']}}" required style="background-color: #F3F3F3;" class="form-control form-control-sm oralit_ke"></input>
                                                                             </div>
@@ -451,6 +484,34 @@
                                                                         </td>
                                                                     </tr>
 
+                                                                    @endforeach
+                                                                    @endif
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card  col-md-6 mt-3" style="overflow-x: scroll;">
+                                                    <div class="card-body">
+
+                                                        <h4 class="card-title">Pemberian PMT</h4>
+
+                                                        <br>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <button type="button" class="btn btn-light btn-sm add" style="width: 100%; background-color: #F3F3F3" onclick="pmt(this)">+</button>
+
+                                                            </div>
+                                                            <br>
+                                                            <div class="col-sm-12 mt-3">
+
+                                                                <table class="table table-hover table-sm table-bordered text-center" id="table_pmt">
+                                                                    @if(count($pmt) > 0)
+                                                                    @foreach($pmt as $key=>$p)
+                                                                    <tr class="mt-3">
+                                                                        <td style="width: 10%;"> <button type="button" class="btn btn-sm" style="font-size: 2px;" onclick="pmt(this)"> <i class="mdi mdi-delete-forever"></i> </button> </td>
+                                                                        <td> <input type="date" name="pmt[{{$key}}]" class="form-control form-control-sm" required value="{{$p}}"> </td>
+                                                                    </tr>
                                                                     @endforeach
                                                                     @endif
                                                                 </table>
@@ -514,7 +575,8 @@
                                                                         <td>
                                                                             <div class="input-group">
                                                                                 <div class="input-group-append">
-                                                                                    <button type="button" class="btn btn-sm btn-light">Tahun Ke </button>
+                                                                                    <button type="button" class="btn btn-sm btn-light">Tahun
+                                                                                        Ke </button>
                                                                                 </div>
                                                                                 <input type="number" name="hbo[{{$key}}]" max="5" min="1" value="{{$h['tahun_ke']}}" required style="background-color: #F3F3F3;" class="form-control form-control-sm hbo_ke"></input>
                                                                             </div>
@@ -562,7 +624,8 @@
                                                                         <td>
                                                                             <div class="input-group">
                                                                                 <div class="input-group-append">
-                                                                                    <button type="button" class="btn btn-sm btn-light">Tahun Ke </button>
+                                                                                    <button type="button" class="btn btn-sm btn-light">Tahun
+                                                                                        Ke </button>
                                                                                 </div>
                                                                                 <input type="number" name="bcg[{{$key}}]" max="5" min="1" value="{{$b['tahun_ke']}}" required style="background-color: #F3F3F3;" class="form-control form-control-sm bcg_ke"></input>
                                                                             </div>
@@ -613,7 +676,8 @@
                                                                         <td colspan="4">
                                                                             <div class="input-group">
                                                                                 <div class="input-group-append">
-                                                                                    <button type="button" class="btn btn-sm btn-light">Tahun Ke </button>
+                                                                                    <button type="button" class="btn btn-sm btn-light">Tahun
+                                                                                        Ke </button>
                                                                                 </div>
                                                                                 <input type="number" name="dpthb[{{$key}}]" max="5" min="1" value="{{$d['tahun_ke']}}" required style="background-color: #F3F3F3;" class="form-control form-control-sm dpthb_ke"></input>
                                                                             </div>
@@ -680,7 +744,8 @@
                                                                         <td colspan="4">
                                                                             <div class="input-group">
                                                                                 <div class="input-group-append">
-                                                                                    <button type="button" class="btn btn-sm btn-light">Tahun Ke </button>
+                                                                                    <button type="button" class="btn btn-sm btn-light">Tahun
+                                                                                        Ke </button>
                                                                                 </div>
                                                                                 <input type="number" name="polio[{{$key}}]" max="5" min="1" value="{{$p['tahun_ke']}}" required style="background-color: #F3F3F3;" class="form-control form-control-sm polio_ke"></input>
                                                                             </div>
@@ -717,7 +782,7 @@
                                                                             Ke 4
                                                                         </td>
                                                                         <td>
-                                                                            <input type="date" class="form-control-sm form-control" style="background-color: #F3F3F3;" placeholder="panjang badan" name="polio_bulan_4[{{$key}}]" value="{{$p['bulan_ke_4']}}">
+                                                                            <input type="date" class="form-control-sm form-control" style="background-color: #F3F3F3;" placeholder="panjang badan" name="polio_bulan_4[{{$key}}]" value="{{(isset($p['bulan_ke_4'])) ? $p['bulan_ke_4'] : '-'}}">
                                                                         </td>
                                                                     </tr>
                                                                     @endforeach
@@ -752,8 +817,49 @@
                                 <div class="col-md-12 grid-margin stretch-card">
                                     <div class="card">
                                         <div class="card-body">
+                                            <div class="row">
+                                                <div class="card col-md-6">
+                                                    <div class="card-body">
+                                                        <h4 class="card-title">Menderita Diare</h4>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <button type="button" class="btn btn-light btn-sm add" style="width: 100%; background-color: #F3F3F3" onclick="diare(this)">+</button>
 
-                                            <h4 class="card-title">Pelayanan Imunisasi</h4>
+                                                            </div>
+                                                            <br>
+                                                            <div class="col-sm-12 mt-3">
+
+                                                                <table class="table table-hover table-sm table-bordered text-center" id="table_diare">
+
+                                                                    @if(isset($bayi->diare))
+                                                                    @if(count((array) $bayi->diare) > 0)
+                                                                    <tr id="trhead_diare">
+                                                                        <td></td>
+                                                                        <td>diare</td>
+                                                                        <td>diberi oralit</td>
+                                                                    </tr>
+                                                                    @else
+                                                                    <tr id="trhead_diare" hidden="true">
+                                                                        <td></td>
+                                                                        <td>diare</td>
+                                                                        <td>diberi oralit</td>
+                                                                    </tr>
+                                                                    @endif
+                                                                    @foreach($bayi->diare as $key => $diare)
+                                                                    <tr class="mt-3 trdiare">
+                                                                        <td style="width: 10%;"> <button type="button" class="btn btn-sm" style="font-size: 2px;" onclick="diare(this)"> <i class="mdi mdi-delete-forever"></i> </button> </td>
+                                                                        <td> <input type="date" name="diare[{{$key}}][tanggal]" class="form-control form-control-sm" required value="{{$diare->tanggal}}"> </td>
+                                                                        <td> <input type="date" name="diare[{{$key}}][oralit]" class="form-control form-control-sm" value="{{$diare->oralit}}"> </td>
+                                                                    </tr>
+                                                                    @endforeach
+                                                                    @endif
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
                                             <br>
                                             <div class="row">
                                                 <div class="card  col-md-8" style="overflow-x: scroll;">
@@ -823,7 +929,8 @@
                 <div class="row">
                     <div class="col-sm-12 mt-2">
                         @php
-                        $namaBulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+                        $namaBulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus',
+                        'September', 'Oktober', 'November', 'Desember'];
                         @endphp
 
                         <select name="bulan" class="form-control selectpicker" data-live-search="true">
@@ -1951,6 +2058,10 @@
         e.preventDefault();
         $('button[type=submit]').prop('disabled', true);
 
+        setTimeout(() => {
+            $('button[type=submit]').prop('disabled', false);
+        }, 3000);
+
         $.ajax({
             type: $(this).attr('method'),
             url: $(this).attr('action'),
@@ -1977,6 +2088,38 @@
 
 
     });
+
+    // ################## PMT ########################
+    var pmt = (e) => {
+        rand = Math.floor(Math.random() * 1000)
+        if ($(e).hasClass('add')) {
+            $('#table_pmt').append(
+                `<tr class="mt-3"> <td style="width: 10%;"> <button type="button" class="btn btn-sm" style="font-size: 2px;" onclick="pmt(this)"> <i class="mdi mdi-delete-forever"></i> </button> </td> <td> <input type="date" name="pmt[` + rand + `]" class="form-control form-control-sm" required> </td> </tr>`
+            )
+
+        } else {
+            $(e).parent().parent().remove()
+        }
+    }
+    var diare = (e) => {
+
+        rand = Math.floor(Math.random() * 1000)
+        if ($(e).hasClass('add')) {
+            $('#table_diare').append(
+                `<tr class="mt-3 trdiare"> <td style="width: 10%;"> <button type="button" class="btn btn-sm" style="font-size: 2px;" onclick="diare(this)"> <i class="mdi mdi-delete-forever"></i> </button> </td> <td> <input type="date" name="diare[` + rand + `][tanggal]" class="form-control form-control-sm" required> </td><td> <input type="date" name="diare[` + rand + `][oralit]" class="form-control form-control-sm"> </td> </tr>`
+            )
+
+        } else {
+            $(e).parent().parent().remove()
+        }
+
+        if ($('.trdiare').length > 0) {
+            $('#trhead_diare').attr('hidden', false)
+        } else {
+            $('#trhead_diare').attr('hidden', true)
+
+        }
+    }
 </script>
 
 @endpush

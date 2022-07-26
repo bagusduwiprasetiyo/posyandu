@@ -125,6 +125,27 @@
                                                         <option value="2">Perempuan</option>
                                                     </select>
                                                 </div>
+                                                <div class="form-group col-md-4">
+                                                    <label>Memiliki KMS <span style="color: red;">*</span></label>
+                                                    <div class="row">
+                                                        <div class="form-check ml-2">
+                                                            <label class="form-check-label">
+
+                                                                <input type="radio" class="form-check-input" name="kms" value="1" checked>
+                                                                Ya
+                                                                <i class="input-helper"></i>
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check ml-3">
+                                                            <label class="form-check-label">
+
+                                                                <input type="radio" class="form-check-input" name="kms" value="0">
+                                                                Tidak
+                                                                <i class="input-helper"></i>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -251,6 +272,27 @@
                                                             <div class="col-sm-12 mt-3">
 
                                                                 <table class="table table-hover table-sm table-bordered text-center" id="oralit">
+
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card  col-md-6 mt-3" style="overflow-x: scroll;">
+                                                    <div class="card-body">
+
+                                                        <h4 class="card-title">Pemberian PMT</h4>
+
+                                                        <br>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <button type="button" class="btn btn-light btn-sm add" style="width: 100%; background-color: #F3F3F3" onclick="pmt(this)">+</button>
+
+                                                            </div>
+                                                            <br>
+                                                            <div class="col-sm-12 mt-3">
+
+                                                                <table class="table table-hover table-sm table-bordered text-center" id="table_pmt">
 
                                                                 </table>
                                                             </div>
@@ -396,13 +438,37 @@
                             <div class="form-row">
 
                                 <div class="col-md-12 grid-margin stretch-card">
+
                                     <div class="card">
                                         <div class="card-body">
-
-                                            <h4 class="card-title">Pelayanan Imunisasi</h4>
-                                            <br>
                                             <div class="row">
-                                                <div class="card  col-md-8" style="overflow-x: scroll;">
+                                                <div class="card col-md-6">
+                                                    <div class="card-body">
+                                                        <h4 class="card-title">Menderita Diare</h4>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <button type="button" class="btn btn-light btn-sm add" style="width: 100%; background-color: #F3F3F3" onclick="diare(this)">+</button>
+
+                                                            </div>
+                                                            <br>
+                                                            <div class="col-sm-12 mt-3">
+
+                                                                <table class="table table-hover table-sm table-bordered text-center" id="table_diare">
+                                                                    <tr hidden="true" id="trhead_diare">
+                                                                        <td></td>
+                                                                        <td>diare</td>
+                                                                        <td>diberi oralit</td>
+                                                                    </tr>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <br><br>
+                                            <div class="row">
+                                                <div class="card col-md-8" style="overflow-x: scroll;">
                                                     <div class="card-body">
 
                                                         <h4 class="card-title">Lain-lain</h4>
@@ -1598,6 +1664,11 @@
         e.preventDefault();
         $('button[type=submit]').prop('disabled', true);
 
+        setTimeout(() => {
+            $('button[type=submit]').prop('disabled', false);
+
+        }, 3000);
+
         $.ajax({
             type: $(this).attr('method'),
             url: $(this).attr('action'),
@@ -1634,6 +1705,39 @@
 
         }
     })
+
+    // ################## PMT ########################
+    var pmt = (e) => {
+        rand = Math.floor(Math.random() * 1000)
+        if ($(e).hasClass('add')) {
+            $('#table_pmt').append(
+                `<tr class="mt-3"> <td style="width: 10%;"> <button type="button" class="btn btn-sm" style="font-size: 2px;" onclick="pmt(this)"> <i class="mdi mdi-delete-forever"></i> </button> </td> <td> <input type="date" name="pmt[` + rand + `]" class="form-control form-control-sm" required> </td> </tr>`
+            )
+
+        } else {
+            $(e).parent().parent().remove()
+        }
+    }
+
+    var diare = (e) => {
+
+        rand = Math.floor(Math.random() * 1000)
+        if ($(e).hasClass('add')) {
+            $('#table_diare').append(
+                `<tr class="mt-3 trdiare"> <td style="width: 10%;"> <button type="button" class="btn btn-sm" style="font-size: 2px;" onclick="diare(this)"> <i class="mdi mdi-delete-forever"></i> </button> </td> <td> <input type="date" name="diare[` + rand + `][tanggal]" class="form-control form-control-sm" required> </td><td> <input type="date" name="diare[` + rand + `][oralit]" class="form-control form-control-sm"> </td> </tr>`
+            )
+
+        } else {
+            $(e).parent().parent().remove()
+        }
+
+        if ($('.trdiare').length > 0) {
+            $('#trhead_diare').attr('hidden', false)
+        } else {
+            $('#trhead_diare').attr('hidden', true)
+
+        }
+    }
 </script>
 
 @endpush

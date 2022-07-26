@@ -393,42 +393,61 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-md-7 grid-margin stretch-card">
+                <div class="col-md-6 grid-margin stretch-card">
                   <div class="card">
                     <div class="card-body">
 
                       <h4 class="card-title">Data Persalinan</h4>
                       <br>
-                      <div class="card">
-                        <div class="card-body">
-                          <div class="row">
-                            <div class="form-group row">
-                              <label class="col-sm-12 col-form-label">Tanggal Persalinan</label>
-                              <input style="background-color: #F3F3F3;" type="date" name="tanggal_persalinan" class="form-control form-control-sm" value="{{$bumils->tanggal_persalinan}}">
+                      <div class="row">
+                        <div class="form-group col-sm-8">
+                          <label class="col-sm-12 col-form-label">Tanggal
+                            Persalinan</label>
+                          <input style="background-color: #F3F3F3;" type="date" name="tanggal_persalinan" class="form-control form-control-sm" value="{{$bumils->tanggal_persalinan}}">
+                        </div>
+                        <div class="form-group col-sm-12">
+                          <label class="col-sm-12 col-form-label">Ditolong
+                            oleh</label>
+                          <div class="col-sm-6">
+                            <div class="form-check">
+                              <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="ditolong_oleh" value="1" {{$bumils->persalinan == '1' ? 'checked': ''}}>
+                                Nakes
+                                <i class="input-helper"></i></label>
                             </div>
-                            <div class="form-group row">
-                              <label class="col-sm-12 col-form-label">Ditolong oleh</label>
-                              <div class="col-sm-6">
-                                <div class="form-check">
-                                  <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="ditolong_oleh" value="1" {{$bumils->persalinan == '1' ? 'checked': ''}}>
-                                    Nakes
-                                    <i class="input-helper"></i></label>
-                                </div>
-                              </div>
-                              <div class="col-sm-5">
-                                <div class="form-check">
-                                  <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="ditolong_oleh" value="2" {{$bumils->persalinan == '2' ? 'checked': ''}}>
-                                    Dukun
-                                    <i class="input-helper"></i></label>
-                                </div>
-                              </div>
+                          </div>
+                          <div class="col-sm-12">
+                            <div class="form-check">
+                              <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="ditolong_oleh" value="2" {{$bumils->persalinan == '2' ? 'checked': ''}}>
+                                Dukun
+                                <i class="input-helper"></i></label>
                             </div>
-                            <div class="form-group row">
-                              <label class="col-sm-12 col-form-label">Resiko</label>
-                              <input style="background-color: #F3F3F3;" type="text" name="resiko" class="form-control form-control-sm" value="{{$bumils->resiko}}">
-                            </div>
+                          </div>
+
+                        </div>
+                        <div class="form-group col-sm-12">
+                          <div class="col-sm-12">
+                            <label class="col-sm-12">Resiko</label>
+                            <input style="background-color: #F3F3F3;" type="text" name="resiko" class="form-control form-control-sm" value="{{$bumils->resiko}}">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-body">
+                      <h4 class="card-title">Menyusui</h4>
+                      <br>
+                      <div class="form-group col-md-12">
+                        <div class="form-group row">
+                          <div class="form-group row">
+                            <label class="col-sm-12 col-form-label">Tanggal Menyusui</label>
+                            <input style="background-color: #F3F3F3;" type="date" name="menyusui" class="form-control form-control-sm" value="{{$bumils->menyusui}}">
+                          </div>
+                          <div class="form-group row">
+                            <label class="col-sm-12 col-form-label">Berhenti Menyusui</label>
+                            <input style="background-color: #F3F3F3;" type="date" name="berhenti_menyusui" class="form-control form-control-sm" value="{{$bumils->berhenti_menyusui}}">
                           </div>
                         </div>
                       </div>
@@ -453,7 +472,10 @@
                     <div class="card-body">
 
                       <h4 class="card-title">Data Bayi</h4>
-                      <br>
+                      <div class="form-group">
+                        <label class="col-sm-12 col-form-label">Nama Bayi</label>
+                        <input style="background-color: #F3F3F3;" type="text" name="nama_bayi" class="form-control form-control-sm" value="{{$bumils->nama_bayi}}">
+                      </div>
 
                       <div class="form-row">
                         <div class="card col-sm-6">
@@ -561,7 +583,7 @@
   <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
     <div class="modal-content" style="background-color: #081F3E;">
       <div class="modal-header">
-        <p class="modal-title" id="modalConfirmTitle" style="color: white;">Hapus data?</p>
+        <p class="modal-title" id="modalConfirmTitle" style="color: white;">Tambah data?</p>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white;">
           <span aria-hidden="true">&times;</span>
         </button>

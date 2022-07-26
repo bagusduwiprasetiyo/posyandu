@@ -39,13 +39,6 @@ var login = function () {
             $(e).closest('.form-control').addClass('is-valid');
         },
     });
-    $('#formLogin').on('submit', function (e) {
-        if ($(this).valid()) {
-            $(this).submit();
-        } else {
-            e.preventDefault();
-        }
-    });
 }
 $('#btn-login').on('click', function () {
 

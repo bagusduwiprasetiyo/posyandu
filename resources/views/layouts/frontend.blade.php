@@ -171,7 +171,7 @@ $template = asset('template/frontend_');
         <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
 
         <!-- modal -->
-
+        <!-- ########################LOGIN -->
         <div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="modalLoginTitle" data-backdrop="false">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -216,6 +216,7 @@ $template = asset('template/frontend_');
                 </div>
             </div>
         </div>
+        <!-- ########################REGISTRATION -->
         <div class="modal fade" id="modalRegis" tabindex="-1" role="dialog" aria-labelledby="modalLoginTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">

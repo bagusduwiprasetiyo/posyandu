@@ -115,12 +115,15 @@ class BumilController extends Controller
                 "pmt_pemulihan" => $request->pmt_pemulihan,
                 "kapsul_yodium" => isset($request->kapsul_yodium) ? 1 : NULL,
                 "resiko" => $request->resiko,
+                "nama_bayi" => $request->nama_bayi,
                 "bayi" => $request->bayi,
                 "bayi_meninggal" => $request->bayi_meninggal,
                 "persalinan" => isset($request->ditolong_oleh) ? $request->ditolong_oleh : NULL,
                 "tanggal_persalinan" => $request->tanggal_persalinan,
+                "menyusui" => $request->menyusui,
+                "berhenti_menyusui" => $request->berhenti_menyusui,
                 "ibu_meninggal" => $request->ibu_meninggal,
-                "keterangan" => $request->keterangan
+                "keterangan" => $request->keterangan,
             ];
 
             $bumil = Bumil::create($data);
@@ -279,11 +282,14 @@ class BumilController extends Controller
                 "pmt_pemulihan" => $request->pmt_pemulihan,
                 "kapsul_yodium" => isset($request->kapsul_yodium) ? 1 : NULL,
                 "resiko" => $request->resiko,
+                "nama_bayi" => $request->nama_bayi,
                 "bayi" => $request->bayi,
                 "bayi_meninggal" => $request->bayi_meninggal,
                 "persalinan" => isset($request->ditolong_oleh) ? $request->ditolong_oleh : NULL,
                 "tanggal_persalinan" => $request->tanggal_persalinan,
                 "ibu_meninggal" => $request->ibu_meninggal,
+                "menyusui" => $request->menyusui,
+                "berhenti_menyusui" => $request->berhenti_menyusui,
                 "keterangan" => $request->keterangan
             ];
             Bumil::find($id)->update($data);

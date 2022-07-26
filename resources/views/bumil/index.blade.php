@@ -56,10 +56,12 @@
                                 <td>
                                     Ibu {{ $bumil->nama_ibu }} dan Bapak {{ $bumil->nama_suami }}</td>
                                 <td>
-                                    <button type="button" class="btn btn-outline-primary btn-sm" onclick="details('regis','{{$bumil->id}}')">
+                                    <button type="button" class="btn btn-outline-primary btn-sm"
+                                        onclick="details('regis','{{$bumil->id}}')">
                                         Registrasi
                                     </button>
-                                    <table class="table table-hover text-center table_regis_{{$bumil->id}}" hidden="true">
+                                    <table class="table table-hover text-center table_regis_{{$bumil->id}}"
+                                        hidden="true">
                                         <tr>
                                             <td width="40%;">
                                                 Tanggal
@@ -94,18 +96,22 @@
                                                 </span>
                                             </td>
                                             @if((float)$bumil->lila > 23.5)
-                                            <td><span class="badge badge-pill badge-success">{{$bumil->lila}}cm, gizi normal</span></td>
+                                            <td><span class="badge badge-pill badge-success">{{$bumil->lila}}cm, gizi
+                                                    normal</span></td>
                                             @else
-                                            <td><span class="badge badge-pill badge-danger">{{$bumil->lila}}, gizi kurang</span></td>
+                                            <td><span class="badge badge-pill badge-danger">{{$bumil->lila}},cm, gizi
+                                                    kurang</span></td>
                                             @endif
                                         </tr>
                                     </table>
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-outline-primary btn-sm" onclick="details('timbang','{{$bumil->id}}')">
+                                    <button type="button" class="btn btn-outline-primary btn-sm"
+                                        onclick="details('timbang','{{$bumil->id}}')">
                                         Hasil Timbang
                                     </button>
-                                    <table class="table table-hover text-center table_timbang_{{$bumil->id}}" hidden="true">
+                                    <table class="table table-hover text-center table_timbang_{{$bumil->id}}"
+                                        hidden="true">
 
                                         <tr>
                                             <td>
@@ -152,20 +158,26 @@
                                 @if(!session()->has('kader'))
                                 <td>
                                     @php
-                                    $posyandu = DB::select(DB::raw('Select list_posyandu.nama from list_posyandu where id = '.$bumil->posyandu_id));
+                                    $posyandu = DB::select(DB::raw('Select list_posyandu.nama from list_posyandu where
+                                    id = '.$bumil->posyandu_id));
                                     @endphp
                                     {{$posyandu[0]->nama}}
                                 </td>
                                 @endif
                                 <td>
                                     <div class="form-button-action">
-                                        <a href="{{url('/bumil/')}}/{{$bumil->id}}/detail" class="btn btn-outline-warning btn-sm">
+                                        <a href="{{url('/bumil/')}}/{{$bumil->id}}/detail"
+                                            class="btn btn-outline-warning btn-sm">
                                             <i class="mdi mdi-account-card-details"></i>
                                         </a>
-                                        <a href="{{url('/bumil/')}}/{{ $bumil->id }}/edit" data-toggle="tooltip" title="" class="btn btn-outline-primary btn-sm" data-original-title="Update Data">
+                                        <a href="{{url('/bumil/')}}/{{ $bumil->id }}/edit" data-toggle="tooltip"
+                                            title="" class="btn btn-outline-primary btn-sm"
+                                            data-original-title="Update Data">
                                             <i class="mdi mdi-tooltip-edit"></i>
                                         </a>
-                                        <button type="button" id="buttonDelete" onclick="deleteRow('{{$bumil->id}}')" data-toggle="modal" data-target="#modalConfirm" class="btn btn-outline-danger btn-sm">
+                                        <button type="button" id="buttonDelete" onclick="deleteRow('{{$bumil->id}}')"
+                                            data-toggle="modal" data-target="#modalConfirm"
+                                            class="btn btn-outline-danger btn-sm">
                                             <i class="mdi mdi-delete-forever"></i>
                                         </button>
 
@@ -183,7 +195,8 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="modalConfirm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalConfirm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content" style="background-color: #081F3E;">
             <div class="modal-header">
@@ -198,7 +211,8 @@
                         <button class="btn btn-danger btn-sm" data-dismiss="modal" style="width: 100%;"> Batal</button>
                     </div>
                     <div class="col-sm-6">
-                        <button class="btn btn-success btn-sm" id="modalConfirmYes" style="width: 100%;" onclick="deleteAcc()">Ya</button>
+                        <button class="btn btn-success btn-sm" id="modalConfirmYes" style="width: 100%;"
+                            onclick="deleteAcc()">Ya</button>
                     </div>
                 </div>
 

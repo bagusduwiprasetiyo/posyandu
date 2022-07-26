@@ -127,7 +127,8 @@ $template = asset('template/backend');
               <ul class="nav flex-column sub-menu">
                 @if(Auth::user()->status == 1)
                 <li class="nav-item mdi mdi-hospital-building"><a class="nav-link {{isset($sidebarSubAccKader) ? $sidebarSubAccKader : ''}}" href="{{url('accept_kader')}}">Terima Kader</a></li>
-                <li class="nav-item mdi mdi-hospital-building"><a class="nav-link {{isset($sidebarSubKader) ? $sidebarSubKader : ''}}" href="{{url('kader')}}">Data Kader</a></li>
+                <li class="nav-item mdi mdi-hospital-building"><a class="nav-link {{isset($sidebarSubKader) ? $sidebarSubKader : ''}}" href="{{url('kader')}}">Data
+                    Kader</a></li>
                 @endif
                 <!-- <li class="nav-item"> <a class="nav-link {{isset($sidebarSubPasien) ? $sidebarSubPasien : ''}}" href="{{url('pasien')}}">Data Pasien</a></li> -->
               </ul>
@@ -144,11 +145,18 @@ $template = asset('template/backend');
             <div class="collapse {{isset($collapsePemeriksaan) ? $collapsePemeriksaan : ''}}" id="ui-basic2">
               <ul class="nav flex-column sub-menu">
 
-                <li class="nav-item mdi mdi-hospital-building"><a class="nav-link {{isset($sidebarSubBumil) ? $sidebarSubBumil : ''}}" href="{{url('bumil')}}">Ibu Hamil</a></li>
+                <li class="nav-item mdi mdi-hospital-building"><a class="nav-link {{isset($sidebarSubPuswus) ? $sidebarSubPuswus : ''}}" href="{{url('puswus')}}">Pus/Wus</a></li>
+              </ul>
+
+              <ul class="nav flex-column sub-menu">
+
+                <li class="nav-item mdi mdi-hospital-building"><a class="nav-link {{isset($sidebarSubBumil) ? $sidebarSubBumil : ''}}" href="{{url('bumil')}}">Ibu
+                    Hamil</a></li>
               </ul>
               <ul class="nav flex-column sub-menu">
 
-                <li class="nav-item mdi mdi-hospital-building"><a class="nav-link {{isset($sidebarSubBayi) ? $sidebarSubBayi : ''}}" href="{{url('bayi')}}">Bayi</a></li>
+                <li class="nav-item mdi mdi-hospital-building"><a class="nav-link {{isset($sidebarSubBayi) ? $sidebarSubBayi : ''}}" href="{{url('bayi')}}">Bayi</a>
+                </li>
               </ul>
             </div>
           </li>
@@ -168,8 +176,6 @@ $template = asset('template/backend');
               <ul class="nav flex-column sub-menu">
               </ul>
             </div>
-
-
           </li>
           <li class="nav-item {{isset($sidebarAntropometri) ? $sidebarAntropometri : ''}}">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic4" aria-expanded="false" aria-controls="ui-basic">
@@ -207,18 +213,34 @@ $template = asset('template/backend');
               <span class="menu-title">Data Akun Posyandu</span>
             </a>
           </li>
-          <li class="nav-item {{isset($laporan) ? $laporan : ''}}">
+          <li class="nav-item {{isset($analisis) ? $analisis : ''}}">
             <a class="nav-link" href="{{url('analisis')}}">
               <i class="mdi mdi-book menu-icon"></i>
-              <span class="menu-title">Laporan Posyandu</span>
+              <span class="menu-title">Analisis Posyandu</span>
             </a>
           </li>
-          <li class="nav-item {{isset($cetak_laporan) ? $cetak_laporan : ''}}">
+          <li class="nav-item {{isset($sidebarLaporan) ? $sidebarLaporan : ''}}">
+            <a class="nav-link" data-toggle="collapse" href="#laporan" aria-expanded="false" aria-controls="ui-basic">
+              <i class="mdi mdi-printer menu-icon"></i>
+              <span class="menu-title">Laporan Posyandu</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse {{isset($collapseLaporan) ? $collapseLaporan : ''}}" id="laporan">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item mdi mdi-hospital-building"><a class="nav-link {{isset($sidebarlaporanregistrasi) ? $sidebarlaporanregistrasi : ''}}" href="{{url('/laporan_registrasi/0/0/'.date('Y'))}}">Laporan Registrasi</a></li>
+                <li class="nav-item mdi mdi-hospital-building"><a class="nav-link {{isset($sidebarcatatanbumil) ? $sidebarcatatanbumil : ''}}" href="{{url('/laporan_catatan_bumil/0/'.date('Y'))}}">Catatan Ibu Hamil</a></li>
+                <li class="nav-item mdi mdi-hospital-building"><a class="nav-link {{isset($sidebarkegiatanposyandu) ? $sidebarkegiatanposyandu : ''}}" href="{{url('/laporan_kegiatan_posyandu/0/'.date('Y'))}}">Hasil Kegiatan</a></li>
+                <li class="nav-item mdi mdi-hospital-building"><a class="nav-link {{isset($sidebarjumlahpengunjung) ? $sidebarjumlahpengunjung : ''}}" href="{{url('/laporan_jumlah_pengunjung/0/'.date('Y'))}}">Jumlah Pengunjung</a></li>
+              </ul>
+            </div>
+          </li>
+
+          <!-- <li class="nav-item {{isset($cetak_laporan) ? $cetak_laporan : ''}}">
             <a class="nav-link" href="{{url('laporan')}}">
               <i class="mdi mdi-printer menu-icon"></i>
               <span class="menu-title">Cetak Laporan Posyandu</span>
             </a>
-          </li>
+          </li> -->
           @endif
           <li class="nav-item {{isset($profile) ? $profile : ''}}">
             <a class="nav-link" href="{{url('profile')}}">
@@ -227,46 +249,6 @@ $template = asset('template/backend');
             </a>
           </li>
 
-          <!-- <li class="nav-item">
-    <a class="nav-link" href="pages/charts/chartjs.html">
-      <i class="mdi mdi-chart-pie menu-icon"></i>
-      <span class="menu-title">Charts</span>
-  </a>
-</li>
-<li class="nav-item">
-    <a class="nav-link" href="pages/tables/basic-table.html">
-      <i class="mdi mdi-grid-large menu-icon"></i>
-      <span class="menu-title">Tables</span>
-  </a>
-</li>
-<li class="nav-item">
-    <a class="nav-link" href="pages/icons/mdi.html">
-      <i class="mdi mdi-emoticon menu-icon"></i>
-      <span class="menu-title">Icons</span>
-  </a>
-</li>
-<li class="nav-item">
-    <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
-      <i class="mdi mdi-account menu-icon"></i>
-      <span class="menu-title">User Pages</span>
-      <i class="menu-arrow"></i>
-  </a>
-  <div class="collapse" id="auth">
-      <ul class="nav flex-column sub-menu">
-        <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> Login </a></li>
-        <li class="nav-item"> <a class="nav-link" href="pages/samples/login-2.html"> Login 2 </a></li>
-        <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Register </a></li>
-        <li class="nav-item"> <a class="nav-link" href="pages/samples/register-2.html"> Register 2 </a></li>
-        <li class="nav-item"> <a class="nav-link" href="pages/samples/lock-screen.html"> Lockscreen </a></li>
-    </ul>
-</div>
-</li>
-<li class="nav-item">
-    <a class="nav-link" href="documentation/documentation.html">
-      <i class="mdi mdi-file-document-box-outline menu-icon"></i>
-      <span class="menu-title">Documentation</span>
-  </a>
-</li> -->
         </ul>
       </nav>
       <!-- partial -->
@@ -276,7 +258,8 @@ $template = asset('template/backend');
 
         <footer class="footer">
           <div class="d-sm-flex justify-content-center justify-content-sm-between">
-            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Sistem Informasi Pelayanan Posyandu - <a href="{{url('/')}}" target="_blank"> e-posyand - Kemuning Lor </a>. </span>
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Sistem Informasi Pelayanan
+              Posyandu - <a href="{{url('/')}}" target="_blank"> e-posyand - Kemuning Lor </a>. </span>
           </div>
         </footer>
         <!-- partial -->
@@ -349,6 +332,25 @@ $template = asset('template/backend');
 
       }
     });
+
+    var notif = (status, message, url) => {
+      if (status == 'success') {
+        Toast.fire({
+          icon: 'success',
+          title: message
+        });
+        setTimeout(function() {
+          window.location.href = url
+        }, 950);
+      } else {
+        ToastError.fire({
+          icon: 'error',
+          title: message,
+        });
+
+        console.log(message)
+      }
+    }
   </script>
 
   @stack('js')

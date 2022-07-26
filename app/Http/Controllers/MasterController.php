@@ -67,8 +67,8 @@ class MasterController extends Controller
 
     public function analisis()
     {
-        $title = 'Laporan';
-        $laporan = 'active';
+        $title = 'Analisis';
+        $analisis = 'active';
         if (session()->has('kader')) {
             $list_posyandu = DB::select(DB::raw('select * from list_posyandu where id = ' . session()->get('kader')->posyandu_id));
         } else {
@@ -109,7 +109,11 @@ class MasterController extends Controller
 
             foreach ($dt as $key => $value) {
                 $thsplit = explode('-', $value->tanggal)[0];
-                $blnsplit = (int) explode('-', $value->tanggal)[1] - 1;
+                try {
+                    $blnsplit = (int) explode('-', $value->tanggal)[1] - 1;
+                } catch (\Throwable $th) {
+                    return $value;
+                }
 
                 if (!in_array($thsplit, $thall)) {
                     array_push($thall, (int) $thsplit);
@@ -148,7 +152,7 @@ class MasterController extends Controller
 
 
         $data = ['jml_bumil' => count($jml_bumil), 'lila_lebih' => count($lila_lebih), 'lila_kurang' => count($lila_kurang), 'jml_bayi' => count($jml_bayi)];
-        return view('master.analisis', compact('title', 'laporan', 'list_posyandu', 'data', 'thall', 'bb_bayi', 'pb_bayi', 'thallibu'));
+        return view('master.analisis', compact('title', 'analisis', 'list_posyandu', 'data', 'thall', 'bb_bayi', 'pb_bayi', 'thallibu'));
     }
 
 

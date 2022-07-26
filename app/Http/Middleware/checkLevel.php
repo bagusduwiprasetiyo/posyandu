@@ -14,13 +14,14 @@ class checkLevel
      * @return mixed
      */
     public function handle($request, Closure $next, ...$levels)
-    {   
+    {
+        // return $levels;
         if (isset($request->user()->status)) {
             if (in_array($request->user()->status, $levels)) {
                 return $next($request);
             }
         }
-     
+
         return redirect('/');
     }
 }

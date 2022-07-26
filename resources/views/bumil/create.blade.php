@@ -164,8 +164,6 @@
                         </div>
 
                         <!-- ==========PART 2========= -->
-
-
                         <div id="part_2" hidden="true">
 
                             <div class="form-row">
@@ -292,42 +290,61 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-7 grid-margin stretch-card">
+                                <div class="col-md-6 grid-margin stretch-card">
                                     <div class="card">
                                         <div class="card-body">
 
                                             <h4 class="card-title">Data Persalinan</h4>
                                             <br>
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                        <div class="form-group row">
-                                                            <label class="col-sm-12 col-form-label">Tanggal Persalinan</label>
-                                                            <input style="background-color: #F3F3F3;" type="date" name="tanggal_persalinan" class="form-control form-control-sm">
+                                            <div class="row">
+                                                <div class="form-group col-sm-8">
+                                                    <label class="col-sm-12 col-form-label">Tanggal
+                                                        Persalinan</label>
+                                                    <input style="background-color: #F3F3F3;" type="date" name="tanggal_persalinan" class="form-control form-control-sm">
+                                                </div>
+                                                <div class="form-group col-sm-12">
+                                                    <label class="col-sm-12 col-form-label">Ditolong
+                                                        oleh</label>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-check">
+                                                            <label class="form-check-label">
+                                                                <input type="radio" class="form-check-input" name="ditolong_oleh" value="1">
+                                                                Nakes
+                                                                <i class="input-helper"></i></label>
                                                         </div>
-                                                        <div class="form-group row">
-                                                            <label class="col-sm-12 col-form-label">Ditolong oleh</label>
-                                                            <div class="col-sm-6">
-                                                                <div class="form-check">
-                                                                    <label class="form-check-label">
-                                                                        <input type="radio" class="form-check-input" name="ditolong_oleh" value="1">
-                                                                        Nakes
-                                                                        <i class="input-helper"></i></label>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-sm-5">
-                                                                <div class="form-check">
-                                                                    <label class="form-check-label">
-                                                                        <input type="radio" class="form-check-input" name="ditolong_oleh" value="2">
-                                                                        Dukun
-                                                                        <i class="input-helper"></i></label>
-                                                                </div>
-                                                            </div>
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                        <div class="form-check">
+                                                            <label class="form-check-label">
+                                                                <input type="radio" class="form-check-input" name="ditolong_oleh" value="2">
+                                                                Dukun
+                                                                <i class="input-helper"></i></label>
                                                         </div>
-                                                        <div class="form-group row">
-                                                            <label class="col-sm-12 col-form-label">Resiko</label>
-                                                            <input style="background-color: #F3F3F3;" type="text" name="resiko" class="form-control form-control-sm">
-                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-group col-sm-12">
+                                                    <div class="col-sm-12">
+                                                        <label class="col-sm-12">Resiko</label>
+                                                        <input style="background-color: #F3F3F3;" type="text" name="resiko" class="form-control form-control-sm">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="card-title">Menyusui</h4>
+                                            <br>
+                                            <div class="form-group col-md-12">
+                                                <div class="form-group row">
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-12 col-form-label">Tanggal Menyusui</label>
+                                                        <input style="background-color: #F3F3F3;" type="date" name="menyusui" class="form-control form-control-sm">
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-12 col-form-label">Berhenti Menyusui</label>
+                                                        <input style="background-color: #F3F3F3;" type="date" name="berhenti_menyusui" class="form-control form-control-sm">
                                                     </div>
                                                 </div>
                                             </div>
@@ -346,20 +363,22 @@
                         </div>
                         <div id="part_4" hidden="true">
                             <div class="form-row">
-
                                 <div class="col-md-6 grid-margin stretch-card">
                                     <div class="card">
                                         <div class="card-body">
 
                                             <h4 class="card-title">Data Bayi</h4>
-                                            <br>
-
+                                            <div class="form-group">
+                                                <label class="col-sm-12 col-form-label">Nama Bayi</label>
+                                                <input style="background-color: #F3F3F3;" type="text" name="nama_bayi" class="form-control form-control-sm">
+                                            </div>
                                             <div class="form-row">
                                                 <div class="card col-sm-6">
                                                     <div class="card-body">
                                                         <div class="row">
                                                             <div class="form-group row">
-                                                                <label class="col-sm-12 col-form-label">Bayi Hidup</label>
+                                                                <label class="col-sm-12 col-form-label">Bayi
+                                                                    Hidup</label>
                                                                 <div class="col-sm-12">
                                                                     <div class="form-check">
                                                                         <label class="form-check-label">
@@ -400,7 +419,8 @@
                                                     <div class="card-body">
                                                         <div class="row">
                                                             <div class="form-group row">
-                                                                <label class="col-sm-12 col-form-label">Bayi Meninggal</label>
+                                                                <label class="col-sm-12 col-form-label">Bayi
+                                                                    Meninggal</label>
                                                                 <input style="background-color: #F3F3F3;" type="date" name="bayi_meninggal" class="form-control form-control-sm">
                                                             </div>
                                                         </div>
@@ -414,16 +434,15 @@
                                 <div class="col-md-6 grid-margin stretch-card">
                                     <div class="card">
                                         <div class="card-body">
-
                                             <h4 class="card-title">Data Ibu</h4>
                                             <br>
-
                                             <div class="form-row">
                                                 <div class="card col-sm-12">
                                                     <div class="card-body">
                                                         <div class="row">
                                                             <div class="form-group row">
-                                                                <label class="col-sm-12 col-form-label">Ibu Meninggal</label>
+                                                                <label class="col-sm-12 col-form-label">Ibu
+                                                                    Meninggal</label>
                                                                 <input style="background-color: #F3F3F3;" type="date" name="ibu_meninggal" class="form-control form-control-sm">
                                                             </div>
                                                             <div class="form-group row">
@@ -433,7 +452,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
                                             </div>
                                         </div>
                                     </div>
@@ -460,7 +478,7 @@
     <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
         <div class="modal-content" style="background-color: #081F3E;">
             <div class="modal-header">
-                <p class="modal-title" id="modalConfirmTitle" style="color: white;">Hapus data?</p>
+                <p class="modal-title" id="modalConfirmTitle" style="color: white;">Tambah data?</p>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white;">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -469,7 +487,8 @@
                 <div class="row">
                     <div class="col-sm-12 mt-2">
                         @php
-                        $namaBulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+                        $namaBulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus',
+                        'September', 'Oktober', 'November', 'Desember'];
                         @endphp
 
                         <select name="bulan" class="form-control selectpicker" data-live-search="true">

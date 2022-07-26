@@ -1,5 +1,6 @@
 <?php
 
+
 Route::post('/postlogin', 'AuthController@postlogin');
 Route::get('/registration', 'KaderController@create');
 Route::post('/postregistration', 'KaderController@store');
@@ -65,6 +66,10 @@ Route::group(['middleware' => ['checkLevel:1,2']], function () {
     Route::put('/bumil/{id}/update', 'BumilController@update');
     Route::get('/bumil/{id}/destroy', 'BumilController@destroy');
 
+    #puswus
+    Route::resource('puswus', PuswusController::class);
+    Route::get('puswus/showall', 'PuswusController@showall');
+
     Route::get('/melahirkan', 'MelahirkanController@index');
     Route::get('/nifas', 'NifasController@index');
 
@@ -89,9 +94,6 @@ Route::group(['middleware' => ['checkLevel:1,2']], function () {
     Route::get('/account/{id}/delete', 'AccountController@delete');
     Route::get('/get_account/{id}', 'AccountController@getData');
 
-
-
-
     //analisis
     Route::get('analisis', 'MasterController@analisis');
     Route::get('analisis/{id}/detail', 'MasterController@analisisDetail');
@@ -99,10 +101,23 @@ Route::group(['middleware' => ['checkLevel:1,2']], function () {
     Route::get('analisis_ibu/{tahun}/{id}', 'MasterController@analisis_ibu');
 
 
-    //analisis
-    Route::get('laporan', 'laporanController@index');
-
-    Route::post('laporan', 'laporanController@print');
+    //laporan registrasi 
+    Route::get('laporan_registrasi/{laporan}/{id}/{tahun}', 'LaporanRegistrasi@index');
+    //laporan hasil kegiatan
+    // Route::get('laporan', 'laporanController@index');
+    Route::get('laporan_kegiatan_posyandu/{id}/{tahun}', 'LaporanKegiatan@index');
+    Route::post('laporan/keterangan', 'LaporanKegiatan@keterangan');
+    // Route::post('laporan', 'laporanController@print');
+    Route::get('print/hasil_kegiatan/{id}/{tahun}', 'LaporanKegiatan@print');
+    //laporan jumlah pasien
+    Route::get('laporan_jumlah_pengunjung/{id}/{tahun}', 'LaporanJumlahPengujung@index');
+    Route::post('laporan_jumlah_pengunjung', 'LaporanJumlahPengujung@keterangan');
+    Route::get('print/laporan_jumlah_pengunjung/{id}/{tahun}', 'LaporanJumlahPengujung@print');
+    //laporan catatan bumil
+    Route::get('laporan_catatan_bumil/{id}/{tahun}', 'CatatanBumil@index');
+    Route::post('laporan_catatan_bumil', 'CatatanBumil@keterangan');
+    Route::get('print/laporan_catatan_bumil/{id}/{tahun}', 'CatatanBumil@print');
+    Route::get('print/laporan_catatan_bumil/{id}/{tahun}', 'CatatanBumil@print');
 });
 
 Route::group(['middleware' => ['checkLevel:1,2,3']], function () {
