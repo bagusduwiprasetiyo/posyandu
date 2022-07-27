@@ -102,12 +102,13 @@ Route::group(['middleware' => ['checkLevel:1,2']], function () {
 
 
     //laporan registrasi 
-    Route::get('laporan_registrasi/{laporan}/{id}/{tahun}', 'LaporanRegistrasi@index');
+    // Route::get('laporan_registrasi/{laporan}/{id}/{tahun}', 'LaporanRegistrasi@index');
+    Route::get('laporan_registrasi_bumil/{id}/{tahun}', 'LaporanRegistrasi@bumil');
+    Route::get('laporan_registrasi_bayi/{id}/{tahun}', 'LaporanRegistrasi@bayi');
     //laporan hasil kegiatan
-    // Route::get('laporan', 'laporanController@index');
+    Route::get('laporan', 'LaporanController@index');
     Route::get('laporan_kegiatan_posyandu/{id}/{tahun}', 'LaporanKegiatan@index');
     Route::post('laporan/keterangan', 'LaporanKegiatan@keterangan');
-    // Route::post('laporan', 'laporanController@print');
     Route::get('print/hasil_kegiatan/{id}/{tahun}', 'LaporanKegiatan@print');
     //laporan jumlah pasien
     Route::get('laporan_jumlah_pengunjung/{id}/{tahun}', 'LaporanJumlahPengujung@index');

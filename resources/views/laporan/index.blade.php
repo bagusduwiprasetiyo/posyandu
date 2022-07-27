@@ -31,34 +31,33 @@
         <div class="col-md-6 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <form action="{{url('laporan')}}" method="post">
-                        {{csrf_field()}}
-                        <div class="form-row">
-                            <div class="form-group col-md-12">
-                                <h6 class="mt-3">Tampilkan Data Posyandu Dari : </h6>
-                                <select name="posyandu_id" class="form-control selectpicker mt-3" data-show-subtext="true" data-live-search="true" required>
-                                    <option value="0">-- Semua Posyandu --</option>
-                                    @foreach($list_posyandu as $lp)
-                                    <option value="{{$lp->id}}">{{$lp->nama}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <h6 class="mt-3">Tampilkan Data Posyandu Dari : </h6>
+                            <select name="posyandu_id" class="form-control selectpicker mt-3" data-show-subtext="true" data-live-search="true" required>
+                                <option value="0">-- Semua Posyandu --</option>
+                                @foreach($list_posyandu as $lp)
+                                <option value="{{$lp->id}}">{{$lp->nama}}</option>
+                                @endforeach
+                            </select>
                         </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-12">
-                                <h6 class="mt-3">Pilih Data Yang Ingin Dicetak : </h6>
-                                <select name="type_id" class="form-control selectpicker mt-3" data-show-subtext="true" data-live-search="true" required>
-                                    <option value="0">-- Semua Data --</option>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <h6 class="mt-3">Pilih Data Yang Ingin Dicetak : </h6>
+                            <select name="type_id" class="form-control selectpicker mt-3" data-show-subtext="true" data-live-search="true" required>
 
-                                    <option value="1">Data Kehamilan Ibu</option>
+                                <option value="0">Pilih Data</option>
+                                <option value="1">Data Kehamilan Ibu</option>
+                                <option value="2">Data Bayi</option>
+                                <!-- <option value="3">Pus/Wus</option> -->
 
-                                    <option value="2">Data Bayi</option>
-
-                                </select>
-                            </div>
+                            </select>
                         </div>
-                        <button class="btn btn-success btn-sm" style="float: right;"><i class="mdi mdi-printer menu-icon"></i> Cetak Data</button>
-                    </form>
+                    </div>
+                    <button class="btn btn-success btn-sm submit" style="float: right;"><i class="mdi mdi-printer menu-icon"></i> Cetak Data</button>
+
                 </div>
             </div>
 
@@ -72,11 +71,23 @@
 @push('js')
 <script>
     $(function() {
-        // $('form').on('submit', function(e) {
-        //     e.preventDefault();
-
-
-        // })
+        $('.submit').on('click', function() {
+            id_ = $('select[name=type_id]').val()
+            id_posyandu = $('select[name=posyandu_id]').val()
+            if (id_ != 0) {
+                if (id_ == 1) {
+                    window.open("{{url('laporan_registrasi_bumil/')}}/" + id_posyandu + '/0')
+                }
+                if (id_ == 2) {
+                    window.open("{{url('laporan_registrasi_bayi/')}}/" + id_posyandu + '/0')
+                }
+                if (id_ == 3) {
+                    window.open("{{url('laporan_registrasi_puswus/')}}/" + id_posyandu + '/0')
+                }
+            } else {
+                alert('Pastikan anda memilih data yang ingin dicetak!');
+            }
+        })
     })
 </script>
 @endpush

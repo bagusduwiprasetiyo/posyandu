@@ -72,7 +72,7 @@
 
                                 </div>
                                 <div class="offset-sm-10 mt-3">
-                                    <button id="cetak" class="btn btn-primary"><i class="mdi mdi-printer menu-icon"></i> Cetak Laporan</button>
+                                    <!-- <button id="cetak" class="btn btn-primary"><i class="mdi mdi-printer menu-icon"></i> Cetak Laporan</button> -->
                                 </div>
                             </div>
                         </div>
@@ -83,7 +83,7 @@
                         @csrf
                         <input type="hidden" name="tahun" value="{{$tahun}}">
                         <input type="hidden" name="posyandu_id" value="{{$id_posyandu}}">
-                        <table style="font-size: 10pt; text-align: center;" border="1" cellpadding="8" cellspacing="0">
+                        <!-- <table style="font-size: 10pt; text-align: center;" border="1" cellpadding="8" cellspacing="0">
                             <thead>
                                 <tr>
                                     <th rowspan="2">NO</th>
@@ -101,10 +101,10 @@
                                 </tr>
                             </thead>
 
-                        </table>
+                        </table> -->
                     </form>
                     <br>
-                    <button class="btn btn-sm btn-success" id="simpan">simpan</button>
+                    <!-- <button class="btn btn-sm btn-success" id="simpan">simpan</button> -->
                 </div>
             </div>
         </div>

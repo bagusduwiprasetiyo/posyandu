@@ -16,8 +16,10 @@ class LaporanController extends Controller
 {
     public function index()
     {
-        $title = 'laporan';
-        $laporan = 'active';
+        $title = 'Laporan Registrasi Posyandu';
+        $sidebarLaporan = 'active';
+        $collapseLaporan = 'show';
+        $sidebarlaporanregistrasi = 'active';
         $list_posyandu = DB::select(DB::raw('select * from list_posyandu'));
 
 
@@ -29,7 +31,7 @@ class LaporanController extends Controller
         $bayi = Bayi::all();
         // return $bumils;
         $jenis = [1, 2];
-        return view('laporan.index', compact('title', 'laporan', 'list_posyandu', 'bumils', 'jenis', 'bayi'));
+        return view('laporan.index', compact('title', 'sidebarLaporan', 'collapseLaporan', 'sidebarlaporanregistrasi', 'list_posyandu', 'bumils', 'jenis', 'bayi'));
     }
 
 
@@ -53,7 +55,8 @@ class LaporanController extends Controller
         if ($request->type_id == 2) {
             $jenis = [2];
         }
-        $pdf = PDF::loadview('laporan.bumil', ['bumils' => $bumils, 'bayi' => $bayi, 'jenis' => $jenis])->setPaper('a3', 'landscape');
-        return $pdf->download('laporan_posyandu.pdf');
+        // $pdf = PDF::loadview('laporan.bumil', ['bumils' => $bumils, 'bayi' => $bayi, 'jenis' => $jenis])->setPaper('a3', 'landscape');
+        // return $pdf->download('laporan_posyandu.pdf');
+        return view('laporan.bumil', ['bumils' => $bumils, 'bayi' => $bayi, 'jenis' => $jenis]);
     }
 }
