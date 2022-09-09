@@ -97,7 +97,7 @@ class BayiController extends Controller
                         } elseif ($v->berat_badan < $vNow['bb']) {
                             $statustmb = array_merge($statustmb, ['dt_bb_' . $v->id => 'T3']);
                         } else {
-                            return 'beh';
+                            return '';
                         }
                     } else {
                         $statustmb = array_merge($statustmb, ['dt_bb_' . $v->id => 'O']);

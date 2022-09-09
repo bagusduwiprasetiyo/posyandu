@@ -169,7 +169,7 @@
                                     'median' => 4,
                                     '+1' => 5,
                                     '+2' => 6,
-                                    '+1' => 7,
+                                    '+3' => 7,
                                 ];
 
                                 //berat dan status penimbangan sekarang

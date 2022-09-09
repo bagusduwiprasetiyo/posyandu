@@ -55,7 +55,8 @@ class PuswusController extends Controller
         $sidebarSubPuswus = 'active';
 
         if (Session::has('kader')) {
-            $posyandu = Kader::select('list_posyandu.*')->join('list_posyandu', 'kader.posyandu_id', 'list_posyandu.id')->groupBy('kader.posyandu_id')->get();
+            // $posyandu = Kader::select('list_posyandu.*')->join('list_posyandu', 'kader.posyandu_id', 'list_posyandu.id')->groupBy('kader.posyandu_id')->get();
+            $posyandu = DB::select(DB::raw('select * from list_posyandu where id = ' . session()->get('kader')->posyandu_id));
         } else {
             $posyandu = DB::select('select * from list_posyandu');
         }
@@ -167,11 +168,12 @@ class PuswusController extends Controller
         // return $puswus->kb;
 
         if (Session::has('kader')) {
-            $posyandu = Kader::select('list_posyandu.*')->join(
-                'list_posyandu',
-                'kader.posyandu_id',
-                'list_posyandu.id'
-            )->groupBy('kader.posyandu_id')->get();
+            // $posyandu = Kader::select('list_posyandu.*')->join(
+            //     'list_posyandu',
+            //     'kader.posyandu_id',
+            //     'list_posyandu.id'
+            // )->groupBy('kader.posyandu_id')->get();
+            $posyandu = DB::select(DB::raw('select * from list_posyandu where id = ' . session()->get('kader')->posyandu_id));
         } else {
             $posyandu = DB::select('select * from list_posyandu');
         }

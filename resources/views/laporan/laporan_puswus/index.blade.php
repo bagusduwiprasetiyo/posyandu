@@ -69,6 +69,7 @@
                             <div class="row">
                                 <div class="col-sm-3">
                                     <input type="text" id="dateyear" class="form-control form-control-sm" style="background-color: #F3F3F3;" placeholder="Pilih Tahun" value="{{$tahun}}">
+
                                 </div>
                                 <div class="offset-sm-10 mt-3">
                                     <button id="cetak" class="btn btn-primary"><i class="mdi mdi-printer menu-icon"></i> Cetak Laporan</button>
@@ -77,22 +78,7 @@
                         </div>
 
                     </div>
-                    <?php
-                    $nama_bulan = [
-                        'Januari',
-                        'Februari',
-                        'Maret',
-                        'April',
-                        'Mei',
-                        'Juni',
-                        'Juli',
-                        'Agustus',
-                        'September',
-                        'Oktober',
-                        'November',
-                        'Desember'
-                    ];
-                    ?>
+
                     <form action="#">
                         @csrf
                         <input type="hidden" name="tahun" value="{{$tahun}}">
@@ -100,113 +86,142 @@
                         <table style="font-size: 8pt; text-align: center;" border="1" cellpadding="8" cellspacing="0">
                             <thead>
                                 <tr>
-                                    <th rowspan="5">NO</th>
-                                    <th rowspan="5">BULAN</th>
-                                    <th colspan="12">JUMLAH PENGUNJUNG</th>
-                                    <th colspan="6">JUMLAH PETUGAS YANG HADIR</th>
-                                    <th colspan="4">JUMLAH BAYI</th>
-                                    <th rowspan="5">KETERANGAN</th>
+                                    <th rowspan="3">NO</th>
+                                    <th rowspan="3">NAMA WUS</th>
+                                    <th rowspan="3">UMUR</th>
+                                    <th rowspan="3">NAMA SUAMI</th>
+                                    <th rowspan="3">TAHAPAN KS</th>
+                                    <th rowspan="3">KLP DASA WISMA</th>
+                                    <th colspan="2">JUMLAH ANAK</th>
+                                    <th rowspan="3">PENGUKURAN LILA < 25,5 CM</th> <th colspan="6">PEMBERIAN</th>
+                                    <th colspan="3">KELUARGA BERENCANA</th>
+                                    <th rowspan="3">KET</th>
                                 </tr>
                                 <tr>
-                                    <th colspan="8">BALITA</th>
-                                    <th rowspan="4">WUS</th>
-                                    <th colspan="3">IBU</th>
-                                    <th colspan="2" rowspan="3">KADER</th>
-                                    <th colspan="2" rowspan="3">PLKB</th>
-                                    <th colspan="2" rowspan="3">MEDIS DAN PARAMEDIS</th>
-                                    <th colspan="2" rowspan="3">YANG LAHIR</th>
-                                    <th colspan="2" rowspan="3">YANG MENINGGAL</th>
+                                    <th rowspan="2">YANG HIDUP</th>
+                                    <th rowspan="2">YANG MENINGGAL</th>
+                                    <th rowspan="2">KAPSUL YODIUM BULANAN</th>
+                                    <th colspan="5">IMUNISASI TT</th>
+                                    <th rowspan="2">JENIS ALKON YANG DIPAKAI</th>
+                                    <th colspan="2">PERGANTIAN</th>
+                                </tr>
+                                <tr>
+                                    <th>T1</th>
+                                    <th>T2</th>
+                                    <th>T3</th>
+                                    <th>T4</th>
+                                    <th>T5</th>
+                                    <th>TGL/BLN</th>
+                                    <th>JENIS KONTRASEPSI</th>
                                 </tr>
 
-                                <tr>
-                                    <th colspan="4">0-12 BLN</th>
-                                    <th colspan="4">1-5 TH</th>
-                                    <th rowspan="3">PUS</th>
-                                    <th rowspan="3">HAMIL</th>
-                                    <th rowspan="3">MENYUSUI</th>
-
-                                </tr>
-                                <tr>
-                                    <th colspan="2">BARU</th>
-                                    <th colspan="2">LAMA</th>
-                                    <th colspan="2">BARU</th>
-                                    <th colspan="2">LAMA</th>
-                                </tr>
-                                <tr>
-                                    <th>L</th>
-                                    <th>P</th>
-                                    <th>L</th>
-                                    <th>P</th>
-                                    <th>L</th>
-                                    <th>P</th>
-                                    <th>L</th>
-                                    <th>P</th>
-                                    <th>L</th>
-                                    <th>P</th>
-                                    <th>L</th>
-                                    <th>P</th>
-                                    <th>L</th>
-                                    <th>P</th>
-                                    <th>L</th>
-                                    <th>P</th>
-                                    <th>L</th>
-                                    <th>P</th>
-                                </tr>
                             </thead>
                             <tbody>
                                 @foreach($laporan as $key => $lp)
                                 <tr>
                                     <td style="">{{$key + 1}}</td>
-                                    <td style="">{{$nama_bulan[$key]}}</td>
-                                    <td style="">{{isset($lp['bayi_baru'])?$lp['bayi_baru']['l']:0}}</td>
-                                    <td style="">{{isset($lp['bayi_baru'])?$lp['bayi_baru']['p']:0}}</td>
-                                    <td style="">{{isset($lp['bayi_lama'])?$lp['bayi_lama']['l']:0}}</td>
-                                    <td style="">{{isset($lp['bayi_lama'])?$lp['bayi_lama']['p']:0}}</td>
-                                    <td style="">{{isset($lp['balita_baru'])?$lp['balita_baru']['l']:0}}</td>
-                                    <td style="">{{isset($lp['balita_baru'])?$lp['balita_baru']['p']:0}}</td>
-                                    <td style="">{{isset($lp['balita_lama'])?$lp['balita_lama']['l']:0}}</td>
-                                    <td style="">{{isset($lp['balita_lama'])?$lp['balita_lama']['p']:0}}</td>
+                                    <td style="">{{$lp->nama_wuspus}}</td>
+                                    <td style="">{{$lp->tgl_lahir_wuspus}}</td>
+                                    <td style="">{{$lp->nama_suami}} {{$lp->tgl_lahir_suami}}</td>
+                                    <td style="">{{$lp->tahapan_ks}}</td>
+                                    <td style="">{{$lp->klp_dasa_wisma}}</td>
+                                    <td style="">{{$lp->jml_anak_hidup}}</td>
+                                    <td style="">{{$lp->jml_anak_meninggal}}</td>
+                                    <td style="">{{$lp->ukuran_lila}}</td>
+                                    <td style="">
 
-                                    <td style="">{{isset($lp['wus'])?$lp['wus']:0}}</td>
-                                    <td style="">{{isset($lp['pus'])?$lp['pus']:0}}</td>
-                                    <td style="">{{isset($lp['bumil'])?$lp['bumil']:0}}</td>
-                                    <td style="">{{isset($lp['menyusui'])?$lp['menyusui']:0}}</td>
-                                    <td style="">
-                                        <input type=" number" name="petugas[kader][l][{{$key}}]" style="width: 40px;" min="0" max="100" value="{{isset($lp['kader']['l'][$key])? $lp['kader']['l'][$key] : 0}}">
+                                        @if(isset($lp->imunisasi->kapsul_yodium))
+
+                                        @foreach($lp->imunisasi->kapsul_yodium as $ky)
+                                        {{$ky[1]}}<br>
+                                        @endforeach
+
+                                        @endif
+
                                     </td>
                                     <td style="">
-                                        <input type=" number" name="petugas[kader][p][{{$key}}]" style="width: 40px;" min="0" max="100" value="{{isset($lp['kader']['p'][$key])? $lp['kader']['p'][$key] : 0}}">
+                                        @if(isset($lp->key_imunisasi[0]))
+                                        <?php
+                                        $var = $lp->key_imunisasi[0];
+                                        ?>
+                                        {{$lp->imunisasi->imunisasi_tt->$var[1]}}
+                                        @endif
                                     </td>
                                     <td style="">
-                                        <input type=" number" name="petugas[plkb][l][{{$key}}]" style="width: 40px;" min="0" max="100" value="{{isset($lp['plkb']['l'][$key])? $lp['plkb']['l'][$key] : 0}}">
+                                        @if(isset($lp->key_imunisasi[1]))
+                                        <?php
+                                        $var = $lp->key_imunisasi[1];
+                                        ?>
+                                        {{$lp->imunisasi->imunisasi_tt->$var[1]}}
+                                        @endif
                                     </td>
                                     <td style="">
-                                        <input type=" number" name="petugas[plkb][p][{{$key}}]" style="width: 40px;" min="0" max="100" value="{{isset($lp['plkb']['p'][$key])? $lp['plkb']['p'][$key] : 0}}">
+                                        @if(isset($lp->key_imunisasi[2]))
+                                        <?php
+                                        $var = $lp->key_imunisasi[2];
+                                        ?>
+                                        {{$lp->imunisasi->imunisasi_tt->$var[1]}}
+                                        @endif
                                     </td>
                                     <td style="">
-                                        <input type=" number" name="petugas[medis][l][{{$key}}]" style="width: 40px;" min="0" max="100" value="{{isset($lp['medis']['l'][$key])? $lp['medis']['l'][$key] : 0}}">
+                                        @if(isset($lp->key_imunisasi[3]))
+                                        <?php
+                                        $var = $lp->key_imunisasi[3];
+                                        ?>
+                                        {{$lp->imunisasi->imunisasi_tt->$var[1]}}
+                                        @endif
                                     </td>
                                     <td style="">
-                                        <input type=" number" name="petugas[medis][p][{{$key}}]" style="width: 40px;" min="0" max="100" value="{{isset($lp['medis']['p'][$key])? $lp['medis']['p'][$key] : 0}}">
+                                        @if(isset($lp->key_imunisasi[4]))
+                                        <?php
+                                        $var = $lp->key_imunisasi[4];
+                                        ?>
+                                        {{$lp->imunisasi->imunisasi_tt->$var[1]}}
+                                        @endif
+                                    </td>
+                                    <td style="">
+
+                                        @if(isset($lp->kb->alkon))
+
+                                        @foreach($lp->kb->alkon as $ky)
+                                        {{$ky[0]}}<br>
+                                        @endforeach
+
+                                        @endif
+
                                     </td>
 
-                                    <td style="">{{isset($lp['bayi_lahir'])?$lp['bayi_lahir']['l']:0}}</td>
-                                    <td style="">{{isset($lp['bayi_lahir'])?$lp['bayi_lahir']['p']:0}}</td>
-                                    <td style="">{{isset($lp['bayi_meninggal'])?$lp['bayi_meninggal']['l']:0}}</td>
-                                    <td style="">{{isset($lp['bayi_meninggal'])?$lp['bayi_meninggal']['p']:0}}</td>
-                                    <?php
-                                    $ket = $nama_bulan[$key];
-                                    ?>
+                                    <td style="">
+                                        @if(isset($lp->kb->pergantian_alkon))
+
+                                        @foreach($lp->kb->pergantian_alkon as $ky)
+                                        {{$ky[1]}}<br>
+                                        @endforeach
+
+                                        @endif
+                                    </td>
+                                    <td style="">
+                                        @if(isset($lp->kb->pergantian_alkon))
+
+                                        @foreach($lp->kb->pergantian_alkon as $ky)
+                                        {{$ky[0]}}<br>
+                                        @endforeach
+
+                                        @endif
+                                    </td>
+
                                     <td style="height: 50px; font-size: 7pt; max-height: 50px;">
-                                        <textarea name="keterangan_laporan[{{$nama_bulan[$key]}}]" style="width: 100%; height: 100%;" maxlength="22">{{isset($lp['keterangan']->$ket)?$lp['keterangan']->$ket:''}}</textarea>
+                                        {{$lp->keterangan}}
                                     </td>
+
+
                                 </tr>
                                 @endforeach
                             </tbody>
                         </table>
                     </form>
                     <br>
-                    <button class="btn btn-sm btn-success" id="simpan">simpan</button>
+                    <!-- <button class="btn btn-sm btn-success" id="simpan">simpan</button> -->
                 </div>
             </div>
         </div>
@@ -218,7 +233,7 @@
 @push('js')
 <script>
     $('#simpan').on('click', function() {
-        $.post("{{url('laporan_jumlah_pengunjung')}}", $('form').serialize(),
+        $.post("{{url('laporan_puswus')}}", $('form').serialize(),
             function(data, textStatus, jqXHR) {
                 notif(data.status, data.message, "{{URL::current()}}")
             },
@@ -233,16 +248,16 @@
     })
 
     $('#dateyear').on('change', function() {
-        window.location.href = "{{url('laporan_jumlah_pengunjung')}}" + '/' + $('#posyandu_id').val() + '/' +
+        window.location.href = "{{url('laporan_puswus')}}" + '/' + $('#posyandu_id').val() + '/' +
             $(this).val()
     })
     $('#posyandu_id').on('change', function() {
-        window.location.href = "{{url('laporan_jumlah_pengunjung')}}" + '/' + $(this).val() + '/' +
+        window.location.href = "{{url('laporan_puswus')}}" + '/' + $(this).val() + '/' +
             $('#dateyear').val()
     })
 
     $('#cetak').on('click', function() {
-        window.open("{{url('print/laporan_jumlah_pengunjung/'.$id_posyandu.'/'.$tahun)}}");
+        window.open("{{url('print/laporan_puswus/'.$id_posyandu.'/'.$tahun)}}");
     })
 </script>
 @endpush

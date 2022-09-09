@@ -51,11 +51,11 @@
                                                 </div>
                                                 <div class="form-group col-md-6 ">
                                                     <label>Nama Suami<span style="color: red;">*</span></label>
-                                                    <input style="background-color: #F3F3F3;" type="text" name="nama_suami" class="form-control form-control-sm" value="{{isset($puswus->nama_wuspus)?$puswus->nama_wuspus:''}}" required>
+                                                    <input style="background-color: #F3F3F3;" type="text" name="nama_suami" class="form-control form-control-sm" value="{{isset($puswus->nama_suami)?$puswus->nama_suami:''}}">
                                                 </div>
                                                 <div class="form-group col-md-6 ">
                                                     <label>Tanggal Lahir<span style="color: red;">*</span></label>
-                                                    <input style="background-color: #F3F3F3;" type="date" name="tgl_lahir_suami" class="form-control form-control-sm" value="{{isset($puswus->tgl_lahir_suami)?date('Y-m-d', strtotime($puswus->tgl_lahir_suami)):''}}" onchange="getUmur(this)" required>
+                                                    <input style="background-color: #F3F3F3;" type="date" name="tgl_lahir_suami" class="form-control form-control-sm" value="{{isset($puswus->tgl_lahir_suami)?date('Y-m-d', strtotime($puswus->tgl_lahir_suami)):''}}" onchange="getUmur(this)">
                                                     <code class="tgl_lahir_suami"></code>
                                                 </div>
                                                 <div class="form-group col-md-12">

@@ -228,9 +228,11 @@ $template = asset('template/backend');
             <div class="collapse {{isset($collapseLaporan) ? $collapseLaporan : ''}}" id="laporan">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item mdi mdi-hospital-building"><a class="nav-link {{isset($sidebarlaporanregistrasi) ? $sidebarlaporanregistrasi : ''}}" href="{{url('/laporan')}}">Laporan Registrasi</a></li>
+                <li class="nav-item mdi mdi-hospital-building"><a class="nav-link {{isset($sidebarlaporanpuswus) ? $sidebarlaporanpuswus : ''}}" href="{{url('/laporan_puswus/0/'.date('Y'))}}">Laporan PusWus</a></li>
                 <li class="nav-item mdi mdi-hospital-building"><a class="nav-link {{isset($sidebarcatatanbumil) ? $sidebarcatatanbumil : ''}}" href="{{url('/laporan_catatan_bumil/0/'.date('Y'))}}">Catatan Ibu Hamil</a></li>
                 <li class="nav-item mdi mdi-hospital-building"><a class="nav-link {{isset($sidebarkegiatanposyandu) ? $sidebarkegiatanposyandu : ''}}" href="{{url('/laporan_kegiatan_posyandu/0/'.date('Y'))}}">Hasil Kegiatan</a></li>
                 <li class="nav-item mdi mdi-hospital-building"><a class="nav-link {{isset($sidebarjumlahpengunjung) ? $sidebarjumlahpengunjung : ''}}" href="{{url('/laporan_jumlah_pengunjung/0/'.date('Y'))}}">Jumlah Pengunjung</a></li>
+                <li class="nav-item mdi mdi-hospital-building"><a class="nav-link {{isset($sidebarlaporanbulanan) ? $sidebarlaporanbulanan : ''}}" href="{{url('/laporan_bulanan/0/'.date('Y').'/'.date('m'))}}">Laporan Bulanan</a></li>
               </ul>
             </div>
           </li>

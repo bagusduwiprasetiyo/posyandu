@@ -37,7 +37,7 @@
 
                             <tr>
                                 <th>No</th>
-                                <th>Nama PusWus</th>
+                                <th>Nama Wus</th>
                                 <th>Nama Suami</th>
                                 <th>Lila</th>
                                 <th>Aksi</th>
@@ -67,18 +67,13 @@
                                 </td>
                                 <td>
                                     <div class="form-button-action">
-                                        <a href="{{url('puswus/'.Crypt::encrypt($detail->id))}}"
-                                            class="btn btn-outline-warning btn-xs">
+                                        <a href="{{url('puswus/'.Crypt::encrypt($detail->id))}}" class="btn btn-outline-warning btn-xs">
                                             <i class="mdi mdi-account-card-details"></i>
                                         </a>
-                                        <a href="{{url('puswus/'.Crypt::encrypt($detail->id).'/edit')}}"
-                                            data-toggle="tooltip" title="" class="btn btn-outline-primary btn-xs"
-                                            data-original-title="Update Data">
+                                        <a href="{{url('puswus/'.Crypt::encrypt($detail->id).'/edit')}}" data-toggle="tooltip" title="" class="btn btn-outline-primary btn-xs" data-original-title="Update Data">
                                             <i class="mdi mdi-tooltip-edit"></i>
                                         </a>
-                                        <button type="button" id="buttonDelete" onclick="deleteRow('{{$detail->id}}')"
-                                            data-toggle="modal" data-target="#modalConfirm"
-                                            class="btn btn-outline-danger btn-xs">
+                                        <button type="button" id="buttonDelete" onclick="deleteRow('{{$detail->id}}')" data-toggle="modal" data-target="#modalConfirm" class="btn btn-outline-danger btn-xs">
                                             <i class="mdi mdi-delete-forever"></i>
                                         </button>
                                     </div>
@@ -92,8 +87,7 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="modalConfirm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="modalConfirm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content" style="background-color: #081F3E;">
             <div class="modal-header">
@@ -108,8 +102,7 @@
                         <button class="btn btn-danger btn-sm" data-dismiss="modal" style="width: 100%;"> Batal</button>
                     </div>
                     <div class="col-sm-6">
-                        <button class="btn btn-success btn-sm" id="modalConfirmYes" style="width: 100%;"
-                            onclick="deleteAcc()">Ya</button>
+                        <button class="btn btn-success btn-sm" id="modalConfirmYes" style="width: 100%;" onclick="deleteAcc()">Ya</button>
                     </div>
                 </div>
 
@@ -129,23 +122,23 @@
         "info": true,
         "autoWidth": false,
         responsive: {
-                details: {
-                    renderer: function(api, rowIdx, columns) {
-                        var data = $.map(columns, function(col, i) {
-                            return col.hidden ?
-                                '<tr class="detailsData" data-dt-row="' + col.rowIndex + '" data-dt-column="' + col.columnIndex + '">' +
-                                '<td class="detailsData">' + col.title + ':' + '</td> ' +
-                                '<td class="detailsData">' + col.data + '</td>' +
-                                '</tr>' :
-                                '';
-                        }).join('');
+            details: {
+                renderer: function(api, rowIdx, columns) {
+                    var data = $.map(columns, function(col, i) {
+                        return col.hidden ?
+                            '<tr class="detailsData" data-dt-row="' + col.rowIndex + '" data-dt-column="' + col.columnIndex + '">' +
+                            '<td class="detailsData">' + col.title + ':' + '</td> ' +
+                            '<td class="detailsData">' + col.data + '</td>' +
+                            '</tr>' :
+                            '';
+                    }).join('');
 
-                        return data ?
-                            $('<table class="scroller"/>').append(data) :
-                            false;
-                    }
+                    return data ?
+                        $('<table class="scroller"/>').append(data) :
+                        false;
                 }
             }
+        }
     })
 
     // ############## DELETE ###############
@@ -159,13 +152,13 @@
         $.ajax({
             type: "delete",
             url: "{{url('puswus')}}/" + id_delete,
-            data: {_token : "{{csrf_token()}}"},
-            success: function (response) {
+            data: {
+                _token: "{{csrf_token()}}"
+            },
+            success: function(response) {
                 notif(response.status, response.message, "{{url('puswus/')}}")
-            }   
+            }
         });
     }
-
-
 </script>
 @endpush

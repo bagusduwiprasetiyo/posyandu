@@ -13,7 +13,7 @@ class LaporanJumlahPengujung extends Controller
 {
     public function index($id_posyandu, $tahun)
     {
-        $title = 'Laporan Kegiatan Posyandu';
+        $title = 'Laporan Jumlah Pengunjung Posyandu';
         $sidebarLaporan = 'active';
         $collapseLaporan = 'show';
         $sidebarjumlahpengunjung = 'active';
@@ -101,7 +101,6 @@ class LaporanJumlahPengujung extends Controller
 
                     //PUSWUS
                     $puswus = Puswus::get();
-
                     foreach ($puswus as $pw) {
                         $selesai_wus = date('Y', strtotime($pw->tgl_lahir_wuspus . '+49 year'));
                         $selesai_pus = date('Y', strtotime($pw->tgl_lahir_suami . '+49 year'));
@@ -118,7 +117,9 @@ class LaporanJumlahPengujung extends Controller
                             $pre_data = array_merge($pre_data, ['pus'  => 0]);
                         }
                         if (date('Y') < $selesai_pus) {
-                            $pre_data['pus'] += 1;
+                            if ($pw->tgl_lahir_suami != '' && $pw->tgl_lahir_suami != NULL) {
+                                $pre_data['pus'] += 1;
+                            }
                         }
                     }
 

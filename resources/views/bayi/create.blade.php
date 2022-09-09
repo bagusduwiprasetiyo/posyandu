@@ -526,7 +526,7 @@
     <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
         <div class="modal-content" style="background-color: #081F3E;">
             <div class="modal-header">
-                <p class="modal-title" id="modalConfirmTitle" style="color: white;">Hapus data?</p>
+                <p class="modal-title" id="modalConfirmTitle" style="color: white;">Tambah data?</p>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white;">
                     <span aria-hidden="true">&times;</span>
                 </button>
