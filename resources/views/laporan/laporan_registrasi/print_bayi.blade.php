@@ -174,6 +174,7 @@
 
                                 //berat dan status penimbangan sekarang
                                 //berat badan
+                                // jika bagian ini error maka ada sd_bb atau sd_pb yang nilainya null
                                 $bb = $detail_bayi[$loop_timbang]->berat_badan;
                                 $sd_bb_status = $arr_numeric[$detail_bayi[$loop_timbang]->sd_bb];
                                 $status_bb = '';

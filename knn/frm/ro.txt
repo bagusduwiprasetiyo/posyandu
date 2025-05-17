@@ -1,0 +1,69 @@
++--------+-----------+---------------------------------+---------------------+-------------------------------------------------------------------------+--------------+
+| Domain | Method    | URI                             | Name                | Action                                                                  | Middleware   |
++--------+-----------+---------------------------------+---------------------+-------------------------------------------------------------------------+--------------+
+|        | GET|HEAD  | /                               |                     | Closure                                                                 | web          |
+|        | GET|HEAD  | admin                           |                     | App\Http\Controllers\Aturan@admin                                       | web          |
+|        |           |                                 |                     |                                                                         | auth         |
+|        |           |                                 |                     |                                                                         | role:admin   |
+|        | GET|HEAD  | api/user                        |                     | Closure                                                                 | api          |
+|        |           |                                 |                     |                                                                         | auth:api     |
+|        | GET|HEAD  | confirm-password                | password.confirm    | App\Http\Controllers\Auth\ConfirmablePasswordController@show            | web          |
+|        |           |                                 |                     |                                                                         | auth         |
+|        | POST      | confirm-password                |                     | App\Http\Controllers\Auth\ConfirmablePasswordController@store           | web          |
+|        |           |                                 |                     |                                                                         | auth         |
+|        | GET|HEAD  | dashboard                       | dashboard           | Closure                                                                 | web          |
+|        |           |                                 |                     |                                                                         | auth         |
+|        | POST      | email/verification-notification | verification.send   | App\Http\Controllers\Auth\EmailVerificationNotificationController@store | web          |
+|        |           |                                 |                     |                                                                         | auth         |
+|        |           |                                 |                     |                                                                         | throttle:6,1 |
+|        | GET|HEAD  | forgot-password                 | password.request    | App\Http\Controllers\Auth\PasswordResetLinkController@create            | web          |
+|        |           |                                 |                     |                                                                         | guest        |
+|        | POST      | forgot-password                 | password.email      | App\Http\Controllers\Auth\PasswordResetLinkController@store             | web          |
+|        |           |                                 |                     |                                                                         | guest        |
+|        | POST      | knn                             | knn.store           | App\Http\Controllers\KnnController@store                                | web          |
+|        | GET|HEAD  | knn                             | knn.index           | App\Http\Controllers\KnnController@index                                | web          |
+|        | GET|HEAD  | knn/create                      | knn.create          | App\Http\Controllers\KnnController@create                               | web          |
+|        | GET|HEAD  | knn/hitung                      | knn.hitung          | App\Http\Controllers\KnnController@hitung                               | web          |
+|        | PUT|PATCH | knn/{knn}                       | knn.update          | App\Http\Controllers\KnnController@update                               | web          |
+|        | DELETE    | knn/{knn}                       | knn.destroy         | App\Http\Controllers\KnnController@destroy                              | web          |
+|        | GET|HEAD  | knn/{knn}                       | knn.show            | App\Http\Controllers\KnnController@show                                 | web          |
+|        | GET|HEAD  | knn/{knn}/edit                  | knn.edit            | App\Http\Controllers\KnnController@edit                                 | web          |
+|        | GET|HEAD  | kunjungan                       | kunjungan.index     | App\Http\Controllers\KunjunganController@index                          | web          |
+|        | POST      | kunjungan                       | kunjungan.store     | App\Http\Controllers\KunjunganController@store                          | web          |
+|        | GET|HEAD  | kunjungan/create                | kunjungan.create    | App\Http\Controllers\KunjunganController@create                         | web          |
+|        | DELETE    | kunjungan/{kunjungan}           | kunjungan.destroy   | App\Http\Controllers\KunjunganController@destroy                        | web          |
+|        | PUT|PATCH | kunjungan/{kunjungan}           | kunjungan.update    | App\Http\Controllers\KunjunganController@update                         | web          |
+|        | GET|HEAD  | kunjungan/{kunjungan}           | kunjungan.show      | App\Http\Controllers\KunjunganController@show                           | web          |
+|        | GET|HEAD  | kunjungan/{kunjungan}/edit      | kunjungan.edit      | App\Http\Controllers\KunjunganController@edit                           | web          |
+|        | POST      | login                           |                     | App\Http\Controllers\Auth\AuthenticatedSessionController@store          | web          |
+|        |           |                                 |                     |                                                                         | guest        |
+|        | GET|HEAD  | login                           | login               | App\Http\Controllers\Auth\AuthenticatedSessionController@create         | web          |
+|        |           |                                 |                     |                                                                         | guest        |
+|        | POST      | logout                          | logout              | App\Http\Controllers\Auth\AuthenticatedSessionController@destroy        | web          |
+|        |           |                                 |                     |                                                                         | auth         |
+|        | POST      | pasien                          | pasien.store        | App\Http\Controllers\PasienController@store                             | web          |
+|        | GET|HEAD  | pasien                          | pasien.index        | App\Http\Controllers\PasienController@index                             | web          |
+|        | GET|HEAD  | pasien/create                   | pasien.create       | App\Http\Controllers\PasienController@create                            | web          |
+|        | GET|HEAD  | pasien/hapus/{pasien}           | hapus.pasien        | App\Http\Controllers\PasienController@destroy                           | web          |
+|        | DELETE    | pasien/{pasien}                 | pasien.destroy      | App\Http\Controllers\PasienController@destroy                           | web          |
+|        | PUT|PATCH | pasien/{pasien}                 | pasien.update       | App\Http\Controllers\PasienController@update                            | web          |
+|        | GET|HEAD  | pasien/{pasien}                 | pasien.show         | App\Http\Controllers\PasienController@show                              | web          |
+|        | GET|HEAD  | pasien/{pasien}/edit            | pasien.edit         | App\Http\Controllers\PasienController@edit                              | web          |
+|        | POST      | register                        |                     | App\Http\Controllers\Auth\RegisteredUserController@store                | web          |
+|        |           |                                 |                     |                                                                         | guest        |
+|        | GET|HEAD  | register                        | register            | App\Http\Controllers\Auth\RegisteredUserController@create               | web          |
+|        |           |                                 |                     |                                                                         | guest        |
+|        | POST      | reset-password                  | password.update     | App\Http\Controllers\Auth\NewPasswordController@store                   | web          |
+|        |           |                                 |                     |                                                                         | guest        |
+|        | GET|HEAD  | reset-password/{token}          | password.reset      | App\Http\Controllers\Auth\NewPasswordController@create                  | web          |
+|        |           |                                 |                     |                                                                         | guest        |
+|        | GET|HEAD  | user                            | admin.users         | App\Http\Controllers\Aturan@index                                       | web          |
+|        |           |                                 |                     |                                                                         | auth         |
+|        |           |                                 |                     |                                                                         | role:user    |
+|        | GET|HEAD  | verify-email                    | verification.notice | App\Http\Controllers\Auth\EmailVerificationPromptController@__invoke    | web          |
+|        |           |                                 |                     |                                                                         | auth         |
+|        | GET|HEAD  | verify-email/{id}/{hash}        | verification.verify | App\Http\Controllers\Auth\VerifyEmailController@__invoke                | web          |
+|        |           |                                 |                     |                                                                         | auth         |
+|        |           |                                 |                     |                                                                         | signed       |
+|        |           |                                 |                     |                                                                         | throttle:6,1 |
++--------+-----------+---------------------------------+---------------------+-------------------------------------------------------------------------+--------------+

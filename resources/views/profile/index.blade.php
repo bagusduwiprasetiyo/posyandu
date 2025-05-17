@@ -33,7 +33,10 @@
                         <p class="text-muted mb-0 hover-cursor">&nbsp;/&nbsp;dashboard&nbsp;/&nbsp;</p>
                         <p class="text-primary mb-0 hover-cursor">profie</p>
                     </div>
-
+                </div>
+                <div>
+                    <img src="{{asset('/assets/img/kagita.png')}}"/>
+                    <a href="/create_kagita_user" class="btn btn-primary rounded-pill">Bikin User Kagita</a>
                 </div>
             </div>
         </div>

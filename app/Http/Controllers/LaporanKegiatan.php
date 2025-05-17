@@ -319,7 +319,10 @@ class LaporanKegiatan extends Controller
                                         $pre_data['alkon'][$alkon[0]] += 1;
                                     }
                                 } else {
-                                    $pre_data['alkon'][$alkon[0]] += 1;
+                                    if(isset($pre_data['alkon'][$alkon[0]])){
+                                        $pre_data['alkon'][$alkon[0]] += 1;    
+                                    }
+                                    
                                 }
                             }
                         }

@@ -125,7 +125,23 @@ Route::group(['middleware' => ['checkLevel:1,2']], function () {
     //laporan bulanan
     Route::get('laporan_bulanan/{id}/{tahun}/{bulan}', 'LaporanBulanan@index');
     Route::post('laporan_bulanan', 'LaporanBulanan@keterangan');
-    Route::get('print/laporan_bulanan/{id}/{tahun}/{bulan}', 'laporanBulanan@print');
+    Route::get('print/laporan_bulanan/{id}/{tahun}/{bulan}', 'LaporanBulanan@print');
+    //sms
+    Route::get('sms/kontak', 'SmsController@kontak');
+    Route::get('sms/kontak/create', 'SmsController@create_kontak');
+    Route::post('sms/store/kontak', 'SmsController@store_kontak');
+    Route::get('sms/kontak/edit/{id}', 'SmsController@edit_kontak');
+    Route::post('sms/edit/kontak', 'SmsController@update_kontak');
+    Route::get('sms/kontak/{id}/delete', 'SmsController@delete_kontak');
+    // send sms
+    Route::get('sms/kirim', 'SmsController@kirim_sms');
+    Route::get('sms/kirim/create', 'SmsController@create_kirim');
+    Route::post('sms/store/kirim', 'SmsController@store_kirim');
+    Route::get('sms/kirim/edit/{id}', 'SmsController@edit_kirim');
+    Route::post('sms/edit/kirim', 'SmsController@update_kirim');
+    Route::get('sms/kirim/{id}/delete', 'SmsController@delete_kirim');
+    Route::get('sms/kirim/change_status/{id}', 'SmsController@change_status');
+    Route::get('test_gateway', 'SmsController@gateway');
 });
 
 Route::group(['middleware' => ['checkLevel:1,2,3']], function () {

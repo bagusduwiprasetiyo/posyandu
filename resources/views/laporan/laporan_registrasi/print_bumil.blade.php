@@ -28,7 +28,7 @@
 <body>
     <div id="print">
         <center>
-            <h3>DATA REGISTASI BAYI</h3>
+            <h3>DATA REGISTASI IBU HAMIL</h3>
         </center>
         <br>
         <?php
@@ -142,399 +142,398 @@
                     <td style="text-align: center;">{{$bumil->tanggal}}</td>
                     <td style="text-align: center;">{{$bumil->umur_kelahiran}} mg</td>
                     <td style="text-align: center;">{{$bumil->hamil_ke}}</td>
-                    @if((float) $bumil->lila > 23.5)
-                    <td style="text-align: center;">{{$bumil->lila}} cm <div style="background-color: red; border-radius: 50%; height: 5px; width: 5px; display: inline-block;"></div>
-                    </td>
-                    @else
-                    <td style="text-align: center;">{{$bumil->lila}} cm <div style="background-color: green; border-radius: 50%; height: 5px; width: 5px; display: inline-block;"></div>
+                    @if((float) $bumil->lila < 23.5) <td style="text-align: center;">{{$bumil->lila}} cm <div style="background-color: red; border-radius: 50%; height: 5px; width: 5px; display: inline-block;"></div>
+                        </td>
+                        @else
+                        <td style="text-align: center;">{{$bumil->lila}} cm <div style="background-color: green; border-radius: 50%; height: 5px; width: 5px; display: inline-block;"></div>
 
+                            @endif
+
+                            <!-- tablet tt -->
+                            @php
+                            $tablet_tt = DB::select(DB::raw("select * from detail_bumils_tablet_tambah_darah where bumils_id = ".$bumil->id));
+                            @endphp
+                            @if(count($tablet_tt) == 0)
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        @endif
+                        @if(count($tablet_tt) == 1)
+                        @foreach($tablet_tt as $key => $v)
+                        <td style="text-align: center;">{{$v->tanggal}}</td>
+                        @endforeach
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        @endif
+                        @if(count($tablet_tt) == 2)
+                        @foreach($tablet_tt as $key => $v)
+                        <td style="text-align: center;">{{$v->tanggal}}</td>
+                        <td style="text-align: center;">{{$v->tanggal}}</td>
+                        @endforeach
+                        <td style="text-align: center;"></td>
+                        @endif
+                        @if(count($tablet_tt) == 3)
+                        @foreach($tablet_tt as $key => $v)
+                        <td style="text-align: center;">{{$v->tanggal}}</td>
+                        <td style="text-align: center;">{{$v->tanggal}}</td>
+                        <td style="text-align: center;">{{$v->tanggal}}</td>
+                        @endforeach
                         @endif
 
-                        <!-- tablet tt -->
+                        <!-- imunisasi tt -->
                         @php
-                        $tablet_tt = DB::select(DB::raw("select * from detail_bumils_tablet_tambah_darah where bumils_id = ".$bumil->id));
+                        $imun_tt = DB::select(DB::raw("select * from detail_bumils_imunisasi_tt where bumils_id = ".$bumil->id));
                         @endphp
-                        @if(count($tablet_tt) == 0)
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    @endif
-                    @if(count($tablet_tt) == 1)
-                    @foreach($tablet_tt as $key => $v)
-                    <td style="text-align: center;">{{$v->tanggal}}</td>
-                    @endforeach
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    @endif
-                    @if(count($tablet_tt) == 2)
-                    @foreach($tablet_tt as $key => $v)
-                    <td style="text-align: center;">{{$v->tanggal}}</td>
-                    <td style="text-align: center;">{{$v->tanggal}}</td>
-                    @endforeach
-                    <td style="text-align: center;"></td>
-                    @endif
-                    @if(count($tablet_tt) == 3)
-                    @foreach($tablet_tt as $key => $v)
-                    <td style="text-align: center;">{{$v->tanggal}}</td>
-                    <td style="text-align: center;">{{$v->tanggal}}</td>
-                    <td style="text-align: center;">{{$v->tanggal}}</td>
-                    @endforeach
-                    @endif
+                        @if(count($imun_tt) == 0)
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        @endif
+                        @if(count($imun_tt) == 1)
+                        @foreach($imun_tt as $key => $v)
+                        <td style="text-align: center;">{{$v->tanggal}}</td>
+                        @endforeach
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        @endif
+                        @if(count($imun_tt) == 2)
+                        @foreach($imun_tt as $key => $v)
+                        <td style="text-align: center;">{{$v->tanggal}}</td>
+                        <td style="text-align: center;">{{$v->tanggal}}</td>
+                        @endforeach
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        @endif
+                        @if(count($imun_tt) == 3)
+                        @foreach($imun_tt as $key => $v)
+                        <td style="text-align: center;">{{$v->tanggal}}</td>
+                        <td style="text-align: center;">{{$v->tanggal}}</td>
+                        <td style="text-align: center;">{{$v->tanggal}}</td>
+                        @endforeach
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        @endif
+                        @if(count($imun_tt) == 4)
+                        @foreach($imun_tt as $key => $v)
+                        <td style="text-align: center;">{{$v->tanggal}}</td>
+                        <td style="text-align: center;">{{$v->tanggal}}</td>
+                        <td style="text-align: center;">{{$v->tanggal}}</td>
+                        <td style="text-align: center;">{{$v->tanggal}}</td>
+                        @endforeach
+                        <td style="text-align: center;"></td>
+                        @endif
+                        @if(count($imun_tt) == 5)
+                        @foreach($imun_tt as $key => $v)
+                        <td style="text-align: center;">{{$v->tanggal}}</td>
+                        <td style="text-align: center;">{{$v->tanggal}}</td>
+                        <td style="text-align: center;">{{$v->tanggal}}</td>
+                        <td style="text-align: center;">{{$v->tanggal}}</td>
+                        <td style="text-align: center;">{{$v->tanggal}}</td>
+                        @endforeach
+                        @endif
+                        @if($bumil->kapsul_yodium != '')
+                        <td style="text-align: center; width: 5px;">
+                            <div style="font-family: DejaVu Sans, sans-serif; font-weight: 14dg">✔</div>
+                        </td>
 
-                    <!-- imunisasi tt -->
-                    @php
-                    $imun_tt = DB::select(DB::raw("select * from detail_bumils_imunisasi_tt where bumils_id = ".$bumil->id));
-                    @endphp
-                    @if(count($imun_tt) == 0)
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    @endif
-                    @if(count($imun_tt) == 1)
-                    @foreach($imun_tt as $key => $v)
-                    <td style="text-align: center;">{{$v->tanggal}}</td>
-                    @endforeach
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    @endif
-                    @if(count($imun_tt) == 2)
-                    @foreach($imun_tt as $key => $v)
-                    <td style="text-align: center;">{{$v->tanggal}}</td>
-                    <td style="text-align: center;">{{$v->tanggal}}</td>
-                    @endforeach
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    @endif
-                    @if(count($imun_tt) == 3)
-                    @foreach($imun_tt as $key => $v)
-                    <td style="text-align: center;">{{$v->tanggal}}</td>
-                    <td style="text-align: center;">{{$v->tanggal}}</td>
-                    <td style="text-align: center;">{{$v->tanggal}}</td>
-                    @endforeach
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    @endif
-                    @if(count($imun_tt) == 4)
-                    @foreach($imun_tt as $key => $v)
-                    <td style="text-align: center;">{{$v->tanggal}}</td>
-                    <td style="text-align: center;">{{$v->tanggal}}</td>
-                    <td style="text-align: center;">{{$v->tanggal}}</td>
-                    <td style="text-align: center;">{{$v->tanggal}}</td>
-                    @endforeach
-                    <td style="text-align: center;"></td>
-                    @endif
-                    @if(count($imun_tt) == 5)
-                    @foreach($imun_tt as $key => $v)
-                    <td style="text-align: center;">{{$v->tanggal}}</td>
-                    <td style="text-align: center;">{{$v->tanggal}}</td>
-                    <td style="text-align: center;">{{$v->tanggal}}</td>
-                    <td style="text-align: center;">{{$v->tanggal}}</td>
-                    <td style="text-align: center;">{{$v->tanggal}}</td>
-                    @endforeach
-                    @endif
-                    @if($bumil->kapsul_yodium != '')
-                    <td style="text-align: center; width: 5px;">
+                        @else
+                        <td style="text-align: center; width: 5px;"></td>
+                        @endif
+
+
+                        @php
+                        $timbang = DB::select(DB::raw("select * from detail_bumils_hasil_penimbangan where bumils_id = ".$bumil->id));
+                        @endphp
+                        @if(count($timbang) == 0)
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        @endif
+                        @if(count($timbang) == 1)
+                        @foreach($timbang as $key => $v)
+                        <td style="text-align: center;">
+                            <div>
+                                {{$v->berat_badan}} kg
+                                <br>
+                                {{$v->tekanan_darah}} mmHg
+                            </div>
+                        </td>
+                        @endforeach
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        @endif
+                        @if(count($timbang) == 2)
+                        @foreach($timbang as $key => $v)
+                        <td style="text-align: center;">
+                            <div>
+                                {{$v->berat_badan}} kg
+                                <br>
+                                {{$v->tekanan_darah}} mmHg
+                            </div>
+                        </td>
+                        @endforeach
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        @endif
+                        @if(count($timbang) == 3)
+                        @foreach($timbang as $key => $v)
+                        <td style="text-align: center;">
+                            <div>
+                                {{$v->berat_badan}} kg
+                                <br>
+                                {{$v->tekanan_darah}} mmHg
+                            </div>
+                        </td>
+                        @endforeach
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        @endif
+                        @if(count($timbang) == 4)
+                        @foreach($timbang as $key => $v)
+                        <td style="text-align: center;">
+                            <div>
+                                {{$v->berat_badan}} kg
+                                <br>
+                                {{$v->tekanan_darah}} mmHg
+                            </div>
+                        </td>
+                        @endforeach
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        @endif
+                        @if(count($timbang) == 5)
+                        @foreach($timbang as $key => $v)
+                        <td style="text-align: center;">
+                            <div>
+                                {{$v->berat_badan}} kg
+                                <br>
+                                {{$v->tekanan_darah}} mmHg
+                            </div>
+                        </td>
+                        @endforeach
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        @endif
+
+
+                        @if(count($timbang) == 6)
+                        @foreach($timbang as $key => $v)
+                        <td style="text-align: center;">
+                            <div>
+                                {{$v->berat_badan}} kg
+                                <br>
+                                {{$v->tekanan_darah}} mmHg
+                            </div>
+                        </td>
+                        @endforeach
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        @endif
+
+
+                        @if(count($timbang) == 7)
+                        @foreach($timbang as $key => $v)
+                        <td style="text-align: center;">
+                            <div>
+                                {{$v->berat_badan}} kg
+                                <br>
+                                {{$v->tekanan_darah}} mmHg
+                            </div>
+                        </td>
+                        @endforeach
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        @endif
+
+                        @if(count($timbang) == 8)
+                        @foreach($timbang as $key => $v)
+                        <td style="text-align: center;">
+                            <div>
+                                {{$v->berat_badan}} kg
+                                <br>
+                                {{$v->tekanan_darah}} mmHg
+                            </div>
+                        </td>
+
+                        @endforeach
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        @endif
+
+
+                        @if(count($timbang) == 9)
+                        @foreach($timbang as $key => $v)
+                        <td style="text-align: center;">
+                            <div>
+                                {{$v->berat_badan}} kg
+                                <br>
+                                {{$v->tekanan_darah}} mmHg
+                            </div>
+                        </td>
+                        @endforeach
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        @endif
+
+                        @if(count($timbang) == 10)
+                        @foreach($timbang as $key => $v)
+                        <td style="text-align: center;">
+                            <div>
+                                {{$v->berat_badan}} kg
+                                <br>
+                                {{$v->tekanan_darah}} mmHg
+                            </div>
+                        </td>
+                        @endforeach
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        @endif
+
+                        @if(count($timbang) == 11)
+                        @foreach($timbang as $key => $v)
+                        <td style="text-align: center;">
+                            <div>
+                                {{$v->berat_badan}} kg
+                                <br>
+                                {{$v->tekanan_darah}} mmHg
+                            </div>
+                        </td>
+                        @endforeach
+                        <td style="text-align: center;"></td>
+                        @endif
+
+                        @if(count($timbang) == 12)
+                        @foreach($timbang as $key => $v)
+                        <td style="text-align: center;">
+                            <div>
+                                {{$v->berat_badan}} kg
+                                <br>
+                                {{$v->tekanan_darah}} mmHg
+                            </div>
+                        </td>
+                        @endforeach
+                        @endif
+
+                        <td style="text-align: center;">{{$bumil->resiko}}</td>
+                        <td style="text-align: center;">{{$bumil->tanggal_persalinan}}</td>
+                        @if($bumil->persalinan != '')
+                        @if($bumil->persalinan == 1)
+                        <td style="text-align: center;">
+                            <div style="font-family: DejaVu Sans, sans-serif; font-weight: 14dg;">✔</div>
+                        </td>
+                        <td style="text-align: center;"></td>
+                        @else
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;">
+                            <div style="font-family: DejaVu Sans, sans-serif; font-weight: 14dg">✔</div>
+                        </td>
+                        @endif
+                        @else
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        @endif
+                        @if($bumil->bayi != '')
+                        @if($bumil->bayi == 1)
+                        <td style="text-align: center;">
+                            <div style="font-family: DejaVu Sans, sans-serif; font-weight: 14dg">✔</div>
+                        </td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        @endif
+                        @if($bumil->bayi == 2)
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;">
+                            <div style="font-family: DejaVu Sans, sans-serif; font-weight: 14dg">✔</div>
+                        </td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        @endif
+                        @if($bumil->bayi == 3)
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;">
+                            <div style="font-family: DejaVu Sans, sans-serif; font-weight: 14dg">✔</div>
+                        </td>
+                        <td style="text-align: center;"></td>
+                        @endif
+                        @if($bumil->bayi == 4)
+                        <td style="text-align: center;">
+                        </td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
                         <div style="font-family: DejaVu Sans, sans-serif; font-weight: 14dg">✔</div>
-                    </td>
+                        @endif
+                        @else
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;"></td>
+                        @endif
 
-                    @else
-                    <td style="text-align: center; width: 5px;"></td>
-                    @endif
-
-
-                    @php
-                    $timbang = DB::select(DB::raw("select * from detail_bumils_hasil_penimbangan where bumils_id = ".$bumil->id));
-                    @endphp
-                    @if(count($timbang) == 0)
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    @endif
-                    @if(count($timbang) == 1)
-                    @foreach($timbang as $key => $v)
-                    <td style="text-align: center;">
-                        <div>
-                            {{$v->berat_badan}} kg
-                            <br>
-                            {{$v->tekanan_darah}} mmHg
-                        </div>
-                    </td>
-                    @endforeach
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    @endif
-                    @if(count($timbang) == 2)
-                    @foreach($timbang as $key => $v)
-                    <td style="text-align: center;">
-                        <div>
-                            {{$v->berat_badan}} kg
-                            <br>
-                            {{$v->tekanan_darah}} mmHg
-                        </div>
-                    </td>
-                    @endforeach
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    @endif
-                    @if(count($timbang) == 3)
-                    @foreach($timbang as $key => $v)
-                    <td style="text-align: center;">
-                        <div>
-                            {{$v->berat_badan}} kg
-                            <br>
-                            {{$v->tekanan_darah}} mmHg
-                        </div>
-                    </td>
-                    @endforeach
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    @endif
-                    @if(count($timbang) == 4)
-                    @foreach($timbang as $key => $v)
-                    <td style="text-align: center;">
-                        <div>
-                            {{$v->berat_badan}} kg
-                            <br>
-                            {{$v->tekanan_darah}} mmHg
-                        </div>
-                    </td>
-                    @endforeach
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    @endif
-                    @if(count($timbang) == 5)
-                    @foreach($timbang as $key => $v)
-                    <td style="text-align: center;">
-                        <div>
-                            {{$v->berat_badan}} kg
-                            <br>
-                            {{$v->tekanan_darah}} mmHg
-                        </div>
-                    </td>
-                    @endforeach
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    @endif
-
-
-                    @if(count($timbang) == 6)
-                    @foreach($timbang as $key => $v)
-                    <td style="text-align: center;">
-                        <div>
-                            {{$v->berat_badan}} kg
-                            <br>
-                            {{$v->tekanan_darah}} mmHg
-                        </div>
-                    </td>
-                    @endforeach
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    @endif
-
-
-                    @if(count($timbang) == 7)
-                    @foreach($timbang as $key => $v)
-                    <td style="text-align: center;">
-                        <div>
-                            {{$v->berat_badan}} kg
-                            <br>
-                            {{$v->tekanan_darah}} mmHg
-                        </div>
-                    </td>
-                    @endforeach
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    @endif
-
-                    @if(count($timbang) == 8)
-                    @foreach($timbang as $key => $v)
-                    <td style="text-align: center;">
-                        <div>
-                            {{$v->berat_badan}} kg
-                            <br>
-                            {{$v->tekanan_darah}} mmHg
-                        </div>
-                    </td>
-
-                    @endforeach
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    @endif
-
-
-                    @if(count($timbang) == 9)
-                    @foreach($timbang as $key => $v)
-                    <td style="text-align: center;">
-                        <div>
-                            {{$v->berat_badan}} kg
-                            <br>
-                            {{$v->tekanan_darah}} mmHg
-                        </div>
-                    </td>
-                    @endforeach
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    @endif
-
-                    @if(count($timbang) == 10)
-                    @foreach($timbang as $key => $v)
-                    <td style="text-align: center;">
-                        <div>
-                            {{$v->berat_badan}} kg
-                            <br>
-                            {{$v->tekanan_darah}} mmHg
-                        </div>
-                    </td>
-                    @endforeach
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    @endif
-
-                    @if(count($timbang) == 11)
-                    @foreach($timbang as $key => $v)
-                    <td style="text-align: center;">
-                        <div>
-                            {{$v->berat_badan}} kg
-                            <br>
-                            {{$v->tekanan_darah}} mmHg
-                        </div>
-                    </td>
-                    @endforeach
-                    <td style="text-align: center;"></td>
-                    @endif
-
-                    @if(count($timbang) == 12)
-                    @foreach($timbang as $key => $v)
-                    <td style="text-align: center;">
-                        <div>
-                            {{$v->berat_badan}} kg
-                            <br>
-                            {{$v->tekanan_darah}} mmHg
-                        </div>
-                    </td>
-                    @endforeach
-                    @endif
-
-                    <td style="text-align: center;">{{$bumil->resiko}}</td>
-                    <td style="text-align: center;">{{$bumil->tanggal_persalinan}}</td>
-                    @if($bumil->persalinan != '')
-                    @if($bumil->persalinan == 1)
-                    <td style="text-align: center;">
-                        <div style="font-family: DejaVu Sans, sans-serif; font-weight: 14dg;">✔</div>
-                    </td>
-                    <td style="text-align: center;"></td>
-                    @else
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;">
-                        <div style="font-family: DejaVu Sans, sans-serif; font-weight: 14dg">✔</div>
-                    </td>
-                    @endif
-                    @else
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    @endif
-                    @if($bumil->bayi != '')
-                    @if($bumil->bayi == 1)
-                    <td style="text-align: center;">
-                        <div style="font-family: DejaVu Sans, sans-serif; font-weight: 14dg">✔</div>
-                    </td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    @endif
-                    @if($bumil->bayi == 2)
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;">
-                        <div style="font-family: DejaVu Sans, sans-serif; font-weight: 14dg">✔</div>
-                    </td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    @endif
-                    @if($bumil->bayi == 3)
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;">
-                        <div style="font-family: DejaVu Sans, sans-serif; font-weight: 14dg">✔</div>
-                    </td>
-                    <td style="text-align: center;"></td>
-                    @endif
-                    @if($bumil->bayi == 4)
-                    <td style="text-align: center;">
-                    </td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <div style="font-family: DejaVu Sans, sans-serif; font-weight: 14dg">✔</div>
-                    @endif
-                    @else
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    <td style="text-align: center;"></td>
-                    @endif
-
-                    <td style="text-align: center;">{{$bumil->bayi_meninggal}}</td>
-                    <td style="text-align: center;">{{$bumil->ibu_meninggal}}</td>
-                    <td style="text-align: center;">{{$bumil->keterangan}}</td>
+                        <td style="text-align: center;">{{$bumil->bayi_meninggal}}</td>
+                        <td style="text-align: center;">{{$bumil->ibu_meninggal}}</td>
+                        <td style="text-align: center;">{{$bumil->keterangan}}</td>
                 </tr>
                 @endforeach
             </tbody>
