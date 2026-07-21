@@ -142,12 +142,21 @@ Route::group(['middleware' => ['checkLevel:1,2']], function () {
     Route::get('sms/kirim/{id}/delete', 'SmsController@delete_kirim');
     Route::get('sms/kirim/change_status/{id}', 'SmsController@change_status');
     Route::get('test_gateway', 'SmsController@gateway');
+    // form kspr
+    Route::get('kspr', 'KSPRController@index');
+    Route::get('kspr/create', 'KSPRController@create');
+    Route::post('kspr', 'KSPRController@store');
+    Route::get('kspr/edit/{id}', 'KSPRController@edit');
+    Route::post('kspr/update/{id}', 'KSPRController@update');
+    Route::get('kspr/delete/{id}', 'KSPRController@delete');
+    Route::get('kspr/edit/{id}/ppa', 'KSPRController@ppa');
 });
 
 Route::group(['middleware' => ['checkLevel:1,2,3']], function () {
     Route::get('/dashboard', 'DashboardController@index');
     Route::get('/profile', 'ProfileController@index');
     Route::put('/profile/{id}/update', 'ProfileController@update');
+    Route::get('/profile/{id}/update', 'ProfileController@update');
 });
 
 Route::group(['middleware' => ['checkLevel:3']], function () {

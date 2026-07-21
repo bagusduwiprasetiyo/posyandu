@@ -158,6 +158,16 @@ $template = asset('template/backend');
                 <li class="nav-item mdi mdi-hospital-building"><a class="nav-link {{isset($sidebarSubBayi) ? $sidebarSubBayi : ''}}" href="{{url('bayi')}}">Bayi</a>
                 </li>
               </ul>
+              <ul class="nav flex-column sub-menu">
+
+                <li class="nav-item mdi mdi-hospital-building"><a class="nav-link {{isset($subkspr) ? $subkspr : ''}}" href="{{url('kspr')}}">Deteksi Dini Bumil (KSPR)</a>
+                </li>
+              </ul>
+              <!-- <ul class="nav flex-column sub-menu">
+
+                <li class="nav-item mdi mdi-hospital-building"><a class="nav-link {{isset($subppa) ? $subppa : ''}}" href="{{url('ppa')}}">Rencana Persalinan (KSPR)</a>
+                </li>
+              </ul> -->
             </div>
           </li>
           @endif
