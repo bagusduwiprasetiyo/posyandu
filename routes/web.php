@@ -35,6 +35,9 @@ Route::group(['middleware' => ['auth', 'checkLevel:1']], function () {
 
 Route::group(['middleware' => ['checkLevel:1,2']], function () {
     Route::get('/dashboard', 'DashboardController@index');
+    Route::get('/konseling', 'KonselingController@index');
+    Route::get('/konseling/{kategori}', 'KonselingController@show');
+    Route::get('/rujukan', 'RujukanController@index');
     Route::get('/accept_kader/{id}/destroy', 'KaderController@acceptKaderDestroy');
     Route::post('/postregistrationadmin', 'KaderController@storeAdmin');
     Route::get('/kader', 'KaderController@index');
@@ -99,7 +102,6 @@ Route::group(['middleware' => ['checkLevel:1,2']], function () {
     Route::get('analisis/{id}/detail', 'MasterController@analisisDetail');
     Route::get('analisis_bayi/{tahun}/{id}', 'MasterController@analisis_bayi');
     Route::get('analisis_ibu/{tahun}/{id}', 'MasterController@analisis_ibu');
-
 
     //laporan registrasi 
     // Route::get('laporan_registrasi/{laporan}/{id}/{tahun}', 'LaporanRegistrasi@index');

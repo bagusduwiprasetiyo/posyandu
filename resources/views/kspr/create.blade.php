@@ -112,28 +112,125 @@
     textarea { resize: vertical; }
     .section-title { font-weight: bold; background: #f2f2f2; }
   </style>
+  <style>
+    body {
+        margin: 0;
+    }
+
+    .page-title-modern {
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        color: #1a2333;
+        margin-bottom: 2px;
+    }
+
+    .breadcrumb-modern {
+        opacity: 0.85;
+        font-size: 0.85rem;
+    }
+
+    .btn-modern {
+        border-radius: 8px;
+        font-weight: 600;
+        padding: 0.55rem 1.1rem;
+        box-shadow: 0 4px 10px rgba(66, 103, 178, 0.18);
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .btn-modern:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 14px rgba(66, 103, 178, 0.25);
+        color: #fff;
+    }
+
+    .kspr-form-card,
+    .kspr-section-card {
+        border: none;
+        border-radius: 14px;
+        box-shadow: 0 2px 16px rgba(20, 30, 60, 0.06);
+    }
+
+    .kspr-section-card {
+        border: 1px solid #eef1f8;
+        box-shadow: none;
+    }
+
+    .kspr-form-card .card-body {
+        padding: 24px;
+    }
+
+    .kspr-save-bar {
+        position: sticky;
+        top: 70px;
+        z-index: 5;
+        background-color: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(6px);
+        border: 1px solid #eef1f8;
+        border-radius: 12px;
+        padding: 10px;
+        margin-bottom: 16px;
+    }
+
+    .kspr-form-card .form-control,
+    .kspr-form-card .select2-container .select2-selection--single {
+        border: 1px solid #e5e9f2;
+        border-radius: 8px;
+        background-color: #f8faff;
+    }
+
+    .kspr-form-card .form-control:focus {
+        border-color: #93b4ff;
+        background-color: #fff;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+    }
+
+    .kspr-form-card table,
+    .kspr-form-card th,
+    .kspr-form-card td {
+        border-color: #dbe3f5;
+    }
+
+    .kspr-form-card th,
+    .kspr-form-card .section-title {
+        background-color: #f4f6fb;
+        color: #1a2333;
+    }
+
+    .kspr-form-card h2,
+    .kspr-form-card h3 {
+        color: #1a2333;
+        font-weight: 700;
+    }
+
+    .risk-table th {
+        background-color: #f4f6fb !important;
+        color: #5c6b8a;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+    }
+  </style>
 @endpush
 @section('content')
 
 <div class="content-wrapper">
     <div class="row">
         <div class="col-md-12 grid-margin">
-            <div class="d-flex justify-content-between flex-wrap">
+            <div class="d-flex justify-content-between flex-wrap page-header-modern">
                 <div class="d-flex align-items-end flex-wrap">
                     <div class="mr-md-3 mr-xl-5">
-                        <h2>Deteksi Dini Ibu Hamil KSPR</h2>
-                        <p class="mb-md-0">Sistem Informasi Posyandu Kemuning Lor.</p>
+                        <h2 class="page-title-modern">Deteksi Dini Ibu Hamil KSPR</h2>
+                        <p class="mb-md-0 text-muted">Sistem Informasi Posyandu Kemuning Lor.</p>
                     </div>
-                    <div class="d-flex">
-                        <i class="mdi mdi-home text-muted hover-cursor"></i>
-                        <p class="text-muted mb-0 hover-cursor">&nbsp;/&nbsp;Dashboard&nbsp;/&nbsp;</p>
-                        <p class="text-primary mb-0 hover-cursor">kspr</p>
+                    <div class="d-flex breadcrumb-modern">
+                        <i class="mdi mdi-home text-muted"></i>
+                        <p class="text-muted mb-0">&nbsp;/&nbsp;Dashboard&nbsp;/&nbsp;</p>
+                        <p class="text-primary mb-0 font-weight-bold">KSPR</p>
                     </div>
                 </div>
                 <div class="d-flex justify-content-between align-items-end flex-wrap">
                     <div>
-                        <a href="{{url('/kspr')}}" class="btn btn-primary mr-3 mt-2 mt-xl-0">
-                            Kembali
+                        <a href="{{url('/kspr')}}" class="btn btn-primary btn-modern btn-sm mt-2 mt-xl-0">
+                            <i class="mdi mdi-arrow-left mr-1"></i> Kembali
                         </a>
                         <!-- <button class="btn btn-primary mt-2 mt-xl-0">Download report</button> -->
                     </div>
@@ -143,13 +240,13 @@
     </div>
     <div class="row">
         <div class="col-md-12 grid-margin stretch-card">
-            <div class="card">
+            <div class="card kspr-form-card">
                 <div class="card-body">
                     <form action="{{isset($kspr)?url('/kspr/update/'.$kspr->id):url('/kspr')}}" method="POST" id="formData">
                         <!-- Floating save button (top-right) -->
-                        <div class="d-flex justify-content-end mb-2">
-                            <button type="submit" class="btn btn-sm btn-success">
-                                Simpan
+                        <div class="d-flex justify-content-end kspr-save-bar">
+                            <button type="submit" class="btn btn-sm btn-success btn-modern">
+                                <i class="mdi mdi-content-save mr-1"></i> Simpan
                             </button>
                         </div>
                         
@@ -394,7 +491,7 @@
 
                             <div class="form-row">
                                 <div class="col-sm-12 grid-margin stretch-card">
-                                    <div class="card">
+                                    <div class="card kspr-section-card">
                                         <div class="card-body">
                                             <h3 class="text-center">SKRINING / DETEKSI DINI IBU RISIKO TINGGI</h3>
                                             <br>

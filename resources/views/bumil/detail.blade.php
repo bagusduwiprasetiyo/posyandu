@@ -4,21 +4,21 @@
 <div class="content-wrapper">
     <div class="row">
         <div class="col-md-12 grid-margin">
-            <div class="d-flex justify-content-between flex-wrap">
+            <div class="d-flex justify-content-between flex-wrap page-header-modern">
                 <div class="d-flex align-items-end flex-wrap">
                     <div class="mr-md-3 mr-xl-5">
-                        <h2>Detail Data Ibu Hamil</h2>
-                        <p class="mb-md-0">Sistem Informasi Posyandu Kemuning Lor.</p>
+                        <h2 class="page-title-modern">Detail Data Ibu Hamil</h2>
+                        <p class="mb-md-0 text-muted">Sistem Informasi Posyandu Kemuning Lor.</p>
                     </div>
-                    <div class="d-flex">
-                        <i class="mdi mdi-home text-muted hover-cursor"></i>
-                        <p class="text-muted mb-0 hover-cursor">&nbsp;/&nbsp;Dashboard&nbsp;/&nbsp;</p>
-                        <p class="text-primary mb-0 hover-cursor">Analisis</p>
+                    <div class="d-flex breadcrumb-modern">
+                        <i class="mdi mdi-home text-muted"></i>
+                        <p class="text-muted mb-0">&nbsp;/&nbsp;Dashboard&nbsp;/&nbsp;</p>
+                        <p class="text-primary mb-0 font-weight-bold">Ibu Hamil</p>
                     </div>
                 </div>
                 <div class="d-flex justify-content-between align-items-end flex-wrap">
                     <div>
-                        <a href="{{url('/bumil')}}" class="btn btn-primary btn-sm mt-3"> Kembali </a>
+                        <a href="{{url('/bumil')}}" class="btn btn-primary btn-modern btn-sm mt-2 mt-xl-0"><i class="mdi mdi-arrow-left mr-1"></i> Kembali </a>
                         <!-- <button class="btn btn-primary mt-2 mt-xl-0">Download report</button> -->
                     </div>
                 </div>
@@ -27,26 +27,26 @@
     </div>
     <div class="row">
         <div class="col-md-12 grid-margin stretch-card">
-            <div class="card">
+            <div class="card card-modern">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-12 grid-margin stretch-card">
-                            <div class="card">
+                            <div class="card card-modern-inner">
                                 <div class="card-body">
                                     <h4 class="card-title">Data Registrasi</h4>
                                     <div class="row">
                                         <div class="col-md-12 grid-margin stretch-card">
-                                            <div class="card" style="min-width: 550px;">
+                                             <div class="card card-modern-inner" style="min-width: 550px;">
                                                 <div class="card-body dashboard-tabs p-0">
-                                                    <ul class="nav nav-tabs px-4" role="tablist" style="background-color: #f3f3f3;">
+                                                    <ul class="nav nav-tabs nav-tabs-modern px-3" role="tablist">
                                                         <li class="nav-item">
-                                                            <a class="nav-link active" id="overview-tab" data-toggle="tab" href="#overview" role="tab" aria-controls="overview" aria-selected="true">Data Pasien</a>
+                                                            <a class="nav-link active" id="overview-tab" data-toggle="tab" href="#overview" role="tab" aria-controls="overview" aria-selected="true"><i class="mdi mdi-account-details mr-1"></i>Data Pasien</a>
                                                         </li>
                                                         <li class="nav-item">
-                                                            <a class="nav-link" id="sales-tab" data-toggle="tab" href="#sales" role="tab" aria-controls="sales" aria-selected="false">Pemberian Tablet dan Imunisasi</a>
+                                                            <a class="nav-link" id="sales-tab" data-toggle="tab" href="#sales" role="tab" aria-controls="sales" aria-selected="false"><i class="mdi mdi-pill mr-1"></i>Pemberian Tablet dan Imunisasi</a>
                                                         </li>
                                                         <li class="nav-item">
-                                                            <a class="nav-link" id="timbang-tab" data-toggle="tab" href="#timbang" role="tab" aria-controls="timbang" aria-selected="false">Hasil Timbang Bulanan</a>
+                                                            <a class="nav-link" id="timbang-tab" data-toggle="tab" href="#timbang" role="tab" aria-controls="timbang" aria-selected="false"><i class="mdi mdi-scale-bathroom mr-1"></i>Hasil Timbang Bulanan</a>
                                                         </li>
                                                     </ul>
                                                     <div class="tab-content py-0 px-0">
@@ -425,6 +425,23 @@
 </div>
 
 @endsection
+
+@push('css')
+<style>
+    .page-title-modern { font-weight: 700; letter-spacing: -0.02em; color: #1a2333; margin-bottom: 2px; }
+    .breadcrumb-modern { opacity: 0.85; font-size: 0.85rem; }
+    .btn-modern { border-radius: 8px; font-weight: 600; padding: 0.55rem 1.1rem; box-shadow: 0 4px 10px rgba(66, 103, 178, 0.18); transition: transform 0.15s ease, box-shadow 0.15s ease; }
+    .btn-modern:hover { transform: translateY(-1px); box-shadow: 0 6px 14px rgba(66, 103, 178, 0.25); color: #fff; }
+    .card-modern { border: none; border-radius: 14px; box-shadow: 0 2px 16px rgba(20, 30, 60, 0.06); }
+    .card-modern-inner { border: 1px solid #eef1f8; border-radius: 12px; box-shadow: none; }
+    .nav-tabs-modern { border-bottom: 1px solid #eef1f8; background-color: #f8faff; padding-top: 10px; }
+    .nav-tabs-modern .nav-link { border: none; border-radius: 8px 8px 0 0; color: #5c6b8a; font-weight: 600; font-size: 0.82rem; padding: 10px 16px; margin-right: 2px; transition: background-color 0.15s ease, color 0.15s ease; }
+    .nav-tabs-modern .nav-link:hover { background-color: #eef2ff; color: #4f46e5; }
+    .nav-tabs-modern .nav-link.active { background-color: #fff; color: #4f46e5; box-shadow: 0 -2px 8px rgba(20, 30, 60, 0.05); }
+    .table-modern { border-collapse: separate; border-spacing: 0 6px; }
+    .table-modern thead th, .table-modern tr:first-child td { background-color: #f4f6fb; color: #5c6b8a; font-weight: 700; }
+</style>
+@endpush
 
 @push('js')
 

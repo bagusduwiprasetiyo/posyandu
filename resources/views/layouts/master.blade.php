@@ -170,7 +170,20 @@ $template = asset('template/backend');
               </ul> -->
             </div>
           </li>
+          <li class="nav-item {{isset($sidebarKonseling) ? $sidebarKonseling : ''}}">
+            <a class="nav-link" href="{{url('konseling')}}">
+              <i class="mdi mdi-comment-text menu-icon"></i>
+              <span class="menu-title">Konseling</span>
+            </a>
+          </li>
+          <li class="nav-item {{isset($sidebarRujukan) ? $sidebarRujukan : ''}}">
+            <a class="nav-link" href="{{url('rujukan')}}">
+              <i class="mdi mdi-ambulance menu-icon"></i>
+              <span class="menu-title">Rujukan</span>
+            </a>
+          </li>
           @endif
+
           @if(Auth::user()->status == 1)
           <li class="nav-item {{isset($sidebarMaster) ? $sidebarMaster : ''}}">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic3" aria-expanded="false" aria-controls="ui-basic">

@@ -14,30 +14,42 @@
     -moz-appearance: textfield;
   }
 </style>
+<style>
+  .page-title-modern { font-weight: 700; letter-spacing: -0.02em; color: #1a2333; margin-bottom: 2px; }
+  .breadcrumb-modern { opacity: 0.85; font-size: 0.85rem; }
+  .btn-modern { border-radius: 8px; font-weight: 600; padding: 0.55rem 1.1rem; box-shadow: 0 4px 10px rgba(66, 103, 178, 0.18); transition: transform 0.15s ease, box-shadow 0.15s ease; }
+  .btn-modern:hover { transform: translateY(-1px); box-shadow: 0 6px 14px rgba(66, 103, 178, 0.25); color: #fff; }
+  .bumil-form-card { border: none; border-radius: 14px; box-shadow: 0 2px 16px rgba(20, 30, 60, 0.06); }
+  .bumil-form-card .card:not(.bumil-form-card) { border: 1px solid #eef1f8; border-radius: 12px; box-shadow: none; }
+  .bumil-form-card .form-control { border: 1px solid #e5e9f2; border-radius: 8px; background-color: #f8faff !important; }
+  .bumil-form-card .form-control:focus { border-color: #93b4ff; background-color: #fff !important; box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12); }
+  .bumil-form-card .card-title { font-weight: 700; color: #1a2333; }
+  .bumil-form-card table th { background-color: #f4f6fb; color: #5c6b8a; }
+</style>
 @endpush
 
 @section('content')
 <div class="content-wrapper">
   <div class="row">
     <div class="col-md-12 grid-margin">
-      <div class="d-flex justify-content-between flex-wrap">
+      <div class="d-flex justify-content-between flex-wrap page-header-modern">
         <div class="d-flex align-items-end flex-wrap">
           <div class="mr-md-3 mr-xl-5">
 
-            <h2>Data Ibu Hamil</h2>
-            <p class="mb-md-0">Sistem Informasi Posyandu Kemuning Lor.</p>
+            <h2 class="page-title-modern">Data Ibu Hamil</h2>
+            <p class="mb-md-0 text-muted">Sistem Informasi Posyandu Kemuning Lor.</p>
           </div>
-          <div class="d-flex justify-content-between align-items-end flex-wrap">
-            <i class="mdi mdi-home text-muted hover-cursor"></i>
-            <p class="text-muted mb-0 hover-cursor">&nbsp;/&nbsp;Ibu Hamil&nbsp;/&nbsp;</p>
-            <p class="text-primary mb-0 hover-cursor">Edit Data</p>
+          <div class="d-flex justify-content-between align-items-end flex-wrap breadcrumb-modern">
+            <i class="mdi mdi-home text-muted"></i>
+            <p class="text-muted mb-0">&nbsp;/&nbsp;Ibu Hamil&nbsp;/&nbsp;</p>
+            <p class="text-primary mb-0 font-weight-bold">Edit Data</p>
           </div>
 
         </div>
         <div class="d-flex justify-content-between align-items-end flex-wrap">
           <div>
-            <a href="{{url('/bayi')}}" class="btn btn-primary mr-3 mt-2 mt-xl-0">
-              Kembali
+            <a href="{{url('/bumil')}}" class="btn btn-primary btn-modern btn-sm mt-2 mt-xl-0">
+              <i class="mdi mdi-arrow-left mr-1"></i> Kembali
             </a>
             <!-- <button class="btn btn-primary mt-2 mt-xl-0">Download report</button> -->
           </div>
@@ -47,7 +59,7 @@
   </div>
   <div class="row">
     <div class="col-md-12 grid-margin stretch-card">
-      <div class="card">
+      <div class="card bumil-form-card">
         <div class="card-body">
 
 
