@@ -14,6 +14,8 @@ use Illuminate\Http\Request;
 */
 
 Route::post('auth', 'AuthController@postlogin');
+Route::get('rujukan/bayi-gizi-buruk', 'RujukanController@apiBayiGiziBuruk');
+Route::get('rujukan/bumil-risiko-tinggi', 'RujukanController@apiBumilRisikoTinggi');
 
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();

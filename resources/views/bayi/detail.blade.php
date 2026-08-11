@@ -471,6 +471,16 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="col-lg-12 grid-margin stretch-card">
+                                                <div class="card card-modern-inner">
+                                                    <div class="card-body">
+                                                        <h4 class="card-title imunisasi-title">Berat Badan Menurut Panjang Badan 0-24 Bulan</h4>
+                                                        <div class="kms-chart-box mb-4"><canvas id="bb_pb_1"></canvas></div>
+                                                        <h4 class="card-title imunisasi-title">Berat Badan Menurut Tinggi Badan 24-60 Bulan</h4>
+                                                        <div class="kms-chart-box"><canvas id="bb_pb_2"></canvas><p class="text-muted text-center mt-5 d-none" id="bb_pb_2_empty">Data BB/TB belum tersedia di tabel bpb.</p></div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -811,6 +821,7 @@
 <script>
     var bayi_timbang = JSON.parse('@json($bayi_timbang)');
     var bb = JSON.parse('@json($antropometri_bb)');
+    var bpb = JSON.parse('@json($antropometri_bpb)');
 
     function styleKmsDatasets(datasets) {
         var styles = {
@@ -940,6 +951,46 @@
                 }]
             }
         };
+    }
+
+    function bbPbChartOptions(rows, xLabel) {
+        var options = kmsChartOptions(xLabel, 'Berat Badan (kg)');
+        options.kmsRightLabels = false;
+        options.layout.padding.right = 20;
+        options.tooltips = {
+            callbacks: {
+                label: function(tooltipItem) {
+                    return 'PB/TB: ' + tooltipItem.xLabel + ' cm, BB: ' + tooltipItem.yLabel + ' kg';
+                }
+            }
+        };
+        options.scales.xAxes[0].type = 'linear';
+        options.scales.xAxes[0].position = 'bottom';
+        if (rows.length) {
+            options.scales.xAxes[0].ticks.min = Math.floor(parseFloat(rows[0].panjang_tinggi_badan));
+        }
+        return options;
+    }
+
+    function bpbRows(jenisUkur) {
+        return bpb.filter(function(row) { return row.jenis_ukur == jenisUkur; });
+    }
+
+    function bbPbPoints(rows, sdKey) {
+        var points = [];
+
+        for (var i = 0; i < rows.length; i++) {
+            if (rows[i].panjang_tinggi_badan && rows[i][sdKey]) {
+                points.push({
+                    x: parseFloat(rows[i].panjang_tinggi_badan),
+                    y: parseFloat(rows[i][sdKey])
+                });
+            }
+        }
+
+        points.sort(function(a, b) { return a.x - b.x; });
+
+        return points;
     }
 
     var median_bb_1 = [];
@@ -1516,6 +1567,99 @@
         options: kmsChartOptions('Umur 24 - 60 Bulan', 'Tinggi Badan', 24),
 
     });
+
+    var bpb_pb = bpbRows('PB');
+    var bpb_tb = bpbRows('TB');
+    var bayi_bb_pb_1 = [];
+    var bayi_bb_pb_2 = [];
+
+    $.each(bayi_timbang, function(i, val) {
+        if (val.tinggi_badan && val.berat_badan) {
+            var point = {
+                x: parseFloat(val.tinggi_badan),
+                y: parseFloat(val.berat_badan),
+                r: 7
+            };
+
+            if (parseInt(val.umur_bulan) <= 24) {
+                bayi_bb_pb_1.push(point);
+            } else {
+                bayi_bb_pb_2.push(point);
+            }
+        }
+    });
+
+    function bbPbDatasets(rows, bayiData) {
+        return styleKmsDatasets([{
+            label: 'Berat Badan',
+            data: bayiData,
+            type: 'bubble',
+            order: 1,
+            backgroundColor: 'lightblue',
+            borderColor: 'blue',
+            borderWidth: 1
+        }, {
+            label: 'Standar Deviasi: Normal',
+            data: bbPbPoints(rows, 'median'),
+            fill: false,
+            order: 1
+        }, {
+            label: 'Standar Deviasi + 1',
+            data: bbPbPoints(rows, 'plus1'),
+            fill: '-1',
+            order: 2
+        }, {
+            label: 'Standar Deviasi - 1',
+            data: bbPbPoints(rows, 'min1'),
+            fill: '-1',
+            order: 2
+        }, {
+            label: 'Standar Deviasi + 2',
+            data: bbPbPoints(rows, 'plus2'),
+            fill: '-2',
+            order: 3
+        }, {
+            label: 'Standar Deviasi - 2',
+            data: bbPbPoints(rows, 'min2'),
+            fill: '-2',
+            order: 3
+        }, {
+            label: 'Standar Deviasi + 3',
+            data: bbPbPoints(rows, 'plus3'),
+            fill: '-3',
+            order: 4
+        }, {
+            label: 'Standar Deviasi - 3',
+            data: bbPbPoints(rows, 'min3'),
+            fill: '-3',
+            order: 4
+        }]);
+    }
+
+    var bb_pb_1 = document.getElementById('bb_pb_1').getContext('2d');
+    var myChart = new Chart(bb_pb_1, {
+        type: 'line',
+        data: {
+            labels: bpb_pb.map(function(row) { return parseFloat(row.panjang_tinggi_badan); }),
+            datasets: bbPbDatasets(bpb_pb, bayi_bb_pb_1)
+        },
+        options: bbPbChartOptions(bpb_pb, 'Panjang Badan (cm)')
+    });
+
+    if (bpb_tb.length) {
+        var bb_pb_2 = document.getElementById('bb_pb_2').getContext('2d');
+        var myChart = new Chart(bb_pb_2, {
+            type: 'line',
+            data: {
+                labels: bpb_tb.map(function(row) { return parseFloat(row.panjang_tinggi_badan); }),
+                datasets: bbPbDatasets(bpb_tb, bayi_bb_pb_2)
+            },
+            options: bbPbChartOptions(bpb_tb, 'Tinggi Badan (cm)')
+        });
+    } else {
+        $('#bb_pb_2').hide();
+        $('#bb_pb_2_empty').removeClass('d-none');
+    }
 </script>
 
 @endpush
