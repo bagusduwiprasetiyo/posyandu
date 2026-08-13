@@ -2,6 +2,7 @@
 
 @php
 $firstTopic = $topics[0];
+$sicantikUrl = 'https://g1200n.puskesmasrambipuji.my.id/';
 @endphp
 
 @section('content')
@@ -24,13 +25,16 @@ $firstTopic = $topics[0];
 
     <ul class="nav nav-tabs rujukan-tabs mb-3" role="tablist">
         <li class="nav-item">
-            <a class="nav-link active" id="materi-tab" data-toggle="tab" href="#materi" role="tab" aria-controls="materi" aria-selected="true">Materi Rujukan</a>
-        </li>
-        <li class="nav-item">
             <a class="nav-link" id="gizi-buruk-tab" data-toggle="tab" href="#gizi-buruk" role="tab" aria-controls="gizi-buruk" aria-selected="false">Bayi Gizi Buruk</a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" id="stunting-tab" data-toggle="tab" href="#stunting" role="tab" aria-controls="stunting" aria-selected="false">Bayi Stunting</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" id="bumil-risti-tab" data-toggle="tab" href="#bumil-risti" role="tab" aria-controls="bumil-risti" aria-selected="false">Bumil Risiko Tinggi</a>
+        </li>
+        <li class="nav-item ml-auto">
+            <a class="nav-link active" id="materi-tab" data-toggle="tab" href="#materi" role="tab" aria-controls="materi" aria-selected="true">Materi Rujukan</a>
         </li>
     </ul>
 
@@ -124,6 +128,7 @@ $firstTopic = $topics[0];
                                     <th>PB/TB</th>
                                     <th>Batas -3 SD</th>
                                     <th>Status</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -141,10 +146,82 @@ $firstTopic = $topics[0];
                                     <td>{{$bayi->tinggi_badan}} cm</td>
                                     <td>{{$bayi->batas_gizi_buruk}} kg</td>
                                     <td><span class="risk-chip danger">{{$bayi->status_rujukan}}</span></td>
+                                    <td>
+                                        <a href="{{$sicantikUrl}}" target="_blank" class="btn btn-danger btn-sm">Rujuk</a>
+                                    </td>
                                 </tr>
                                 @empty
                                 <tr>
-                                    <td colspan="9" class="text-muted">Tidak ada bayi gizi buruk.</td>
+                                    <td colspan="10" class="text-muted">Tidak ada bayi gizi buruk.</td>
+                                </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="stunting" role="tabpanel" aria-labelledby="stunting-tab">
+            <div class="card material-card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start flex-wrap mb-4">
+                        <div>
+                            <h3 class="mb-2">Bayi Stunting</h3>
+                            <p class="topic-summary mb-0">Bayi dengan penimbangan terakhir kategori pendek atau sangat pendek berdasarkan PB/U atau TB/U.</p>
+                        </div>
+                        <a href="{{url('/api/rujukan/bayi-stunting')}}" target="_blank" class="btn btn-outline-primary btn-sm mt-3 mt-md-0">
+                            <i class="mdi mdi-code-json mr-1"></i> API JSON
+                        </a>
+                    </div>
+
+                    <div class="risk-toolbar mb-3">
+                        <div class="risk-stat-card warning">
+                            <span>Total Kasus</span>
+                            <strong>{{count($bayiStunting)}}</strong>
+                        </div>
+                        <div class="risk-search-wrap">
+                            <i class="mdi mdi-magnify"></i>
+                            <input type="text" class="form-control risk-search" data-target="#tableBayiStunting" placeholder="Cari nama, posyandu, orang tua...">
+                        </div>
+                    </div>
+
+                    <div class="table-responsive risk-table-wrap">
+                        <table class="table risk-table text-center" id="tableBayiStunting">
+                            <thead>
+                                <tr>
+                                    <th>Nama Bayi</th>
+                                    <th>Orang Tua</th>
+                                    <th>Posyandu</th>
+                                    <th>Jenis Kelamin</th>
+                                    <th>Umur</th>
+                                    <th>PB/TB</th>
+                                    <th>Z-score PB/U - TB/U</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse($bayiStunting as $bayi)
+                                <tr>
+                                    <td class="text-left">
+                                        <strong>{{$bayi->nama}}</strong>
+                                        <small>ID: {{$bayi->bayi_id}}</small>
+                                    </td>
+                                    <td>{{$bayi->nama_ibu}}</td>
+                                    <td>{{$bayi->posyandu ?: '-'}}</td>
+                                    <td><span class="risk-chip muted">{{$bayi->jenis_kelamin}}</span></td>
+                                    <td>{{$bayi->umur_bulan}} bulan, {{$bayi->umur_hari}} hari</td>
+                                    <td>{{$bayi->tinggi_badan}} cm</td>
+                                    <td><span class="risk-chip {{$bayi->sd_pb == '-3' ? 'danger' : 'warning'}}">{{$bayi->sd_pb}}</span></td>
+                                    <td><span class="risk-chip {{$bayi->sd_pb == '-3' ? 'danger' : 'warning'}}">{{$bayi->status_pb}}</span></td>
+                                    <td>
+                                        <a href="{{$sicantikUrl}}" target="_blank" class="btn btn-danger btn-sm">Rujuk</a>
+                                    </td>
+                                </tr>
+                                @empty
+                                <tr>
+                                    <td colspan="9" class="text-muted">Tidak ada bayi stunting.</td>
                                 </tr>
                                 @endforelse
                             </tbody>
@@ -160,7 +237,7 @@ $firstTopic = $topics[0];
                     <div class="d-flex justify-content-between align-items-start flex-wrap mb-4">
                         <div>
                             <h3 class="mb-2">Bumil Risiko Tinggi</h3>
-                            <p class="topic-summary mb-0">Ibu hamil risiko tinggi dari skor KSPR atau hasil pemeriksaan.</p>
+                            <p class="topic-summary mb-0">Ibu hamil risiko tinggi berdasarkan skor KSPR.</p>
                         </div>
                         <a href="{{url('/api/rujukan/bumil-risiko-tinggi')}}" target="_blank" class="btn btn-outline-primary btn-sm mt-3 mt-md-0">
                             <i class="mdi mdi-code-json mr-1"></i> API JSON
@@ -172,9 +249,6 @@ $firstTopic = $topics[0];
                             <span>Total Kasus</span>
                             <strong>{{count($bumilRisikoTinggi)}}</strong>
                         </div>
-                        <button type="button" class="risk-filter active" data-target="#tableBumilRisti" data-filter="">Semua</button>
-                        <button type="button" class="risk-filter" data-target="#tableBumilRisti" data-filter="KSPR">KSPR</button>
-                        <button type="button" class="risk-filter" data-target="#tableBumilRisti" data-filter="Pemeriksaan">Pemeriksaan</button>
                         <div class="risk-search-wrap ml-auto">
                             <i class="mdi mdi-magnify"></i>
                             <input type="text" class="form-control risk-search" data-target="#tableBumilRisti" placeholder="Cari nama, posyandu, alasan...">
@@ -191,10 +265,8 @@ $firstTopic = $topics[0];
                                     <th>Hamil Ke</th>
                                     <th>Skor KSPR</th>
                                     <th>Kategori</th>
-                                    <th>LILA</th>
-                                    <th>Tekanan Darah</th>
-                                    <th>Sumber</th>
                                     <th>Alasan</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -209,14 +281,14 @@ $firstTopic = $topics[0];
                                     <td>{{$bumil->hamil_ke ?: '-'}}</td>
                                     <td><strong>{{$bumil->skor_kspr ?: '-'}}</strong></td>
                                     <td>{!! $bumil->kategori_kspr ? '<span class="risk-chip '.($bumil->kategori_kspr == 'KRST' ? 'danger' : 'warning').'">'.$bumil->kategori_kspr.'</span>' : '-' !!}</td>
-                                    <td>{{$bumil->lila ? $bumil->lila.' cm' : '-'}}</td>
-                                    <td>{{$bumil->tekanan_darah ? $bumil->tekanan_darah.' mmHg' : '-'}}</td>
-                                    <td><span class="risk-chip muted">{{$bumil->sumber_risiko}}</span></td>
                                     <td class="text-left">{{$bumil->alasan}}</td>
+                                    <td>
+                                        <a href="{{$sicantikUrl}}" target="_blank" class="btn btn-danger btn-sm">Rujuk</a>
+                                    </td>
                                 </tr>
                                 @empty
                                 <tr>
-                                    <td colspan="10" class="text-muted">Tidak ada bumil risiko tinggi.</td>
+                                    <td colspan="8" class="text-muted">Tidak ada bumil risiko tinggi.</td>
                                 </tr>
                                 @endforelse
                             </tbody>

@@ -369,10 +369,49 @@
                                                         <th>Umur</th>
                                                         <th>Berat Badan</th>
                                                         <th>Panjang/Tinggi Badan</th>
+                                                        <th>BB/PB - BB/TB</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @foreach($bayi_timbang as $key=>$b)
+                                                    @php
+                                                    $jenisUkur = $b->umur_bulan <= 24 ? 'PB' : 'TB';
+                                                    $tinggiRujukan = number_format(round((float) $b->tinggi_badan * 2) / 2, 1, '.', '');
+                                                    $bpbRujukan = collect($antropometri_bpb)->first(function ($row) use ($jenisUkur, $tinggiRujukan) {
+                                                        return $row->jenis_ukur == $jenisUkur && number_format((float) $row->panjang_tinggi_badan, 1, '.', '') == $tinggiRujukan;
+                                                    });
+                                                    $bbPbSd = '-';
+                                                    $bbPbStatus = '-';
+                                                    $bbPbBadge = 'secondary';
+                                                    if ($bpbRujukan) {
+                                                        $beratBadan = (float) $b->berat_badan;
+                                                        if ($beratBadan < (float) $bpbRujukan->min3) {
+                                                            $bbPbSd = '< -3';
+                                                            $bbPbStatus = 'Gizi buruk';
+                                                            $bbPbBadge = 'danger';
+                                                        } elseif ($beratBadan < (float) $bpbRujukan->min2) {
+                                                            $bbPbSd = '-3 s/d < -2';
+                                                            $bbPbStatus = 'Gizi kurang';
+                                                            $bbPbBadge = 'warning';
+                                                        } elseif ($beratBadan <= (float) $bpbRujukan->plus1) {
+                                                            $bbPbSd = '-2 s/d +1';
+                                                            $bbPbStatus = 'Gizi baik';
+                                                            $bbPbBadge = 'success';
+                                                        } elseif ($beratBadan <= (float) $bpbRujukan->plus2) {
+                                                            $bbPbSd = '> +1 s/d +2';
+                                                            $bbPbStatus = 'Berisiko gizi lebih';
+                                                            $bbPbBadge = 'warning';
+                                                        } elseif ($beratBadan <= (float) $bpbRujukan->plus3) {
+                                                            $bbPbSd = '> +2 s/d +3';
+                                                            $bbPbStatus = 'Gizi lebih';
+                                                            $bbPbBadge = 'warning';
+                                                        } else {
+                                                            $bbPbSd = '> +3';
+                                                            $bbPbStatus = 'Obesitas';
+                                                            $bbPbBadge = 'danger';
+                                                        }
+                                                    }
+                                                    @endphp
                                                     <tr>
                                                         <td><span class="badge badge-pill badge-light">{{$b->bulan_ke}}</span></td>
                                                         <td><span class="badge badge-pill badge-light">{{$b->bulan}}</span></td>
@@ -427,6 +466,24 @@
                                                                 </tbody>
                                                             </table>
                                                         </td>
+                                                        <td>
+                                                            <table class="table table-mini-modern text-center mb-0">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Indeks</th>
+                                                                        <th>Z-score BB/{{$jenisUkur}}</th>
+                                                                        <th>Kategori BB/{{$jenisUkur}}</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td><span class="badge badge-pill badge-{{$bbPbBadge}}">{{$jenisUkur}} {{$tinggiRujukan}} cm</span></td>
+                                                                        <td><span class="badge badge-pill badge-{{$bbPbBadge}}">{{$bbPbSd}}</span></td>
+                                                                        <td><span class="badge badge-pill badge-{{$bbPbBadge}}">{{$bbPbStatus}}</span></td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
                                                     </tr>
                                                     @endforeach
                                                 </tbody>
@@ -442,7 +499,7 @@
                                             <div class="col-lg-12 grid-margin stretch-card">
                                                 <div class="card card-modern-inner">
                                                     <div class="card-body">
-                                                        <h4 class="card-title imunisasi-title">Berat Badan 0-24 Bulan</h4>
+                                                        <h4 class="card-title imunisasi-title">Berat Badan menurut Umur (BB/U) 0-24 Bulan</h4>
                                                         <div class="kms-chart-box"><canvas id="bb_1"></canvas></div>
                                                     </div>
                                                 </div>
@@ -450,7 +507,7 @@
                                             <div class="col-lg-12 grid-margin stretch-card">
                                                 <div class="card card-modern-inner">
                                                     <div class="card-body">
-                                                        <h4 class="card-title imunisasi-title">Berat Badan 24-60 Bulan</h4>
+                                                        <h4 class="card-title imunisasi-title">Berat Badan menurut Umur (BB/U) 24-60 Bulan</h4>
                                                         <div class="kms-chart-box"><canvas id="bb_2"></canvas></div>
                                                     </div>
                                                 </div>
@@ -458,7 +515,7 @@
                                             <div class="col-lg-12 grid-margin stretch-card">
                                                 <div class="card card-modern-inner">
                                                     <div class="card-body">
-                                                        <h4 class="card-title imunisasi-title">Panjang Badan 0-24 Bulan</h4>
+                                                        <h4 class="card-title imunisasi-title">Panjang Badan menurut Umur (PB/U) 0-24 Bulan</h4>
                                                         <div class="kms-chart-box"><canvas id="pb_1"></canvas></div>
                                                     </div>
                                                 </div>
@@ -466,7 +523,7 @@
                                             <div class="col-lg-12 grid-margin stretch-card">
                                                 <div class="card card-modern-inner">
                                                     <div class="card-body">
-                                                        <h4 class="card-title imunisasi-title">Tinggi Badan 24-60 Bulan</h4>
+                                                        <h4 class="card-title imunisasi-title">Tinggi Badan menurut Umur (TB/U) 24-60 Bulan</h4>
                                                         <div class="kms-chart-box"><canvas id="pb_2"></canvas></div>
                                                     </div>
                                                 </div>
@@ -474,9 +531,9 @@
                                             <div class="col-lg-12 grid-margin stretch-card">
                                                 <div class="card card-modern-inner">
                                                     <div class="card-body">
-                                                        <h4 class="card-title imunisasi-title">Berat Badan Menurut Panjang Badan 0-24 Bulan</h4>
+                                                        <h4 class="card-title imunisasi-title">Berat Badan menurut Panjang Badan (BB/PB) 0-24 Bulan</h4>
                                                         <div class="kms-chart-box mb-4"><canvas id="bb_pb_1"></canvas></div>
-                                                        <h4 class="card-title imunisasi-title">Berat Badan Menurut Tinggi Badan 24-60 Bulan</h4>
+                                                        <h4 class="card-title imunisasi-title">Berat Badan menurut Tinggi Badan (BB/TB) 24-60 Bulan</h4>
                                                         <div class="kms-chart-box"><canvas id="bb_pb_2"></canvas><p class="text-muted text-center mt-5 d-none" id="bb_pb_2_empty">Data BB/TB belum tersedia di tabel bpb.</p></div>
                                                     </div>
                                                 </div>
