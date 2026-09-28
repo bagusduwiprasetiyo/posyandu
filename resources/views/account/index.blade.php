@@ -170,6 +170,10 @@
 
     window.isvalid = true;
 
+    // Dibungkus try/catch: kalau init gagal, fungsi edit di bawah tetap terdefinisi.
+    // (Sebelumnya error di sini membuat editRowIbu/tambahAkunIbu tidak ada,
+    //  modal tetap terbuka via data-toggle tapi dengan data basi/kosong.)
+    try {
     $('#tableData').DataTable({
         "paging": true,
         "lengthChange": true,
@@ -196,6 +200,7 @@
             }
         }
     });
+    } catch (err) { console.error('DataTable tableData error:', err); }
 
     window.usernameNow = null;
 
@@ -254,9 +259,15 @@
             console.error('resetForm error:', err);
         }
         $('#formTambahIbu .form-control').removeClass('is-invalid is-valid');
+        // penanda visual mode edit + password boleh kosong
+        $('#modalTambah .modal-title').text('Ubah Akun Ibu');
+        $('input[name=password_ibu]').attr('placeholder', '- kosongkan jika tidak diubah -');
+        $('input[name=verifPassword_ibu]').attr('placeholder', '- kosongkan jika tidak diubah -');
 
-        $.get("{{url('get_account/')}}" + '/' + id,
+        console.log('editRowIbu load relasi untuk user id:', id);
+        $.get("{{url('get_account')}}" + '/' + id,
             function(data, textStatus, jqXHR) {
+                console.log('get_account respon:', data);
                 $.each(data[0], function(i, v) {
                     id = v.bumils_id;
                     $('#listKehamilan').append(
@@ -285,7 +296,14 @@
                 });
 
             }
-        );
+        ).fail(function(xhr) {
+            console.error('get_account gagal:', xhr.status, xhr.responseText);
+            ToastError.fire({
+                icon: 'error',
+                title: 'Gagal memuat data',
+                text: 'Relasi kehamilan/bayi tidak bisa dimuat (' + xhr.status + ')'
+            });
+        });
     }
 
 
@@ -381,6 +399,10 @@
         }
         $('#formTambahIbu .form-control').removeClass('is-invalid is-valid');
         $('input[name=id_ibu]').val('');
+        // kembalikan penanda mode tambah
+        $('#modalTambah .modal-title').text('Tambah Akun Ibu Hamil');
+        $('input[name=password_ibu]').attr('placeholder', '- isi password -');
+        $('input[name=verifPassword_ibu]').attr('placeholder', '- ulangi password -');
 
     }
 </script>
