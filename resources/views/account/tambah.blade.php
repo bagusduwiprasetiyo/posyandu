@@ -252,16 +252,25 @@
     $('input[name=username_ibu]').on('keyup keypress change', function() {
         $('.alertUsername').remove();
 
-        if (jQuery.inArray($(this).val(), window.username) != -1) {
-            if ($(this).val() != window.usernameNow) {
-                $(this).after('<p style="color: red" class="alertUsername">Username tidak bisa digunakan!</p>');
-                window.isvalid = false;
-            }
+        var cur = $(this).val();
+        var act = $('#formTambahIbu').attr('action') || '';
+        var idIbu = $('input[name=id_ibu]').val() || '';
+        // mode update = action account_edit ATAU id_ibu terisi.
+        // username milik sendiri (sama dgn usernameNow) selalu valid, tidak dicek duplikat.
+        var isEdit = act.indexOf('account_edit') !== -1 || idIbu !== '';
+        if (isEdit && cur == window.usernameNow) {
+            window.isvalid = true;
+            $('.alertUsername').remove();
+            return;
+        }
 
+        // mode tambah baru (atau ganti ke username lain): cek duplikat
+        if (jQuery.inArray(cur, window.username) != -1) {
+            $(this).after('<p style="color: red" class="alertUsername">Username tidak bisa digunakan!</p>');
+            window.isvalid = false;
         } else {
             window.isvalid = true;
             $('.alertUsername').remove();
-
         }
     });
 
@@ -508,6 +517,17 @@
                     text: msg
                 });
                 return;
+            }
+
+            // Pengaman terakhir: mode update + username tidak berubah = selalu lolos cek duplikat,
+            // walau flag isvalid basi (mis. dari form admin / percobaan tambah sebelumnya).
+            var curUser = $('input[name=username_ibu]').val();
+            var actSubmit = $form.attr('action') || '';
+            var idIbuSubmit = $('input[name=id_ibu]').val() || '';
+            var isEditSubmit = actSubmit.indexOf('account_edit') !== -1 || idIbuSubmit !== '';
+            if (isEditSubmit && curUser == window.usernameNow) {
+                window.isvalid = true;
+                $('.alertUsername').remove();
             }
 
             if (typeof window.isvalid !== 'undefined' && !window.isvalid) {

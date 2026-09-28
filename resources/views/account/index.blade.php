@@ -202,6 +202,8 @@
     var editNow = function(username) {
         window.usernameNow = username;
         $('.alertUsername').remove();
+        // username saat ini = milik record yg diedit, jadi anggap valid
+        window.isvalid = true;
     }
 
 
@@ -240,6 +242,18 @@
         $('#formTambahIbu').attr('action', "{{url('account_edit')}}");
         $('input[name=id_ibu]').val(id);
         $('input[name=username_ibu]').val(username);
+        // mode update: reset flag duplikat & error validasi dari mode tambah sebelumnya
+        window.isvalid = true;
+        window.usernameNow = username;
+        $('.alertUsername').remove();
+        try {
+            if ($('#formTambahIbu').data('validator')) {
+                $('#formTambahIbu').validate().resetForm();
+            }
+        } catch (err) {
+            console.error('resetForm error:', err);
+        }
+        $('#formTambahIbu .form-control').removeClass('is-invalid is-valid');
 
         $.get("{{url('get_account/')}}" + '/' + id,
             function(data, textStatus, jqXHR) {

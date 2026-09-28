@@ -117,6 +117,22 @@ class AccountController extends Controller
 
     public function updateIbu(Request $request)
     {
+        // validasi dulu SEBELUM hapus relasi — username sendiri dikecualikan
+        if (empty($request->username_ibu) || strlen($request->username_ibu) < 5) {
+            return 'Username minimal 5 karakter!';
+        }
+        if (Users::where('username', $request->username_ibu)->where('id', '!=', $request->id_ibu)->exists()) {
+            return 'Username sudah digunakan!';
+        }
+        if (!empty($request->password_ibu)) {
+            if (strlen($request->password_ibu) < 8) {
+                return 'Password minimal 8 karakter!';
+            }
+            if ($request->password_ibu !== $request->verifPassword_ibu) {
+                return 'Password tidak sama!';
+            }
+        }
+
         Relasi_Bumil::where('users_id', $request->id_ibu)->delete();
         Relasi_Bayi::where('users_id', $request->id_ibu)->delete();
 
