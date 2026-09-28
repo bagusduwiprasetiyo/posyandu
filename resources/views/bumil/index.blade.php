@@ -66,7 +66,7 @@
                                                 Tanggal
                                             </td>
                                             <td>
-                                                Umur Kelahiran
+                                                Usia Kehamilan
                                             </td>
                                             <td>
                                                 Hamil Ke

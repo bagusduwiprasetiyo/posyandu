@@ -80,7 +80,7 @@
 
                 <tr>
                     <th style="font-weight: bold;">Tanggal</th>
-                    <th style="font-weight: bold;">Umur Kelahiran</th>
+                    <th style="font-weight: bold;">Usia Kehamilan</th>
 
                     <th style="font-weight: bold;">1</th>
                     <th style="font-weight: bold;">2</th>

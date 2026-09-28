@@ -104,7 +104,7 @@
                                                                                 </td>
                                                                             </tr>
                                                                             <tr>
-                                                                                <td width="40%;" style="padding: 14px; font-weight: bold;">Umur Kelahiran</td>
+                                                                                <td width="40%;" style="padding: 14px; font-weight: bold;">Usia Kehamilan</td>
                                                                                 <td>
                                                                                     {{$bumils->umur_kelahiran}} minggu
                                                                                 </td>

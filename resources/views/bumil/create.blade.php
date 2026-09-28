@@ -155,7 +155,7 @@
                                                         <input style="background-color: #F3F3F3;" type="date" name="tanggal" class="form-control form-control-sm" required value="">
                                                     </div>
                                                     <div class="form-group col-md-2">
-                                                        <label>Umur Kelahiran <span style="color: red;">*</span></label>
+                                                        <label>Usia Kehamilan <span style="color: red;">*</span></label>
                                                         <div class="input-group-append">
                                                             <input style="background-color: #F3F3F3;" type="text" name="umur_kelahiran" class="form-control form-control-sm" required>
                                                             <button type="button" class="btn btn-sm btn-light">Minggu</button>
