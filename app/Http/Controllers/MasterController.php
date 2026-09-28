@@ -82,7 +82,14 @@ class MasterController extends Controller
         $thallibu = array();
 
         foreach ($jml_bumil as $key => $value) {
-            $tgladd = explode('-', $value->tanggal)[0];
+            if (empty($value->tanggal)) {
+                continue;
+            }
+            $parts = explode('-', $value->tanggal);
+            if (count($parts) < 1 || !is_numeric($parts[0])) {
+                continue;
+            }
+            $tgladd = $parts[0];
 
             if (!in_array($tgladd, $thallibu)) {
                 array_push($thallibu, $tgladd);
@@ -108,8 +115,18 @@ class MasterController extends Controller
             $dt = Detail_Bayi_Timbang::where('bayi_id', $value->id)->get();
 
             foreach ($dt as $key => $value) {
-                $thsplit = explode('-', $value->tanggal)[0];
-                $blnsplit = (int) explode('-', $value->tanggal)[1] - 1;
+                if (empty($value->tanggal)) {
+                    continue;
+                }
+                $parts = explode('-', $value->tanggal);
+                if (count($parts) < 2 || !is_numeric($parts[0]) || !is_numeric($parts[1])) {
+                    continue;
+                }
+                $thsplit = $parts[0];
+                $blnsplit = (int) $parts[1] - 1;
+                if ($blnsplit < 0 || $blnsplit > 11) {
+                    continue;
+                }
 
                 if (!in_array($thsplit, $thall)) {
                     array_push($thall, (int) $thsplit);
@@ -196,8 +213,18 @@ class MasterController extends Controller
             $dt = Detail_Bayi_Timbang::where('bayi_id', $value->id)->get();
 
             foreach ($dt as $key => $value) {
-                $thsplit = explode('-', $value->tanggal)[0];
-                $blnsplit = (int) explode('-', $value->tanggal)[1] - 1;
+                if (empty($value->tanggal)) {
+                    continue;
+                }
+                $parts = explode('-', $value->tanggal);
+                if (count($parts) < 2 || !is_numeric($parts[0]) || !is_numeric($parts[1])) {
+                    continue;
+                }
+                $thsplit = $parts[0];
+                $blnsplit = (int) $parts[1] - 1;
+                if ($blnsplit < 0 || $blnsplit > 11) {
+                    continue;
+                }
                 if ($thsplit == $tahun) {
                     if ($value->status_bb == 'Berat badan sangat kurang (severely underweight)') {
                         $bb_bayi['tipe_4'][$blnsplit] = $bb_bayi['tipe_4'][$blnsplit] + 1;
@@ -289,7 +316,14 @@ class MasterController extends Controller
                     array_push($lila_kurang, $value->lila);
                 }
             } else {
-                if (explode('-', $value->tanggal)[0] == $tahun) {
+                if (empty($value->tanggal)) {
+                    continue;
+                }
+                $partsIbu = explode('-', $value->tanggal);
+                if (count($partsIbu) < 1 || !is_numeric($partsIbu[0])) {
+                    continue;
+                }
+                if ($partsIbu[0] == $tahun) {
                     $newJmlbumil++;
                     if (floatval($value->lila) > 23.5) {
                         array_push($lila_lebih, $value->lila);

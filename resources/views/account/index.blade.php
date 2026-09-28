@@ -29,11 +29,9 @@
                     </button>
                     <a href="{{url('/kader')}}" class="btn btn-primary mr-3 mt-2 mt-xl-0">Tambah Akun Kader</a>
                     @endif
-                    @if(session()->has('kader'))
                     <button data-target="#modalTambah" data-toggle="modal" class="btn btn-warning mr-3 mt-2 mt-xl-0" onclick="tambahAkunIbu()">
                         Tambah Akun Ibu
                     </button>
-                    @endif
                     <!-- <button class="btn btn-primary mt-2 mt-xl-0">Download report</button> -->
                 </div>
             </div>
