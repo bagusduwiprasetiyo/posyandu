@@ -166,9 +166,9 @@
 
 @push('js')
 <script>
-    var username = @json($username);
+    window.username = @json($username);
 
-    isvalid = true;
+    window.isvalid = true;
 
     $('#tableData').DataTable({
         "paging": true,
@@ -197,10 +197,10 @@
         }
     });
 
-    var usernameNow = null;
+    window.usernameNow = null;
 
     var editNow = function(username) {
-        usernameNow = username;
+        window.usernameNow = username;
         $('.alertUsername').remove();
     }
 
@@ -355,10 +355,16 @@
         $('.bayiAppend').remove();
         $('.kehamilanAppend').remove();
         // reset state validasi supaya tidak terkunci dari mode edit / cek duplikat sebelumnya
-        isvalid = true;
-        usernameNow = null;
+        window.isvalid = true;
+        window.usernameNow = null;
         $('.alertUsername').remove();
-        $('#formTambahIbu').validate().resetForm();
+        try {
+            if ($('#formTambahIbu').data('validator')) {
+                $('#formTambahIbu').validate().resetForm();
+            }
+        } catch (err) {
+            console.error('resetForm error:', err);
+        }
         $('#formTambahIbu .form-control').removeClass('is-invalid is-valid');
         $('input[name=id_ibu]').val('');
 

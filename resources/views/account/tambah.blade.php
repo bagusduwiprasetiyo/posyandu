@@ -243,17 +243,23 @@
 
 @push('js')
 <script>
+    // Inisialisasi defensif: script ini di-push SEBELUM script index.blade.php,
+    // jadi variabel global belum ada saat file ini diparse.
+    window.username = window.username || [];
+    if (typeof window.isvalid === 'undefined') window.isvalid = true;
+    if (typeof window.usernameNow === 'undefined') window.usernameNow = null;
+
     $('input[name=username_ibu]').on('keyup keypress change', function() {
         $('.alertUsername').remove();
 
-        if (jQuery.inArray($(this).val(), username) != -1) {
-            if ($(this).val() != usernameNow) {
+        if (jQuery.inArray($(this).val(), window.username) != -1) {
+            if ($(this).val() != window.usernameNow) {
                 $(this).after('<p style="color: red" class="alertUsername">Username tidak bisa digunakan!</p>');
-                isvalid = false;
+                window.isvalid = false;
             }
 
         } else {
-            isvalid = true;
+            window.isvalid = true;
             $('.alertUsername').remove();
 
         }
@@ -312,13 +318,13 @@
     $('input[name=usernameAdmin]').on('keyup keypress change', function() {
         $('.alertUsername').remove();
 
-        if (jQuery.inArray($(this).val(), username) != -1) {
+        if (jQuery.inArray($(this).val(), window.username) != -1) {
 
             $(this).after('<p style="color: red" class="alertUsername">Username tidak bisa digunakan!</p>');
-            isvalid = false;
+            window.isvalid = false;
 
         } else {
-            isvalid = true;
+            window.isvalid = true;
             $('.alertUsername').remove();
 
         }
@@ -333,7 +339,8 @@
             password_ibu: {
                 required: function() {
                     // saat edit (action account_edit), password boleh kosong = tidak diubah
-                    return $('#formTambahIbu').attr('action').indexOf('account_edit') === -1;
+                    var act = $('#formTambahIbu').attr('action') || '';
+                    return act.indexOf('account_edit') === -1;
                 },
                 minlength: 8
             },
@@ -374,6 +381,7 @@
     });
 
 
+    try {
     $('#tableKehamilan').DataTable({
         "paging": true,
         "lengthChange": true,
@@ -402,7 +410,9 @@
 
 
     });
+    } catch (err) { console.error('DataTable tableKehamilan error:', err); }
 
+    try {
     $('#tableBayi').DataTable({
         "paging": true,
         "lengthChange": true,
@@ -431,6 +441,7 @@
 
 
     });
+    } catch (err) { console.error('DataTable tableBayi error:', err); }
 
     var tambahKehamilan = function() {
         $('.kehamilanAppend').remove();
@@ -481,50 +492,75 @@
 
     $('#formTambahIbu').on('submit', function(e) {
         e.preventDefault();
+        try {
+            var $form = $(this);
 
-        if (!$(this).valid()) {
-            return;
-        }
-
-        if (!isvalid) {
-            ToastError.fire({
-                icon: 'error',
-                title: 'Gagal Ditambah',
-                text: 'Username tidak bisa digunakan!'
-            });
-            return;
-        }
-
-        $.ajax({
-            type: "POST",
-            url: $(this).attr('action'),
-            data: $(this).serialize(),
-            success: function(m) {
-                if (m == 'success') {
-                    Toast.fire({
-                        icon: 'success',
-                        title: 'Berhasil Ditambah'
-                    });
-                    setTimeout(function() {
-                        window.location.reload();
-                    }, 950);
-                } else {
-                    ToastError.fire({
-                        icon: 'error',
-                        title: 'Gagal Ditambah',
-                        text: (typeof m === 'string' ? m : (m && m.responseText ? m.responseText : 'Terjadi kesalahan'))
-                    });
+            if (typeof $form.valid === 'function' && !$form.valid()) {
+                var validator = $form.validate();
+                var msg = 'Periksa kembali isian form!';
+                if (validator.errorList && validator.errorList.length) {
+                    msg = validator.errorList[0].message;
+                    console.log('validasi gagal:', validator.errorList);
                 }
-            },
-            error: function(xhr) {
-                var msg = xhr.responseText || ('Error ' + xhr.status);
                 ToastError.fire({
                     icon: 'error',
                     title: 'Gagal Ditambah',
                     text: msg
                 });
+                return;
             }
-        });
+
+            if (typeof window.isvalid !== 'undefined' && !window.isvalid) {
+                ToastError.fire({
+                    icon: 'error',
+                    title: 'Gagal Ditambah',
+                    text: 'Username tidak bisa digunakan!'
+                });
+                return;
+            }
+
+            console.log('submit formTambahIbu ke:', $form.attr('action'), $form.serialize());
+
+            $.ajax({
+                type: "POST",
+                url: $form.attr('action'),
+                data: $form.serialize(),
+                success: function(m) {
+                    console.log('respon server:', m);
+                    if (m == 'success') {
+                        Toast.fire({
+                            icon: 'success',
+                            title: 'Berhasil Ditambah'
+                        });
+                        setTimeout(function() {
+                            window.location.reload();
+                        }, 950);
+                    } else {
+                        ToastError.fire({
+                            icon: 'error',
+                            title: 'Gagal Ditambah',
+                            text: (typeof m === 'string' ? m : (m && m.responseText ? m.responseText : 'Terjadi kesalahan'))
+                        });
+                    }
+                },
+                error: function(xhr) {
+                    console.error('ajax error:', xhr.status, xhr.responseText);
+                    var errMsg = xhr.responseText || ('Error ' + xhr.status);
+                    ToastError.fire({
+                        icon: 'error',
+                        title: 'Gagal Ditambah',
+                        text: errMsg
+                    });
+                }
+            });
+        } catch (err) {
+            console.error('submit error:', err);
+            ToastError.fire({
+                icon: 'error',
+                title: 'Gagal Ditambah',
+                text: 'JS error: ' + err.message
+            });
+        }
     })
 </script>
 @endpush
