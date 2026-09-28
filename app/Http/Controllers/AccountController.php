@@ -49,6 +49,19 @@ class AccountController extends Controller
     public function store(Request $request)
     {
         if (isset($request->user_ibu)) {
+            // validasi server-side agar error jelas, tidak diam
+            if (empty($request->username_ibu) || strlen($request->username_ibu) < 5) {
+                return 'Username minimal 5 karakter!';
+            }
+            if (Users::where('username', $request->username_ibu)->exists()) {
+                return 'Username sudah digunakan!';
+            }
+            if (empty($request->password_ibu) || strlen($request->password_ibu) < 8) {
+                return 'Password minimal 8 karakter!';
+            }
+            if ($request->password_ibu !== $request->verifPassword_ibu) {
+                return 'Password tidak sama!';
+            }
             if (session()->has('kader')) {
                 $lp = session()->get('kader')->posyandu_id;
             } else {
@@ -85,12 +98,14 @@ class AccountController extends Controller
                     }
                 }
             } catch (\Throwable $th) {
-                return $th;
+                return $th->getMessage();
             }
 
 
             return 'success';
         }
+
+        return 'Request tidak valid!';
     }
     public function getData($id)
     {

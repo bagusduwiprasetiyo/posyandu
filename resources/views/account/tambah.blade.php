@@ -30,11 +30,11 @@
                             </div>
                             <div class="form-group">
                                 <label for="password_ibu">Password <span style="color: red;">*</span></label>
-                                <input type="password" name="password_ibu" class="form-control" placeholder="- isi password -" minlength="8">
+                                <input type="password" name="password_ibu" id="password_ibu" class="form-control" placeholder="- isi password -" minlength="8" required>
                             </div>
                             <div class="form-group">
                                 <label for="verifPassword_ibu">Ulangi Password<span style="color: red;">*</span></label>
-                                <input type="password" name="verifPassword_ibu" class="form-control" placeholder="- ulangi password -" minlength="8">
+                                <input type="password" name="verifPassword_ibu" class="form-control" placeholder="- ulangi password -" minlength="8" required>
                             </div>
                             <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalKehamilan" style="width: 100%;">tambah Data Kehamilan</button>
 
@@ -327,11 +327,37 @@
     $('#formTambahIbu').validate({
         rules: {
             username_ibu: {
+                required: true,
                 minlength: 5
             },
+            password_ibu: {
+                required: function() {
+                    // saat edit (action account_edit), password boleh kosong = tidak diubah
+                    return $('#formTambahIbu').attr('action').indexOf('account_edit') === -1;
+                },
+                minlength: 8
+            },
             verifPassword_ibu: {
+                required: function() {
+                    return $('input[name=password_ibu]').val() !== '';
+                },
                 minlength: 8,
                 equalTo: "input[name=password_ibu]"
+            }
+        },
+        messages: {
+            username_ibu: {
+                required: "Username wajib diisi",
+                minlength: "Username minimal 5 karakter"
+            },
+            password_ibu: {
+                required: "Password wajib diisi",
+                minlength: "Password minimal 8 karakter"
+            },
+            verifPassword_ibu: {
+                required: "Ulangi password wajib diisi",
+                minlength: "Password minimal 8 karakter",
+                equalTo: "Password tidak sama"
             }
         },
         highlight: function(e) {
@@ -456,30 +482,49 @@
     $('#formTambahIbu').on('submit', function(e) {
         e.preventDefault();
 
-        if ($(this).valid() && isvalid) {
-            $.ajax({
-                type: "POST",
-                url: $(this).attr('action'),
-                data: $(this).serialize(),
-                success: function(m) {
-                    if (m == 'success') {
-                        Toast.fire({
-                            icon: 'success',
-                            title: 'Berhasil Ditambah'
-                        });
-                        setTimeout(function() {
-                            window.location.reload();
-                        }, 950);
-                    } else {
-                        ToastError.fire({
-                            icon: 'error',
-                            title: 'Gagal Ditambah',
-                            text: m
-                        });
-                    }
-                }
-            });
+        if (!$(this).valid()) {
+            return;
         }
+
+        if (!isvalid) {
+            ToastError.fire({
+                icon: 'error',
+                title: 'Gagal Ditambah',
+                text: 'Username tidak bisa digunakan!'
+            });
+            return;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: $(this).attr('action'),
+            data: $(this).serialize(),
+            success: function(m) {
+                if (m == 'success') {
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Berhasil Ditambah'
+                    });
+                    setTimeout(function() {
+                        window.location.reload();
+                    }, 950);
+                } else {
+                    ToastError.fire({
+                        icon: 'error',
+                        title: 'Gagal Ditambah',
+                        text: (typeof m === 'string' ? m : (m && m.responseText ? m.responseText : 'Terjadi kesalahan'))
+                    });
+                }
+            },
+            error: function(xhr) {
+                var msg = xhr.responseText || ('Error ' + xhr.status);
+                ToastError.fire({
+                    icon: 'error',
+                    title: 'Gagal Ditambah',
+                    text: msg
+                });
+            }
+        });
     })
 </script>
 @endpush

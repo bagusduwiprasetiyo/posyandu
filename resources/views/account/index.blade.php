@@ -354,6 +354,13 @@
         $('#formTambahIbu').trigger('reset');
         $('.bayiAppend').remove();
         $('.kehamilanAppend').remove();
+        // reset state validasi supaya tidak terkunci dari mode edit / cek duplikat sebelumnya
+        isvalid = true;
+        usernameNow = null;
+        $('.alertUsername').remove();
+        $('#formTambahIbu').validate().resetForm();
+        $('#formTambahIbu .form-control').removeClass('is-invalid is-valid');
+        $('input[name=id_ibu]').val('');
 
     }
 </script>
