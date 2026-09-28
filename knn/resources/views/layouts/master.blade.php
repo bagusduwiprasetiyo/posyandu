@@ -11,7 +11,7 @@ $template = asset('template/backend');
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Posyandu Kemuning Lor | {{$title}}</title>
+  <title>Posyandu (Pos Pelayanan Terpadu) | {{$title}}</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="{{$template}}/vendors/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="{{$template}}/vendors/base/vendor.bundle.base.css">
@@ -273,7 +273,7 @@ $template = asset('template/backend');
         <footer class="footer">
           <div class="d-sm-flex justify-content-center justify-content-sm-between">
             <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Sistem Informasi Pelayanan
-              Posyandu - <a href="{{url('/')}}" target="_blank"> e-posyand - Kemuning Lor </a>. </span>
+              Posyandu - <a href="{{url('/')}}" target="_blank"> e-posyand - (Pos Pelayanan Terpadu) </a>. </span>
           </div>
         </footer>
         <!-- partial -->

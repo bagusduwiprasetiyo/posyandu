@@ -1,5 +1,5 @@
 # 📘 MANUAL BOOK
-# Sistem Informasi Posyandu Kemuning Lor
+# Sistem Informasi Posyandu (Pos Pelayanan Terpadu)
 
 **Versi:** 2.0  
 **Terakhir Diperbarui:** Agustus 2026  
@@ -38,7 +38,7 @@
 
 ## 1. Pendahuluan
 
-**Sistem Informasi Posyandu Kemuning Lor** adalah aplikasi berbasis web yang dirancang untuk membantu pengelolaan data dan kegiatan posyandu secara digital. Aplikasi ini mencakup pengelolaan data ibu hamil, bayi, PUS/WUS, deteksi dini risiko kehamilan, konseling kesehatan, sistem rujukan, pelaporan, serta notifikasi melalui SMS Gateway.
+**Sistem Informasi Posyandu (Pos Pelayanan Terpadu)** adalah aplikasi berbasis web yang dirancang untuk membantu pengelolaan data dan kegiatan posyandu secara digital. Aplikasi ini mencakup pengelolaan data ibu hamil, bayi, PUS/WUS, deteksi dini risiko kehamilan, konseling kesehatan, sistem rujukan, pelaporan, serta notifikasi melalui SMS Gateway.
 
 ### Tujuan Aplikasi
 

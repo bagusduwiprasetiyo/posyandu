@@ -9,11 +9,11 @@
                         @if(isset($pasien))
 
                         <h2>Ubah Data Pasien</h2>
-                        <p class="mb-md-0">Sistem Informasi Posyandu Kemuning Lor.</p>
+                        <p class="mb-md-0">Sistem Informasi Posyandu (Pos Pelayanan Terpadu).</p>
 
                         @else
                         <h2>Data Pasien</h2>
-                        <p class="mb-md-0">Sistem Informasi Posyandu Kemuning Lor.</p>
+                        <p class="mb-md-0">Sistem Informasi Posyandu (Pos Pelayanan Terpadu).</p>
                         @endif
                     </div>
                     <div class="d-flex justify-content-between align-items-end flex-wrap">

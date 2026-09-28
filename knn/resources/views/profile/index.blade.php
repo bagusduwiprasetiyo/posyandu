@@ -26,7 +26,7 @@
                     <div class="mr-md-3 mr-xl-5">
 
                         <h2>Profile</h2>
-                        <p class="mb-md-0">Sistem Informasi Posyandu Kemuning Lor.</p>
+                        <p class="mb-md-0">Sistem Informasi Posyandu (Pos Pelayanan Terpadu).</p>
                     </div>
                     <div class="d-flex justify-content-between align-items-end flex-wrap">
                         <i class="mdi mdi-home text-muted hover-cursor"></i>

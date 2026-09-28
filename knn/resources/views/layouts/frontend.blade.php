@@ -11,7 +11,7 @@ $template = asset('template/frontend_');
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Posyandu Kemuning Lor | {{$title}}</title>
+    <title>Posyandu (Pos Pelayanan Terpadu) | {{$title}}</title>
     <meta content="" name="descriptison">
     <meta content="" name="keywords">
 
@@ -72,7 +72,7 @@ $template = asset('template/frontend_');
     <section id="hero">
         <div class="hero-container">
             <h1 class="round">Selamat Datang di,</h1>
-            <h2 class="round"> Elektronik Posyandu Kemuning Lor Jember </h2>
+            <h2 class="round"> Elektronik Posyandu (Pos Pelayanan Terpadu) Jember </h2>
             @if(session()->has('login'))
             <a href="{{url('/dashboard')}}" class="btn-get-started scrollto">Dashboard</a>
             @else
@@ -96,7 +96,7 @@ $template = asset('template/frontend_');
                         <img src="{{$template}}/assets/img/about.jpeg" class="img-fluid" alt="">
                     </div>
                     <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1">
-                        <h3>Posyandu Kemuning Lor.</h3>
+                        <h3>Posyandu (Pos Pelayanan Terpadu).</h3>
                         <br>
 
                         <ul>
@@ -105,7 +105,7 @@ $template = asset('template/frontend_');
                             <li><i class="icofont-check-circled"></i>Handphone: <span>+62 8585 6376 061</span></li>
                         </ul>
                         <p>
-                            Dalam upaya memberikan kemudahan pelayanan kesehatan dasar dan untuk meningkatkan penurunan Angka Kematian Ibu dan Bayi, Posyandu Kemuning Lor bekerjama dengan Tim Pengabdian kepada Masyarakat Politeknik Negeri Jember menyelenggarakan BIMTEK penggunaan aplikasi Elektronik Posyandu Kemuning Lor (eposyandu kelor) pada tanggal 12 September 2020.
+                            Dalam upaya memberikan kemudahan pelayanan kesehatan dasar dan untuk meningkatkan penurunan Angka Kematian Ibu dan Bayi, Posyandu (Pos Pelayanan Terpadu) bekerjama dengan Tim Pengabdian kepada Masyarakat Politeknik Negeri Jember menyelenggarakan BIMTEK penggunaan aplikasi Elektronik Posyandu (Pos Pelayanan Terpadu) (eposyandu kelor) pada tanggal 12 September 2020.
                         </p>
                     </div>
                 </div>
@@ -119,7 +119,7 @@ $template = asset('template/frontend_');
 
                 <div class="section-title">
                     <h2>Layanan Posyandu</h2>
-                    <p>Layanan dari E-posyandu Kemuning Lor.</p>
+                    <p>Layanan dari E-posyandu (Pos Pelayanan Terpadu).</p>
                 </div>
 
                 <div class="row">
@@ -160,7 +160,7 @@ $template = asset('template/frontend_');
         <footer id="footer">
             <div class="container">
                 <div class="copyright">
-                    &copy; Copyright <strong><span>E-posyandu</span></strong>. Kemuning Lor
+                    &copy; Copyright <strong><span>E-posyandu</span></strong>. (Pos Pelayanan Terpadu)
                 </div>
                 <div class="credits">
 

@@ -2,7 +2,7 @@
     <x-auth-card>
         <x-slot name="logo">
             <a href="/">
-                <h2 style="font-size: xx-large">Posyandu Kemuning Lor</h2>
+                <h2 style="font-size: xx-large">Posyandu (Pos Pelayanan Terpadu)</h2>
                 {{--                <img src="/front/img/logo.png" alt="">--}}
                 {{--                <x-application-logo class="w-20 h-20 fill-current text-gray-500"/>--}}
             </a>

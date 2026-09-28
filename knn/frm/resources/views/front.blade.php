@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>KNN Posyandu Kelor</title>
-    <meta content="Posyandu Kemuning Lor" name="description">
+    <meta content="Posyandu (Pos Pelayanan Terpadu)" name="description">
     <meta content="posyandu, knn" name="keywords">
 
     <!-- Favicons -->
@@ -63,7 +63,7 @@
 <section id="hero" class="d-flex flex-column justify-content-center">
     <div class="container" data-aos="zoom-in" data-aos-delay="100">
         <h1>Penentuan Resiko Kehamilan</h1>
-        <p>di <span class="typed" data-typed-items="Posyandu Kemuning Lor, Posyandu Kemuning Lor"></span></p>
+        <p>di <span class="typed" data-typed-items="Posyandu (Pos Pelayanan Terpadu), Posyandu (Pos Pelayanan Terpadu)"></span></p>
         {{--        <div class="social-links">--}}
         {{--            <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>--}}
         {{--            <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>--}}
@@ -90,12 +90,12 @@
                     <img src="front/img/about.jpeg" class="img-fluid" alt="">
                 </div>
                 <div class="col-lg-6 pt-4 pt-lg-0 content">
-                    <h3>Posyandu Kemuning Lor.</h3>
+                    <h3>Posyandu (Pos Pelayanan Terpadu).</h3>
                     <div class="row">
                         <div class="col-lg-12">
                             <p>
                                 Dalam upaya memberikan kemudahan pelayanan kesehatan dasar dan untuk meningkatkan penurunan Angka
-                                Kematian Ibu dan Bayi, Posyandu Kemuning Lor bekerjama dengan Tim Pengabdian kepada Masyarakat
+                                Kematian Ibu dan Bayi, Posyandu (Pos Pelayanan Terpadu) bekerjama dengan Tim Pengabdian kepada Masyarakat
                                 Politeknik Negeri Jember menyelenggarakan BIMTEK penggunaan aplikasi Elektronik Posyandu Kemuning
                                 Lor (eposyandu kelor) pada tanggal 12 September 2020.
                             </p>
@@ -122,7 +122,7 @@
 
             <div class="section-title">
                 <h2>Layanan Posyandu</h2>
-                <p>Layanan dari E-posyandu Kemuning Lor.</p>
+                <p>Layanan dari E-posyandu (Pos Pelayanan Terpadu).</p>
             </div>
 
             <div class="row">
@@ -192,7 +192,7 @@
                         <div class="address">
                             <i class="bi bi-geo-alt"></i>
                             <h4>Lokasi:</h4>
-                            <p>Desa Kemuning Lor, Kec. Arjasa, Kab. Jember, Jawa Timur</p>
+                            <p>Desa (Pos Pelayanan Terpadu), Kec. Arjasa, Kab. Jember, Jawa Timur</p>
                         </div>
                         <div class="email">
                             <i class="bi bi-envelope"></i>

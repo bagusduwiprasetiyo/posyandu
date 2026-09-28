@@ -11,7 +11,7 @@ $template = asset('template/frontend_');
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Posyandu Kemuning Lor || 419</title>
+    <title>Posyandu (Pos Pelayanan Terpadu) || 419</title>
     <meta content="" name="descriptison">
     <meta content="" name="keywords">
 
