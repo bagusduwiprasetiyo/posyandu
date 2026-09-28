@@ -4,16 +4,16 @@
 <div class="content-wrapper">
     <div class="row">
         <div class="col-md-12 grid-margin">
-            <div class="d-flex justify-content-between flex-wrap">
+            <div class="d-flex justify-content-between flex-wrap page-header-modern">
                 <div class="d-flex align-items-end flex-wrap">
                     <div class="mr-md-3 mr-xl-5">
-                        <h2>Terima Kader</h2>
-                        <p class="mb-md-0">Sistem Informasi Posyandu Kemuning Lor.</p>
+                        <h2 class="page-title-modern">Terima Kader</h2>
+                        <p class="mb-md-0 text-muted">Sistem Informasi Posyandu Kemuning Lor.</p>
                     </div>
-                    <div class="d-flex">
-                        <i class="mdi mdi-home text-muted hover-cursor"></i>
-                        <p class="text-muted mb-0 hover-cursor">&nbsp;/&nbsp;Dashboard&nbsp;/&nbsp;</p>
-                        <p class="text-primary mb-0 hover-cursor">Analisis</p>
+                    <div class="d-flex breadcrumb-modern">
+                        <i class="mdi mdi-home text-muted"></i>
+                        <p class="text-muted mb-0">&nbsp;/&nbsp;Posyandu&nbsp;/&nbsp;</p>
+                        <p class="text-primary mb-0 font-weight-bold">Terima Kader</p>
                     </div>
                 </div>
             </div>
@@ -21,9 +21,10 @@
     </div>
     <div class="row">
         <div class="col-md-12 grid-margin stretch-card">
-            <div class="card">
+            <div class="card card-modern">
                 <div class="card-body">
-                    <table id="tableData" class="table table-hover compact" style="width: 100%;">
+                    <div class="table-responsive">
+                    <table id="tableData" class="table table-modern table-hover compact" style="width: 100%;">
                         <thead>
                             <tr>
                                 <th style="width: 10%;">No</th>
@@ -72,6 +73,7 @@
                             @endphp
                         </tbody>
                     </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -129,6 +131,75 @@
     </div>
 </div>
 @endsection
+
+@push('css')
+<style>
+    .page-title-modern {
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        color: #1a2333;
+        margin-bottom: 2px;
+    }
+
+    .breadcrumb-modern {
+        opacity: 0.85;
+        font-size: 0.85rem;
+    }
+
+    .card-modern {
+        border: none;
+        border-radius: 14px;
+        box-shadow: 0 2px 16px rgba(20, 30, 60, 0.06);
+    }
+
+    .table-modern {
+        border-collapse: separate;
+        border-spacing: 0 6px;
+    }
+
+    .table-modern thead th {
+        border: none;
+        background-color: #f4f6fb;
+        color: #5c6b8a;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+        font-weight: 700;
+        padding: 12px 10px;
+        vertical-align: middle;
+        white-space: nowrap;
+    }
+
+    .table-modern thead th:first-child {
+        border-radius: 10px 0 0 10px;
+    }
+
+    .table-modern thead th:last-child {
+        border-radius: 0 10px 10px 0;
+    }
+
+    .table-modern tbody tr {
+        background-color: #fff;
+    }
+
+    .table-modern tbody td {
+        border-top: 1px solid #eef1f8;
+        border-bottom: 1px solid #eef1f8;
+        vertical-align: middle;
+        color: #1a2333;
+    }
+
+    .table-modern tbody td:first-child {
+        border-left: 1px solid #eef1f8;
+        border-radius: 10px 0 0 10px;
+    }
+
+    .table-modern tbody td:last-child {
+        border-right: 1px solid #eef1f8;
+        border-radius: 0 10px 10px 0;
+    }
+</style>
+@endpush
 
 @push('js')
 
