@@ -106,7 +106,9 @@ Route::group(['middleware' => ['checkLevel:1,2']], function () {
     //laporan registrasi 
     // Route::get('laporan_registrasi/{laporan}/{id}/{tahun}', 'LaporanRegistrasi@index');
     Route::get('laporan_registrasi_bumil/{id}/{tahun}', 'LaporanRegistrasi@bumil');
+    Route::get('laporan_registrasi_bumil/{id}/{tahun}/{bulan_dari}/{bulan_sampai}', 'LaporanRegistrasi@bumil');
     Route::get('laporan_registrasi_bayi/{id}/{tahun}', 'LaporanRegistrasi@bayi');
+    Route::get('laporan_registrasi_bayi/{id}/{tahun}/{bulan_dari}/{bulan_sampai}', 'LaporanRegistrasi@bayi');
     //laporan hasil kegiatan
     Route::get('laporan', 'LaporanController@index');
     Route::get('laporan_kegiatan_posyandu/{id}/{tahun}', 'LaporanKegiatan@index');

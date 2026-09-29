@@ -42,7 +42,15 @@
         ?>
 
         <p style="font-size: 9pt;">Nama Posyandu : {{$id_posyandu == 0? 'Semua Posyandu': $nama_posyandu->nama}}</p>
-        <!-- <p style="font-size: 9pt;">Tahun : {{$tahun}}</p> -->
+        @php
+        $namaBulan = [1=>'Januari',2=>'Februari',3=>'Maret',4=>'April',5=>'Mei',6=>'Juni',7=>'Juli',8=>'Agustus',9=>'September',10=>'Oktober',11=>'November',12=>'Desember'];
+        $teksTahun = ($tahun == 0) ? 'Semua Tahun' : $tahun;
+        $teksBulan = '';
+        if (isset($bulan_dari) && isset($bulan_sampai) && $bulan_dari != 0 && $bulan_sampai != 0) {
+            $teksBulan = ' | Periode Bulan: ' . ($namaBulan[(int)$bulan_dari] ?? $bulan_dari) . ' s/d ' . ($namaBulan[(int)$bulan_sampai] ?? $bulan_sampai);
+        }
+        @endphp
+        <p style="font-size: 9pt;">Tahun : {{$teksTahun}}{{$teksBulan}}</p>
         <br>
         <table style="font-size: 8pt; text-align: center;" border="1" cellpadding="2" cellspacing="0">
             <thead>
