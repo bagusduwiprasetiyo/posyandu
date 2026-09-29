@@ -164,7 +164,12 @@ class BayiController extends Controller
 
         $dt_bayi_timbang = (object) $dt_bayi_timbang;
 
-        return view('bayi.index', compact('title', 'sidebarPemeriksaan', 'sidebarSubBayi', 'collapsePemeriksaan', 'bayi', 'dt_bayi_timbang', 'statustmb'));
+        // Standar antropometri BB/PB & BB/TB (sama persis seperti detail() agar modal index konsisten)
+        $bpbSelect = ['jenis_kelamin', 'jenis_ukur', DB::raw('min3 as panjang_tinggi_badan'), DB::raw('min2 as min3'), DB::raw('min1 as min2'), DB::raw('median as min1'), DB::raw('plus1 as median'), DB::raw('plus2 as plus1'), DB::raw('plus3 as plus2'), DB::raw('sumber as plus3')];
+        $bpbL = DB::table('bpb')->select($bpbSelect)->where('jenis_kelamin', 'Laki-laki')->orderBy('jenis_ukur')->orderByRaw('CAST(min3 AS DECIMAL(8,2))')->get();
+        $bpbP = DB::table('bpb')->select($bpbSelect)->where('jenis_kelamin', 'Perempuan')->orderBy('jenis_ukur')->orderByRaw('CAST(min3 AS DECIMAL(8,2))')->get();
+
+        return view('bayi.index', compact('title', 'sidebarPemeriksaan', 'sidebarSubBayi', 'collapsePemeriksaan', 'bayi', 'dt_bayi_timbang', 'statustmb', 'bpbL', 'bpbP'));
     }
 
     public function create()

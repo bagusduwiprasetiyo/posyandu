@@ -53,9 +53,48 @@
                             @php
                             $keyField = 'bayi_'.$b->id;
                             $timbangJson = [];
+                            // Rujukan BB/PB & BB/TB sesuai jenis kelamin (sama seperti bayi/detail)
+                            $bpbRef = $b->l_p == 1 ? $bpbL : $bpbP;
                             foreach ($dt_bayi_timbang->$keyField as $d) {
                                 $sdBb = $d->sd_bb;
                                 $sdPb = $d->sd_pb;
+                                // --- Hitung BB/PB (<=24 bln) / BB/TB (>24 bln), sama persis dgn detail.blade.php ---
+                                $jenisUkur = $d->umur_bulan <= 24 ? 'PB' : 'TB';
+                                $tinggiRujukan = number_format(round((float) $d->tinggi_badan * 2) / 2, 1, '.', '');
+                                $bpbRujukan = collect($bpbRef)->first(function ($row) use ($jenisUkur, $tinggiRujukan) {
+                                    return $row->jenis_ukur == $jenisUkur && number_format((float) $row->panjang_tinggi_badan, 1, '.', '') == $tinggiRujukan;
+                                });
+                                $bbPbSd = '-';
+                                $bbPbStatus = $bpbRujukan ? '-' : 'Rujukan tidak tersedia';
+                                $bbPbBadge = 'secondary';
+                                if ($bpbRujukan) {
+                                    $beratBadan = (float) $d->berat_badan;
+                                    if ($beratBadan < (float) $bpbRujukan->min3) {
+                                        $bbPbSd = '< -3';
+                                        $bbPbStatus = 'Gizi buruk';
+                                        $bbPbBadge = 'danger';
+                                    } elseif ($beratBadan < (float) $bpbRujukan->min2) {
+                                        $bbPbSd = '-3 s/d < -2';
+                                        $bbPbStatus = 'Gizi kurang';
+                                        $bbPbBadge = 'warning';
+                                    } elseif ($beratBadan <= (float) $bpbRujukan->plus1) {
+                                        $bbPbSd = '-2 s/d +1';
+                                        $bbPbStatus = 'Gizi baik';
+                                        $bbPbBadge = 'success';
+                                    } elseif ($beratBadan <= (float) $bpbRujukan->plus2) {
+                                        $bbPbSd = '> +1 s/d +2';
+                                        $bbPbStatus = 'Berisiko gizi lebih';
+                                        $bbPbBadge = 'warning';
+                                    } elseif ($beratBadan <= (float) $bpbRujukan->plus3) {
+                                        $bbPbSd = '> +2 s/d +3';
+                                        $bbPbStatus = 'Gizi lebih';
+                                        $bbPbBadge = 'warning';
+                                    } else {
+                                        $bbPbSd = '> +3';
+                                        $bbPbStatus = 'Obesitas';
+                                        $bbPbBadge = 'danger';
+                                    }
+                                }
                                 $timbangJson[] = [
                                     'bulan_ke'   => $d->bulan_ke,
                                     'bulan'      => $d->bulan,
@@ -67,6 +106,11 @@
                                     'status_bb'  => $d->status_bb,
                                     'sd_pb'      => $sdPb,
                                     'status_pb'  => $d->status_pb,
+                                    'jenis_ukur' => $jenisUkur,
+                                    'rujukan_cm' => $tinggiRujukan,
+                                    'bbpb_sd'    => $bbPbSd,
+                                    'bbpb_status'=> $bbPbStatus,
+                                    'bbpb_badge' => $bbPbBadge,
                                 ];
                             }
                             @endphp
@@ -200,6 +244,8 @@
                             <th>Kategori BB/U</th>
                             <th>Z PB/U atau TB/U</th>
                             <th>Kategori PB/U atau TB/U</th>
+                            <th>Z BB/PB - BB/TB</th>
+                            <th>Kategori BB/PB - BB/TB</th>
                         </tr>
                     </thead>
                     <tbody id="modalTimbangBody">
@@ -596,11 +642,13 @@
             var $tbody = $('#modalTimbangBody').empty();
 
             if (!records || records.length === 0) {
-                $tbody.append('<tr><td colspan="8" class="text-muted py-4">Belum ada data timbang</td></tr>');
+                $tbody.append('<tr><td colspan="10" class="text-muted py-4">Belum ada data timbang</td></tr>');
             } else {
                 records.forEach(function(d) {
                     var bbColor = d.sd_bb == '-3' ? 'danger' : (d.sd_bb == '-2' ? 'warning' : 'success');
                     var pbColor = d.sd_pb == '-3' ? 'danger' : (d.sd_pb == '-2' ? 'warning' : 'success');
+                    var bpbBadge = d.bbpb_badge || 'secondary';
+                    var jenisUkur = d.jenis_ukur || (parseInt(d.umur_bulan) <= 24 ? 'PB' : 'TB');
 
                     var row = '<tr>' +
                         '<td><span class="badge badge-pill badge-light">' + d.bulan_ke + '</span></td>' +
@@ -611,6 +659,8 @@
                         '<td><span class="badge badge-pill badge-' + bbColor + '">' + d.status_bb + '</span></td>' +
                         '<td><span class="badge badge-pill badge-' + pbColor + '">' + d.sd_pb + ' SD</span></td>' +
                         '<td><span class="badge badge-pill badge-' + pbColor + '">' + d.status_pb + '</span></td>' +
+                        '<td><span class="badge badge-pill badge-' + bpbBadge + '">' + (d.bbpb_sd || '-') + '</span></td>' +
+                        '<td><span class="badge badge-pill badge-' + bpbBadge + '" title="' + jenisUkur + ' ' + (d.rujukan_cm || '') + ' cm">' + (d.bbpb_status || '-') + '</span></td>' +
                         '</tr>';
 
                     $tbody.append(row);
