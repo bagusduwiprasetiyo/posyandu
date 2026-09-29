@@ -53,64 +53,57 @@
                             @php
                             $keyField = 'bayi_'.$b->id;
                             $timbangJson = [];
-                            // Rujukan BB/PB & BB/TB sesuai jenis kelamin (sama seperti bayi/detail)
                             $bpbRef = $b->l_p == 1 ? $bpbL : $bpbP;
                             foreach ($dt_bayi_timbang->$keyField as $d) {
-                                $sdBb = $d->sd_bb;
-                                $sdPb = $d->sd_pb;
-                                // --- Hitung BB/PB (<=24 bln) / BB/TB (>24 bln), sama persis dgn detail.blade.php ---
-                                $jenisUkur = $d->umur_bulan <= 24 ? 'PB' : 'TB';
-                                $tinggiRujukan = number_format(round((float) $d->tinggi_badan * 2) / 2, 1, '.', '');
-                                $bpbRujukan = collect($bpbRef)->first(function ($row) use ($jenisUkur, $tinggiRujukan) {
-                                    return $row->jenis_ukur == $jenisUkur && number_format((float) $row->panjang_tinggi_badan, 1, '.', '') == $tinggiRujukan;
-                                });
-                                $bbPbSd = '-';
-                                $bbPbStatus = $bpbRujukan ? '-' : 'Rujukan tidak tersedia';
-                                $bbPbBadge = 'secondary';
-                                if ($bpbRujukan) {
-                                    $beratBadan = (float) $d->berat_badan;
-                                    if ($beratBadan < (float) $bpbRujukan->min3) {
-                                        $bbPbSd = '< -3';
-                                        $bbPbStatus = 'Gizi buruk';
-                                        $bbPbBadge = 'danger';
-                                    } elseif ($beratBadan < (float) $bpbRujukan->min2) {
-                                        $bbPbSd = '-3 s/d < -2';
-                                        $bbPbStatus = 'Gizi kurang';
-                                        $bbPbBadge = 'warning';
-                                    } elseif ($beratBadan <= (float) $bpbRujukan->plus1) {
-                                        $bbPbSd = '-2 s/d +1';
-                                        $bbPbStatus = 'Gizi baik';
-                                        $bbPbBadge = 'success';
-                                    } elseif ($beratBadan <= (float) $bpbRujukan->plus2) {
-                                        $bbPbSd = '> +1 s/d +2';
-                                        $bbPbStatus = 'Berisiko gizi lebih';
-                                        $bbPbBadge = 'warning';
-                                    } elseif ($beratBadan <= (float) $bpbRujukan->plus3) {
-                                        $bbPbSd = '> +2 s/d +3';
-                                        $bbPbStatus = 'Gizi lebih';
-                                        $bbPbBadge = 'warning';
+                                // BB/PB (umur <=24 bln) / BB/TB (umur >24 bln) — PMK No.2 Th.2020
+                                $jenisUkur  = $d->umur_bulan <= 24 ? 'PB' : 'TB';
+                                // Bulatkan ke 0.5 cm terdekat, sama seperti chart
+                                $tinggiRujukan = number_format(round((float)$d->tinggi_badan * 2) / 2, 1, '.', '');
+                                // Cari baris rujukan dari tabel bpb (kolom asli, tanpa alias geser)
+                                $bpbRow = null;
+                                foreach ($bpbRef as $row) {
+                                    if ($row->jenis_ukur == $jenisUkur &&
+                                        number_format((float)$row->panjang_tinggi_badan, 1, '.', '') == $tinggiRujukan) {
+                                        $bpbRow = $row;
+                                        break;
+                                    }
+                                }
+                                $bbPbSd     = '-';
+                                $bbPbStatus = '-';
+                                $bbPbBadge  = 'secondary';
+                                if ($bpbRow) {
+                                    $bb = (float)$d->berat_badan;
+                                    // Zona SD sesuai tabel bpb: min3, min2, min1, median, plus1, plus2, plus3
+                                    if ($bb < (float)$bpbRow->min3) {
+                                        $bbPbSd = '< -3 SD'; $bbPbStatus = 'Gizi buruk'; $bbPbBadge = 'danger';
+                                    } elseif ($bb < (float)$bpbRow->min2) {
+                                        $bbPbSd = '-3 s/d <-2 SD'; $bbPbStatus = 'Gizi kurang'; $bbPbBadge = 'warning';
+                                    } elseif ($bb <= (float)$bpbRow->plus1) {
+                                        $bbPbSd = '-2 s/d +1 SD'; $bbPbStatus = 'Gizi baik'; $bbPbBadge = 'success';
+                                    } elseif ($bb <= (float)$bpbRow->plus2) {
+                                        $bbPbSd = '>+1 s/d +2 SD'; $bbPbStatus = 'Berisiko gizi lebih'; $bbPbBadge = 'warning';
+                                    } elseif ($bb <= (float)$bpbRow->plus3) {
+                                        $bbPbSd = '>+2 s/d +3 SD'; $bbPbStatus = 'Gizi lebih'; $bbPbBadge = 'warning';
                                     } else {
-                                        $bbPbSd = '> +3';
-                                        $bbPbStatus = 'Obesitas';
-                                        $bbPbBadge = 'danger';
+                                        $bbPbSd = '> +3 SD'; $bbPbStatus = 'Obesitas'; $bbPbBadge = 'danger';
                                     }
                                 }
                                 $timbangJson[] = [
-                                    'bulan_ke'   => $d->bulan_ke,
-                                    'bulan'      => $d->bulan,
-                                    'bb'         => $d->berat_badan,
-                                    'pb'         => $d->tinggi_badan,
-                                    'bb_status'  => $statustmb['dt_bb_'.$d->id] ?? '',
-                                    'pb_status'  => $statustmb['dt_pb_'.$d->id] ?? '',
-                                    'sd_bb'      => $sdBb,
-                                    'status_bb'  => $d->status_bb,
-                                    'sd_pb'      => $sdPb,
-                                    'status_pb'  => $d->status_pb,
-                                    'jenis_ukur' => $jenisUkur,
-                                    'rujukan_cm' => $tinggiRujukan,
-                                    'bbpb_sd'    => $bbPbSd,
-                                    'bbpb_status'=> $bbPbStatus,
-                                    'bbpb_badge' => $bbPbBadge,
+                                    'bulan_ke'    => $d->bulan_ke,
+                                    'bulan'       => $d->bulan,
+                                    'bb'          => $d->berat_badan,
+                                    'pb'          => $d->tinggi_badan,
+                                    'bb_status'   => $statustmb['dt_bb_'.$d->id] ?? '',
+                                    'pb_status'   => $statustmb['dt_pb_'.$d->id] ?? '',
+                                    'sd_bb'       => $d->sd_bb,
+                                    'status_bb'   => $d->status_bb,
+                                    'sd_pb'       => $d->sd_pb,
+                                    'status_pb'   => $d->status_pb,
+                                    'jenis_ukur'  => $jenisUkur,
+                                    'rujukan_cm'  => $tinggiRujukan,
+                                    'bbpb_sd'     => $bbPbSd,
+                                    'bbpb_status' => $bbPbStatus,
+                                    'bbpb_badge'  => $bbPbBadge,
                                 ];
                             }
                             @endphp
