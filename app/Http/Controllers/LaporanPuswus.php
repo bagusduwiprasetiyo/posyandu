@@ -8,15 +8,15 @@ use Illuminate\Http\Request;
 
 class LaporanPuswus extends Controller
 {
-    public function index($id_posyandu, $tahun)
+    public function index($id_posyandu, $tahun, $bulan = 0)
     {
         $title = 'Laporan Puswus Posyandu';
         $sidebarLaporan = 'active';
         $collapseLaporan = 'show';
         $sidebarlaporanpuswus = 'active';
 
-        // return $laporan = $this->jml($id_posyandu, $tahun);
-        $laporan = $this->jml($id_posyandu, $tahun);
+        // return $laporan = $this->jml($id_posyandu, $tahun, $bulan);
+        $laporan = $this->jml($id_posyandu, $tahun, $bulan);
 
         return view('laporan.laporan_puswus.index', [
             'title' => $title,
@@ -25,11 +25,12 @@ class LaporanPuswus extends Controller
             'sidebarlaporanpuswus' => $sidebarlaporanpuswus,
             'id_posyandu' => $id_posyandu,
             'tahun' => $tahun,
+            'bulan' => $bulan,
             'laporan' => $laporan
         ]);
     }
 
-    public function jml($id_posyandu, $tahun)
+    public function jml($id_posyandu, $tahun, $bulan = 0)
     {
         $data = array();
 
@@ -43,6 +44,9 @@ class LaporanPuswus extends Controller
         }
         if ($tahun != 0) {
             $query->whereYear('created_at', $tahun);
+        }
+        if ($bulan != 0) {
+            $query->whereMonth('created_at', $bulan);
         }
         $puswus = $query->get();
 
@@ -117,14 +121,15 @@ class LaporanPuswus extends Controller
         return ['status' => 'success', 'message' => 'Berhasil menyimpan data'];
     }
 
-    public function print($id_posyandu, $tahun)
+    public function print($id_posyandu, $tahun, $bulan = 0)
     {
-        $laporan = $this->jml($id_posyandu, $tahun);
+        $laporan = $this->jml($id_posyandu, $tahun, $bulan);
         return view('laporan.laporan_puswus.print_puswus', [
             'laporan' => $laporan,
             'tahun' => $tahun,
             'id_posyandu' => $id_posyandu,
             'tahun' => $tahun,
+            'bulan' => $bulan,
 
         ]);
     }

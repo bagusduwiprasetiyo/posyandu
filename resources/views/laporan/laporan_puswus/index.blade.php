@@ -64,11 +64,19 @@
                                     </select>
                                 </div>
                             </div>
-                            <h6 class="mt-3">Tampilkan Data Tahun : </h6>
+                            <h6 class="mt-3">Tampilkan Data Tahun dan Bulan : </h6>
 
                             <div class="row">
                                 <div class="col-sm-3">
                                     <input type="text" id="dateyear" class="form-control form-control-sm" style="background-color: #F3F3F3;" placeholder="Pilih Tahun" value="{{$tahun}}">
+                                </div>
+                                <div class="col-sm-3">
+                                    <select id="month" class="form-control form-control-sm">
+                                        <option value="0" {{ (int)$bulan === 0 ? 'selected' : '' }}>Semua Bulan</option>
+                                        @foreach([1=>'Januari',2=>'Februari',3=>'Maret',4=>'April',5=>'Mei',6=>'Juni',7=>'Juli',8=>'Agustus',9=>'September',10=>'Oktober',11=>'November',12=>'Desember'] as $number => $name)
+                                        <option value="{{$number}}" {{ (int)$bulan === $number ? 'selected' : '' }}>{{$name}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="col-sm-2 mt-1">
                                     <button id="tampilkan" class="btn btn-success btn-sm mt-1"><i class="mdi mdi-magnify menu-icon"></i> Tampilkan</button>
@@ -84,6 +92,7 @@
                     <form action="#">
                         @csrf
                         <input type="hidden" name="tahun" value="{{$tahun}}">
+                        <input type="hidden" name="bulan" value="{{$bulan}}">
                         <input type="hidden" name="posyandu_id" value="{{$id_posyandu}}">
                         <table style="font-size: 8pt; text-align: center;" border="1" cellpadding="8" cellspacing="0">
                             <thead>
@@ -251,11 +260,11 @@
 
     $('#tampilkan').on('click', function() {
         window.location.href = "{{url('laporan_puswus')}}" + '/' + $('#posyandu_id').val() + '/' +
-            $('#dateyear').val()
+            $('#dateyear').val() + '/' + $('#month').val()
     })
 
     $('#cetak').on('click', function() {
-        window.open("{{url('print/laporan_puswus/'.$id_posyandu.'/'.$tahun)}}");
+        window.open("{{url('print/laporan_puswus/'.$id_posyandu.'/'.$tahun.'/'.$bulan)}}");
     })
 </script>
 @endpush

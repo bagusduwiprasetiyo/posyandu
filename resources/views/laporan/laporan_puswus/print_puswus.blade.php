@@ -28,7 +28,7 @@
 <body>
     <div id="print">
         <center>
-            <h3>REGISTER PUSWUS DALAM WILAYAH KERJA POSYANDU <br /> JANUARI S/D DESEMBER {{$tahun}}</h3>
+            <h3>REGISTER PUSWUS DALAM WILAYAH KERJA POSYANDU <br /> @if($bulan == 0) JANUARI S/D DESEMBER @else {{strtoupper([1=>'JANUARI',2=>'FEBRUARI',3=>'MARET',4=>'APRIL',5=>'MEI',6=>'JUNI',7=>'JULI',8=>'AGUSTUS',9=>'SEPTEMBER',10=>'OKTOBER',11=>'NOVEMBER',12=>'DESEMBER'][(int)$bulan] ?? '')}} @endif {{$tahun}}</h3>
 
         </center>
         <br>

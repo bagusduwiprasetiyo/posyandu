@@ -123,9 +123,9 @@ Route::group(['middleware' => ['checkLevel:1,2']], function () {
     Route::post('laporan_catatan_bumil', 'CatatanBumil@keterangan');
     Route::get('print/laporan_catatan_bumil/{id}/{tahun}', 'CatatanBumil@print');
     //laporan puswus
-    Route::get('laporan_puswus/{id}/{tahun}', 'LaporanPuswus@index');
+    Route::get('laporan_puswus/{id}/{tahun}/{bulan?}', 'LaporanPuswus@index');
     Route::post('laporan_puswus', 'LaporanPuswus@keterangan');
-    Route::get('print/laporan_puswus/{id}/{tahun}', 'LaporanPuswus@print');
+    Route::get('print/laporan_puswus/{id}/{tahun}/{bulan?}', 'LaporanPuswus@print');
     //laporan bulanan
     Route::get('laporan_bulanan/{id}/{tahun}/{bulan}', 'LaporanBulanan@index');
     Route::post('laporan_bulanan', 'LaporanBulanan@keterangan');
