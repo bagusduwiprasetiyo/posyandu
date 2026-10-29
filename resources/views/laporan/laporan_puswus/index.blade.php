@@ -69,9 +69,11 @@
                             <div class="row">
                                 <div class="col-sm-3">
                                     <input type="text" id="dateyear" class="form-control form-control-sm" style="background-color: #F3F3F3;" placeholder="Pilih Tahun" value="{{$tahun}}">
-
                                 </div>
-                                <div class="offset-sm-10 mt-3">
+                                <div class="col-sm-2 mt-1">
+                                    <button id="tampilkan" class="btn btn-success btn-sm mt-1"><i class="mdi mdi-magnify menu-icon"></i> Tampilkan</button>
+                                </div>
+                                <div class="offset-sm-7 mt-3">
                                     <button id="cetak" class="btn btn-primary"><i class="mdi mdi-printer menu-icon"></i> Cetak Laporan</button>
                                 </div>
                             </div>
@@ -247,12 +249,8 @@
         minViewMode: "years"
     })
 
-    $('#dateyear').on('change', function() {
+    $('#tampilkan').on('click', function() {
         window.location.href = "{{url('laporan_puswus')}}" + '/' + $('#posyandu_id').val() + '/' +
-            $(this).val()
-    })
-    $('#posyandu_id').on('change', function() {
-        window.location.href = "{{url('laporan_puswus')}}" + '/' + $(this).val() + '/' +
             $('#dateyear').val()
     })
 

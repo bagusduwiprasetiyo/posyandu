@@ -13,14 +13,6 @@
                 table-layout: fixed;
                 font-size: 6pt;
             }
-
-
-
-            /* table {
-                font-size: 2pt;
-                text-align: center;
-                width: fit-content;
-            } */
         }
     </style>
 </head>
@@ -67,11 +59,8 @@
                     <th style="font-weight: bold;" rowspan="3">Campak</th>
                     <th style="font-weight: bold;" rowspan="3">Meninggal</th>
                     <th style="font-weight: bold;" rowspan="3">Keterangan</th>
-
-
                 </tr>
                 <tr>
-
                     <th style="font-weight: bold;" colspan="12">
                         <center>Bulan</center>
                     </th>
@@ -126,12 +115,12 @@
 
                 @foreach($bayi as $key => $by)
                 <tr>
-                    <td rowspan="5">{{$key + 1}}</td>
-                    <td rowspan="5">{{$by->nama}}</td>
-                    <td rowspan="5">{{$by->tanggal_lahir}}</td>
-                    <td rowspan="5">{{$by->bb_pb}}</td>
-                    <td rowspan="5">Ibu {{$by->nama_ibu}}, Ayah {{$by->nama_ayah}}</td>
-                    <td rowspan="5">{{$by->l_p == 1 ? 'L' : 'P'}}</td>
+                    <td style="text-align: center;">{{$key + 1}}</td>
+                    <td style="text-align: center;">{{$by->nama}}</td>
+                    <td style="text-align: center;">{{$by->tanggal_lahir}}</td>
+                    <td style="text-align: center;">{{$by->bb_pb}}</td>
+                    <td style="text-align: center;">Ibu {{$by->nama_ibu}}, Ayah {{$by->nama_ayah}}</td>
+                    <td style="text-align: center;">{{$by->l_p == 1 ? 'L' : 'P'}}</td>
                     <?php
                     $detail_bayi = Detail_Bayi_Timbang::where('bayi_id', $by->id)->orderBy('bulan_ke', 'asc')->get();
                     $obat = Detail_Bayi_Obat::where('bayi_id', $by->id)->first();
@@ -140,222 +129,80 @@
                     $oralit = [];
                     if (isset($obat->id)) {
                         $sirup_fe = json_decode($obat->sirup_fe);
-                        $vit_a = json_decode($obat->vit_a);
-                        $oralit = json_decode($obat->oralit);
+                        $vit_a    = json_decode($obat->vit_a);
+                        $oralit   = json_decode($obat->oralit);
                     }
 
-                    //imunisasi
                     $imunisasi = Detail_Bayi_Imun::where('bayi_id', $by->id)->first();
-                    $hbo = [];
-                    $bcg = [];
-                    $dpt_hb = [];
-                    $polio = [];
+                    $hbo = []; $bcg = []; $dpt_hb = []; $polio = [];
                     if (isset($imunisasi->id)) {
-                        $hbo = json_decode($imunisasi->hbo);
-                        $bcg = json_decode($imunisasi->bcg);
+                        $hbo    = json_decode($imunisasi->hbo);
+                        $bcg    = json_decode($imunisasi->bcg);
                         $dpt_hb = json_decode($imunisasi->dpt_hb);
-                        $polio = json_decode($imunisasi->polio);
+                        $polio  = json_decode($imunisasi->polio);
                     }
 
-                    ?>
+                    // Index timbang per bulan kalender (1-12) dari kolom tanggal
+                    $timbangPerBulan = [];
+                    foreach ($detail_bayi as $dt) {
+                        $bulanNum = (int) date('n', strtotime($dt->tanggal));
+                        $timbangPerBulan[$bulanNum] = $dt;
+                    }
 
-                    <?php
-                    $arr = array_fill(0, 60, 'foo');
-                    $arr_chunk = array_chunk($arr, 12);
-                    $loop_timbang = 0;
-                    foreach ($arr_chunk as $i => $ac) {
-                        //looping data perbulan sebanyak 60 dibagi per12
-                        foreach ($ac as $ai => $ac_inside) {
-                            if (isset($detail_bayi[$loop_timbang]->id)) {
-                                $sd_bb_status = '';
-                                $sd_pb_status = '';
+                    $arr_numeric = ['-3'=>1,'-2'=>2,'-1'=>3,'median'=>4,'+1'=>5,'+2'=>6,'+3'=>7];
+                    $prev_timbang = null;
 
-                                $arr_numeric = [
-                                    '-3' => 1,
-                                    '-2' => 2,
-                                    '-1' => 3,
-                                    'median' => 4,
-                                    '+1' => 5,
-                                    '+2' => 6,
-                                    '+3' => 7,
-                                ];
-
-                                //berat dan status penimbangan sekarang
-                                //berat badan
-                                // jika bagian ini error maka ada sd_bb atau sd_pb yang nilainya null
-                                $bb = $detail_bayi[$loop_timbang]->berat_badan;
-                                $sd_bb_status = $arr_numeric[$detail_bayi[$loop_timbang]->sd_bb];
-                                $status_bb = '';
-                                //tinggi badan
-                                $pb = $detail_bayi[$loop_timbang]->tinggi_badan;
-                                $sd_pb_status = $arr_numeric[$detail_bayi[$loop_timbang]->sd_pb];
-                                $status_pb = '';
-                                //jika ada data timbang sebelumnya
-                                if (isset($detail_bayi[$loop_timbang - 1]->id)) {
-                                    //berat badan
-                                    $bb_sebelumnya = $detail_bayi[$loop_timbang - 1]->berat_badan;
-                                    $sd_bb_sebelumnya = $arr_numeric[$detail_bayi[$loop_timbang - 1]->sd_bb];
-
-                                    //jika berat badan naik
-                                    if ($bb > $bb_sebelumnya) {
-                                        //jika standar deviasinya menurun
-                                        if ($sd_bb_status < $sd_bb_sebelumnya) {
-                                            $status_bb = 'T1';
-                                        } else {
-                                            $status_bb = 'N';
-                                        }
-                                    }
-                                    //jika berat badan sama
-                                    if ($bb == $bb_sebelumnya) {
-                                        $status_bb = 'T2';
-                                    }
-                                    //jika berat badan menurun
-                                    if ($bb < $bb_sebelumnya) {
-                                        $status_bb = 'T3';
-                                    }
-
-
-                                    //tinggi badan
-                                    $pb_sebelumnya = $detail_bayi[$loop_timbang - 1]->tinggi_badan;
-                                    $sd_pb_sebelumnya = $arr_numeric[$detail_bayi[$loop_timbang - 1]->sd_pb];
-
-                                    //jika tinggi badan naik
-                                    if ($pb > $pb_sebelumnya) {
-                                        //jika standar deviasinya menurun
-                                        if ($sd_pb_status < $sd_pb_sebelumnya) {
-                                            $status_pb = 'T1';
-                                        } else {
-                                            $status_pb = 'N';
-                                        }
-                                    }
-                                    //jika tinggi badan sama
-                                    if ($pb == $pb_sebelumnya) {
-                                        $status_pb = 'T2';
-                                    }
-                                    //jika tinggi badan menurun
-                                    if ($pb < $pb_sebelumnya) {
-                                        $status_pb = 'T3';
-                                    }
-                                }
-
-                                $sd_bb = 'green';
-                                $sd_pb = 'green';
-                                if ($detail_bayi[$loop_timbang]->sd_bb == '-3') {
-                                    $sd_bb = 'red';
-                                }
-                                if ($detail_bayi[$loop_timbang]->sd_pb == '-3') {
-                                    $sd_pb = 'red';
-                                }
-
-                                echo '<td><span style="color:' . $sd_bb . '; font-weight:bold;">' . $detail_bayi[$loop_timbang]->berat_badan . 'kg</span>/<span style="color:' . $sd_pb . '; font-weight:bold;">' . $detail_bayi[$loop_timbang]->tinggi_badan . 'cm</span><br/>' . $status_bb . '/' . $status_pb . '</td>';
-                            } else {
-                                echo '<td></td>';
+                    for ($bulanNum = 1; $bulanNum <= 12; $bulanNum++) {
+                        if (isset($timbangPerBulan[$bulanNum])) {
+                            $t = $timbangPerBulan[$bulanNum];
+                            $sd_bb_status = $arr_numeric[$t->sd_bb] ?? 4;
+                            $sd_pb_status = $arr_numeric[$t->sd_pb] ?? 4;
+                            $status_bb = ''; $status_pb = '';
+                            if ($prev_timbang !== null) {
+                                $bb = (float)$t->berat_badan; $bb_sblm = (float)$prev_timbang->berat_badan;
+                                $sd_bb_sblm = $arr_numeric[$prev_timbang->sd_bb] ?? 4;
+                                if ($bb > $bb_sblm) $status_bb = ($sd_bb_status < $sd_bb_sblm) ? 'T1' : 'N';
+                                elseif ($bb == $bb_sblm) $status_bb = 'T2'; else $status_bb = 'T3';
+                                $pb = (float)$t->tinggi_badan; $pb_sblm = (float)$prev_timbang->tinggi_badan;
+                                $sd_pb_sblm = $arr_numeric[$prev_timbang->sd_pb] ?? 4;
+                                if ($pb > $pb_sblm) $status_pb = ($sd_pb_status < $sd_pb_sblm) ? 'T1' : 'N';
+                                elseif ($pb == $pb_sblm) $status_pb = 'T2'; else $status_pb = 'T3';
                             }
-                            $loop_timbang += 1;
-                        }
-                        //jika firstline maka tambahkan column yang lain 
-                        //bayi obat
-                        //sirup fe
-                        if (isset($sirup_fe[$i]->bulan_ke_1)) {
-                            echo '<td>' . $sirup_fe[$i]->bulan_ke_1 . '</td>';
+                            $col_bb = ($t->sd_bb == '-3') ? 'red' : 'green';
+                            $col_pb = ($t->sd_pb == '-3') ? 'red' : 'green';
+                            echo '<td><span style="color:' . $col_bb . '; font-weight:bold;">' . $t->berat_badan . 'kg</span>/<span style="color:' . $col_pb . '; font-weight:bold;">' . $t->tinggi_badan . 'cm</span><br/>' . $status_bb . '/' . $status_pb . '</td>';
+                            $prev_timbang = $t;
                         } else {
                             echo '<td></td>';
-                        }
-                        if (isset($sirup_fe[$i]->bulan_ke_2)) {
-                            echo '<td>' . $sirup_fe[$i]->bulan_ke_2 . '</td>';
-                        } else {
-                            echo '<td></td>';
-                        }
-                        //vit_a
-                        if (isset($vit_a[$i]->bulan_ke_1)) {
-                            echo '<td>' . $vit_a[$i]->bulan_ke_1 . '</td>';
-                        } else {
-                            echo '<td></td>';
-                        }
-                        if (isset($vit_a[$i]->bulan_ke_2)) {
-                            echo '<td>' . $vit_a[$i]->bulan_ke_2 . '</td>';
-                        } else {
-                            echo '<td></td>';
-                        }
-                        //oralit
-                        if (isset($oralit[$i]->tanggal)) {
-                            echo '<td>' . $oralit[$i]->tanggal . '</td>';
-                        } else {
-                            echo '<td></td>';
-                        }
-
-                        //imunisasi
-                        //hbo
-                        if (isset($hbo[$i]->tanggal)) {
-                            echo '<td>' . $hbo[$i]->tanggal . '</td>';
-                        } else {
-                            echo '<td></td>';
-                        }
-                        //bcg
-                        if (isset($bcg[$i]->tanggal)) {
-                            echo '<td>' . $bcg[$i]->tanggal . '</td>';
-                        } else {
-                            echo '<td></td>';
-                        }
-                        //dpt_hb
-                        if (isset($dpt_hb[$i]->bulan_ke_1)) {
-                            echo '<td>' . $dpt_hb[$i]->bulan_ke_1 . '</td>';
-                        } else {
-                            echo '<td></td>';
-                        }
-                        if (isset($dpt_hb[$i]->bulan_ke_2)) {
-                            echo '<td>' . $dpt_hb[$i]->bulan_ke_2 . '</td>';
-                        } else {
-                            echo '<td></td>';
-                        }
-                        if (isset($dpt_hb[$i]->bulan_ke_3)) {
-                            echo '<td>' . $dpt_hb[$i]->bulan_ke_3 . '</td>';
-                        } else {
-                            echo '<td></td>';
-                        }
-                        //polio
-                        if (isset($polio[$i]->bulan_ke_1)) {
-                            echo '<td>' . $polio[$i]->bulan_ke_1 . '</td>';
-                        } else {
-                            echo '<td></td>';
-                        }
-                        if (isset($polio[$i]->bulan_ke_2)) {
-                            echo '<td>' . $polio[$i]->bulan_ke_2 . '</td>';
-                        } else {
-                            echo '<td></td>';
-                        }
-                        if (isset($polio[$i]->bulan_ke_4)) {
-                            echo '<td>' . $polio[$i]->bulan_ke_4 . '</td>';
-                        } else {
-                            echo '<td></td>';
-                        }
-                        if (isset($polio[$i]->bulan_ke_3)) {
-                            echo '<td>' . $polio[$i]->bulan_ke_3 . '</td>';
-                        } else {
-                            echo '<td></td>';
-                        }
-                        if ($i == 0) {
-                            echo '<td rowspan="5">' . $by->campak . '</td>';
-                            echo '<td rowspan="5">' . $by->meninggal . '</td>';
-                            echo '<td rowspan="5">' . $by->keterangan . '</td>';
-                        }
-                        //jika datanya sudah 5 row, jangan tambahkan tr
-                        if ($i != (count($arr_chunk) - 1)) {
-                            echo '</tr><tr>';
                         }
                     }
-                    ?>
 
-                </tr>
-                <tr>
-                    <th colspan="6" rowspan="2"></th>
-                    <th colspan="12">Bulan</th>
-                    <th colspan="17" rowspan="2"></th>
-                </tr>
-                <tr>
-                    <?php foreach ($nama_bulan as $bln) {
-                        echo '<th style="font-weight: bold;">' . $bln . '</th>';
-                    }
+                    $i = 0;
+                    // Sirup FE
+                    echo isset($sirup_fe[$i]->bulan_ke_1) ? '<td>' . $sirup_fe[$i]->bulan_ke_1 . '</td>' : '<td></td>';
+                    echo isset($sirup_fe[$i]->bulan_ke_2) ? '<td>' . $sirup_fe[$i]->bulan_ke_2 . '</td>' : '<td></td>';
+                    // Vit A
+                    echo isset($vit_a[$i]->bulan_ke_1) ? '<td>' . $vit_a[$i]->bulan_ke_1 . '</td>' : '<td></td>';
+                    echo isset($vit_a[$i]->bulan_ke_2) ? '<td>' . $vit_a[$i]->bulan_ke_2 . '</td>' : '<td></td>';
+                    // Oralit
+                    echo isset($oralit[$i]->tanggal) ? '<td>' . $oralit[$i]->tanggal . '</td>' : '<td></td>';
+                    // HBO
+                    echo isset($hbo[$i]->tanggal) ? '<td>' . $hbo[$i]->tanggal . '</td>' : '<td></td>';
+                    // BCG
+                    echo isset($bcg[$i]->tanggal) ? '<td>' . $bcg[$i]->tanggal . '</td>' : '<td></td>';
+                    // DPT-HB
+                    echo isset($dpt_hb[$i]->bulan_ke_1) ? '<td>' . $dpt_hb[$i]->bulan_ke_1 . '</td>' : '<td></td>';
+                    echo isset($dpt_hb[$i]->bulan_ke_2) ? '<td>' . $dpt_hb[$i]->bulan_ke_2 . '</td>' : '<td></td>';
+                    echo isset($dpt_hb[$i]->bulan_ke_3) ? '<td>' . $dpt_hb[$i]->bulan_ke_3 . '</td>' : '<td></td>';
+                    // Polio
+                    echo isset($polio[$i]->bulan_ke_1) ? '<td>' . $polio[$i]->bulan_ke_1 . '</td>' : '<td></td>';
+                    echo isset($polio[$i]->bulan_ke_2) ? '<td>' . $polio[$i]->bulan_ke_2 . '</td>' : '<td></td>';
+                    echo isset($polio[$i]->bulan_ke_3) ? '<td>' . $polio[$i]->bulan_ke_3 . '</td>' : '<td></td>';
+                    echo isset($polio[$i]->bulan_ke_4) ? '<td>' . $polio[$i]->bulan_ke_4 . '</td>' : '<td></td>';
+                    // Campak, Meninggal, Keterangan
+                    echo '<td>' . ($by->campak ?? '') . '</td>';
+                    echo '<td>' . ($by->meninggal ?? '') . '</td>';
+                    echo '<td>' . ($by->keterangan ?? '') . '</td>';
                     ?>
                 </tr>
                 @endforeach
@@ -366,3 +213,4 @@
 <script>
     window.print()
 </script>
+</html>

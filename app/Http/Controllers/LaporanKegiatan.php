@@ -34,9 +34,9 @@ class LaporanKegiatan extends Controller
         $sidebarkegiatanposyandu = 'active';
 
         if ($id_posyandu == 0) {
-            $tahun_bumil = DB::select(DB::raw("SELECT YEAR(tanggal) as tahun FROM bumils GROUP BY tahun desc"));
+            $tahun_bumil = DB::select(DB::raw("SELECT YEAR(tanggal) as tahun FROM bumils GROUP BY tahun ORDER BY tahun DESC"));
         } else {
-            $tahun_bumil = DB::select(DB::raw("SELECT YEAR(tanggal) as tahun FROM bumils where posyandu_id = " . $id_posyandu . " GROUP BY tahun desc"));
+            $tahun_bumil = DB::select(DB::raw("SELECT YEAR(tanggal) as tahun FROM bumils where posyandu_id = " . $id_posyandu . " GROUP BY tahun ORDER BY tahun DESC"));
         }
         // return $tahun_bumil;
 

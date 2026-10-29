@@ -45,16 +45,16 @@
             DINAS KESEHATAN
         </p>
         <p style="font-size: 16pt; text-align: center; font-weight: bolder;">
-            UPT. PUSKESMAS ARJASA
+            {{$id_posyandu == 22 ? 'UPT. PUSKESMAS RAMBIPUJI' : 'UPT. PUSKESMAS ARJASA'}}
         </p>
         <p style="text-align: center; font-size: 10pt;">
-            JL. DIPONEGORO NO.115 CANDIJATI-KEC.ARJASA TELP (0331)541160<br />
-            JEMBER
+            {{$id_posyandu == 22 ? 'Krajan, Rambipuji, Jember' : 'JL. DIPONEGORO NO.115 CANDIJATI-KEC.ARJASA TELP (0331)541160'}}<br />
+            @if($id_posyandu != 22)JEMBER @endif
         </p>
 
 
         <p style="text-align: right; font-size: 10pt;">
-            KODE POS: 68191
+            KODE POS: {{$id_posyandu == 22 ? '68152' : '68191'}}
         </p>
         <hr style="border-top: 1px solid black;">
         <p style="font-size: 12pt; text-align: center; font-weight: bolder;">

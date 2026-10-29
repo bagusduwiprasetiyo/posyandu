@@ -37,7 +37,14 @@ class LaporanPuswus extends Controller
             $tahun = date('Y');
         }
 
-        $puswus = Puswus::all();
+        $query = Puswus::query();
+        if ($id_posyandu != 0) {
+            $query->where('posyandu_id', $id_posyandu);
+        }
+        if ($tahun != 0) {
+            $query->whereYear('created_at', $tahun);
+        }
+        $puswus = $query->get();
 
         foreach ($puswus as $key => $value) {
             if (date('Y') < date('Y', strtotime($value->tgl_lahir_wuspus  . '+49year'))) {
